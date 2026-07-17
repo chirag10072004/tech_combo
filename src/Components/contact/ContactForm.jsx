@@ -31,6 +31,7 @@ const ContactForm = () => {
     setStatus({ type: 'info', message: 'Sending message...' })
 
     try {
+      console.log(import.meta.env.VITE_API_URL);
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {

@@ -9,35 +9,35 @@ const Services = () => {
       icon: <FiCode className="h-6 w-6 text-green-700" />,
       title: 'Custom Software Development',
       desc: 'End-to-end custom software solutions tailored to your unique business needs and requirements',
-      link: '/',
+      link: '/services',
     },
     {
       id: 2,
       icon: <FiSmartphone className="h-6 w-6 text-green-700" />,
       title: 'App Development',
       desc: 'Custom mobile applications designed for speed, scalability, and exceptional user engagement',
-      link: '#web-mobile',
+      link: '/services',
     },
     {
       id: 3,
       icon: <FiCloud className="h-6 w-6 text-green-700" />,
       title: 'Cloud Solutions',
       desc: 'Scalable, secure, and cost-effective cloud infrastructure solutions on AWS, Azure & GCP',
-      link: '#cloud-solutions',
+      link: '/services',
     },
     {
       id: 4,
       icon: <FiCpu className="h-6 w-6 text-green-700" />,
       title: 'Web Development',
       desc: 'Modern, responsive websites that deliver great user experiences and performance',
-      link: '#ai-ml',
+      link: '/services',
     },
     {
       id: 5,
       icon: <FiShield className="h-6 w-6 text-green-700" />,
       title: 'Cybersecurity Services',
       desc: 'Protect your business with robust security audits, compliance, and threat mitigation models',
-      link: '#cybersecurity',
+      link: '/services',
     },
   ]
 
@@ -76,7 +76,7 @@ const Services = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-dark-navy leading-snug group-hover:text-primary-blue transition-colors duration-300">
+                <h3 className="text-lg font-bold text-dark-navy leading-snug group-hover:text-green-600 transition-colors duration-300">
                   {service.title}
                 </h3>
 
