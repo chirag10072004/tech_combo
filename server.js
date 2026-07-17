@@ -192,9 +192,14 @@ app.post('/api/career', async (req, res) => {
     // Build attachments array
     const attachments = [];
     if (resume) {
+      const base64Data = resume.includes('base64,') 
+        ? resume.split('base64,')[1] 
+        : resume;
+      
       attachments.push({
         filename: resumeName || 'resume.pdf',
-        path: resume
+        content: base64Data,
+        encoding: 'base64'
       });
     }
 

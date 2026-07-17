@@ -27,8 +27,17 @@ const CareerForm = ({ job, onClose }) => {
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setResumeName(e.target.files[0].name);
-      setResumeFile(e.target.files[0]);
+      const file = e.target.files[0];
+      const maxLimit = 2.5 * 1024 * 1024; // 2.5 MB
+      if (file.size > maxLimit) {
+        alert("File size is too large. Please upload a resume smaller than 2.5 MB.");
+        e.target.value = null; // Clear selected file
+        setResumeName("");
+        setResumeFile(null);
+        return;
+      }
+      setResumeName(file.name);
+      setResumeFile(file);
     }
   };
 
@@ -280,7 +289,7 @@ const CareerForm = ({ job, onClose }) => {
                         </>
                       )}
                     </p>
-                    <p className="text-[10px] text-slate-400">PDF, DOC, DOCX up to 10MB</p>
+                    <p className="text-[10px] text-slate-400">PDF, DOC, DOCX up to 2.5MB</p>
                   </div>
                 </div>
               </div>
