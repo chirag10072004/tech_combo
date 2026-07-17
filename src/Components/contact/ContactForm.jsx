@@ -76,7 +76,11 @@ const ContactForm = () => {
 
       {status.message && (
         <div className={`p-4 mb-6 rounded-xl text-sm font-medium ${
-          status.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+          status.type === 'success' 
+            ? 'bg-green-50 text-green-700' 
+            : status.type === 'info'
+            ? 'bg-blue-50 text-blue-700 border border-blue-100'
+            : 'bg-red-50 text-red-700'
         }`}>
           {status.message}
         </div>
