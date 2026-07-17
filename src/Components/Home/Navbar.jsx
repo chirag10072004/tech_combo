@@ -168,7 +168,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Links */}
-          <div className="mt-8 space-y-2">
+          <div className="mt-8 space-y-2 bg-amber-50">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -177,7 +177,7 @@ const Navbar = () => {
                   setActiveItem(link.name)
                   setIsOpen(false)
                 }}
-                className={`flex items-center justify-between px-3 py-3 rounded-xl text-base font-medium transition-all duration-300 hover:bg-blue-900/20 hover:text-primary-blue ${activeItem === link.name ? 'text-primary-blue bg-blue-900/10' : 'text-gray-300'
+                className={`flex items-center justify-between px-3 py-3 rounded-xl text-base font-medium transition-all duration-300 hover:bg-black hover:text-white ${activeItem === link.name ? 'text-green-600 bg-black' : 'text-black'
                   }`}
               >
                 <span>{link.name}</span>

@@ -54,7 +54,7 @@ const Footer = () => {
             {/* Social Icons */}
             <div className="flex items-center space-x-3 pt-2">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/techcomboo/?originalSubdomain=in"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center h-9 w-9 rounded-full bg-blue-950/40 border border-blue-900/30 hover:border-primary-blue hover:bg-primary-blue hover:text-white transition-all duration-300"
@@ -132,12 +132,12 @@ const Footer = () => {
             <ul className="space-y-4 text-sm font-light">
               <li className="flex items-start space-x-3">
                 <FaMapMarkerAlt className="h-4 w-4 mt-0.5 text-primary-blue flex-shrink-0" />
-                <span>123, Tech Park, Nagpur, Maharashtra, India</span>
+                <span>Plot No 3, 2nd Floor, Indraprastha Apartment, Prabhu Poornima Appartment, Dronacharya Nagar, Parsodi, Trimurti Nagar, Nagpur, Maharashtra , 440022</span>
               </li>
               <li className="flex items-center space-x-3">
                 <FaEnvelope className="h-4 w-4 text-primary-blue flex-shrink-0" />
-                <a href="mailto:info@techcombo.in" className="hover:text-primary-blue transition-colors duration-300">
-                  info@techcombo.in
+                <a href="mailto:hr@techcombo.in" className="hover:text-primary-blue transition-colors duration-300">
+                  hr@techcombo.in
                 </a>
               </li>
               <li className="flex items-center space-x-3">

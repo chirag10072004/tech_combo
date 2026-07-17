@@ -26,7 +26,7 @@ const ContactInfo = () => {
             <div>
               <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Our Location</h3>
               <p className="text-sm text-slate-500 font-normal leading-relaxed mt-1">
-                123 Tech Park, Innovation Street, Bangalore, Karnataka 560102, India
+                Plot No 3, 2nd Floor, Indraprastha Apartment, Prabhu Poornima Appartment, Dronacharya Nagar, Parsodi, Trimurti Nagar, Nagpur, Maharashtra , 440022
               </p>
             </div>
           </div>
@@ -60,9 +60,7 @@ const ContactInfo = () => {
                 <a href="mailto:hello@techcombo.in" className="hover:text-primary-blue transition-colors duration-200">
                   hello@techcombo.in
                 </a>
-                <a href="mailto:info@techcombo.in" className="hover:text-primary-blue transition-colors duration-200">
-                  info@techcombo.in
-                </a>
+                
               </div>
             </div>
           </div>
@@ -98,7 +96,7 @@ const ContactInfo = () => {
         <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4">Follow Us</h3>
         <div className="flex items-center space-x-3">
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/company/techcomboo/?originalSubdomain=in"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center h-11 w-11 rounded-xl bg-white border border-slate-200/60 text-slate-600 hover:border-primary-blue hover:text-primary-blue hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 shadow-sm"
