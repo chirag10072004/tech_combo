@@ -57,7 +57,8 @@ const CareerForm = ({ job, onClose }) => {
     }
 
     try {
-      const response = await fetch("/api/career", {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${apiBase}/api/career`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

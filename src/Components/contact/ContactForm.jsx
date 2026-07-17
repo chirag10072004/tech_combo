@@ -34,7 +34,7 @@ const ContactForm = () => {
 
     try {
       console.log(import.meta.env.VITE_API_URL);
-      const response = await fetch(`/api/contact`, {
+      const response = await fetch(`${path || ''}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
