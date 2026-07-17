@@ -12,6 +12,8 @@ const ContactForm = () => {
     subject: '',
     message: ''
   })
+
+  const path = import.meta.env.VITE_API_URL;
   
   const [status, setStatus] = useState({ type: '', message: '' })
 
@@ -32,7 +34,7 @@ const ContactForm = () => {
 
     try {
       console.log(import.meta.env.VITE_API_URL);
-      const response = await fetch("/api/contact", {
+      const response = await fetch(`/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
