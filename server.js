@@ -53,6 +53,15 @@ app.post('/api/contact', async (req, res) => {
     });
   }
 
+  // Check server email configuration
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error('EMAIL_USER or EMAIL_PASS environment variables are missing on Render.');
+    return res.status(500).json({
+      success: false,
+      message: 'Server Error: EMAIL_USER or EMAIL_PASS environment variables are missing on Render Dashboard.'
+    });
+  }
+
   try {
     const transporter = getTransporter();
 
@@ -183,6 +192,15 @@ app.post('/api/career', async (req, res) => {
     return res.status(400).json({
       success: false,
       message: 'Please provide all required fields: job, fullName, email, phone, experience, message.'
+    });
+  }
+
+  // Check server email configuration
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error('EMAIL_USER or EMAIL_PASS environment variables are missing on Render.');
+    return res.status(500).json({
+      success: false,
+      message: 'Server Error: EMAIL_USER or EMAIL_PASS environment variables are missing on Render Dashboard.'
     });
   }
 
@@ -333,7 +351,13 @@ Tech Combo Hiring Team`,
 
 // Basic check route
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'Backend server is running.' });
+  const isEmailConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
+  res.status(200).json({
+    status: 'ok',
+    message: 'Backend server is running.',
+    emailConfigured: isEmailConfigured,
+    emailUser: process.env.EMAIL_USER ? `${process.env.EMAIL_USER.substring(0, 3)}***@${process.env.EMAIL_USER.split('@')[1] || 'gmail.com'}` : 'NOT SET'
+  });
 });
 
 app.listen(port, () => {
