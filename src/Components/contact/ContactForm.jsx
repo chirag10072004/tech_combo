@@ -13,9 +13,8 @@ const ContactForm = () => {
     message: ''
   })
 
-  const path = import.meta.env.VITE_API_URL;
-  
   const [status, setStatus] = useState({ type: '', message: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -30,11 +29,12 @@ const ContactForm = () => {
       return
     }
 
-    setStatus({ type: 'info', message: 'Sending message...' })
+    setIsSubmitting(true)
+    setStatus({ type: 'info', message: 'Sending your message, please wait...' })
 
     try {
-      console.log(import.meta.env.VITE_API_URL);
-      const response = await fetch(`${path || ''}/api/contact`, {
+      const apiBase = import.meta.env.VITE_API_URL || ''
+      const response = await fetch(`${apiBase}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -43,7 +43,7 @@ const ContactForm = () => {
       });
       const result = await response.json();
       if (response.ok && result.success) {
-        setStatus({ type: 'success', message: 'Your message has been sent successfully!' })
+        setStatus({ type: 'success', message: 'Your message has been sent successfully! We\'ll get back to you soon.' })
         setFormData({
           firstName: '',
           lastName: '',
@@ -57,7 +57,10 @@ const ContactForm = () => {
         setStatus({ type: 'error', message: result.message || 'Something went wrong. Please try again.' })
       }
     } catch (err) {
-      setStatus({ type: 'error', message: 'Network error. Please try again.' })
+      console.error('Contact form error:', err)
+      setStatus({ type: 'error', message: 'Network error. Please check your connection and try again.' })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -218,10 +221,11 @@ const ContactForm = () => {
         <div className="pt-4 space-y-4">
           <button
             type="submit"
-            className="px-8 py-4 rounded-xl text-sm font-semibold text-white bg-primary-blue hover:bg-blue-700 hover:shadow-[0_8px_30px_rgba(37,99,235,0.4)] transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center space-x-2"
+            disabled={isSubmitting}
+            className="px-8 py-4 rounded-xl text-sm font-semibold text-white bg-primary-blue hover:bg-blue-700 hover:shadow-[0_8px_30px_rgba(37,99,235,0.4)] transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
-            <span>Send Message</span>
-            <FaPaperPlane className="h-3.5 w-3.5" />
+            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+            <FaPaperPlane className={`h-3.5 w-3.5 ${isSubmitting ? 'animate-pulse' : ''}`} />
           </button>
 
           <div className="flex items-center space-x-2 text-xs text-slate-400 font-light pt-2">

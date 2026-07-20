@@ -9,8 +9,27 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// CORS configuration - allow Vercel production and localhost dev
+const allowedOrigins = [
+  'https://tech-combo-2-0.vercel.app',
+  'https://tech-combo.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:4173',
+  'http://localhost:3000',
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like Postman, curl, or Vercel server-side rewrites)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Allow any vercel.app subdomain for preview deployments
+    if (origin.endsWith('.vercel.app')) return callback(null, true);
+    callback(new Error(`CORS not allowed for origin: ${origin}`));
+  },
+  credentials: true,
+}));
+
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ limit: '15mb', extended: true }));
 
@@ -22,21 +41,21 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
 // SMTP Transporter configuration
 const getTransporter = () => {
   dotenv.config(); // Reload environment variables dynamically
-  const config = {};
   
-  if (process.env.EMAIL_HOST) {
-    // Custom SMTP server configuration
-    config.host = process.env.EMAIL_HOST;
-    config.port = parseInt(process.env.EMAIL_PORT || '587', 10);
-    config.secure = process.env.EMAIL_SECURE === 'true'; // true for 465, false for 587
-  } else {
-    // Default to a pre-defined service like Gmail
-    config.service = process.env.EMAIL_SERVICE || 'gmail';
-  }
-  
-  config.auth = {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+  // Always use explicit host/port with forced IPv4 to avoid Render's IPv6 incompatibility
+  // Render free tier returns ENETUNREACH when connecting to Gmail's IPv6 addresses
+  const config = {
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.EMAIL_PORT || '587', 10),
+    secure: process.env.EMAIL_SECURE === 'true', // false for port 587 (STARTTLS)
+    family: 4, // Force IPv4 — Render free tier does not support IPv6 outbound
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false, // Allow self-signed certs (helps with some hosting environments)
+    },
   };
   
   return nodemailer.createTransport(config);
@@ -361,6 +380,27 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Ping route (for keep-alive)
+app.get('/api/ping', (req, res) => {
+  res.status(200).json({ status: 'alive', timestamp: new Date().toISOString() });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+
+  // Keep-alive self-ping every 10 minutes to prevent Render free tier cold starts
+  // Only run in production
+  if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
+    const SELF_URL = process.env.RENDER_EXTERNAL_URL || `https://tech-combo.onrender.com`;
+    setInterval(async () => {
+      try {
+        const res = await fetch(`${SELF_URL}/api/ping`);
+        console.log(`[Keep-alive] Pinged self at ${new Date().toISOString()} — status: ${res.status}`);
+      } catch (err) {
+        console.error('[Keep-alive] Self-ping failed:', err.message);
+      }
+    }, 10 * 60 * 1000); // every 10 minutes
+    console.log(`[Keep-alive] Self-ping scheduled every 10 minutes → ${SELF_URL}/api/ping`);
+  }
 });
+

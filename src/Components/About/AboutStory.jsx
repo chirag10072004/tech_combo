@@ -78,7 +78,7 @@ const AboutStory = () => {
             className="flex flex-col items-center"
           >
            
-            <div className="w-8 h-[2px] bg-green-600 mt-2 rounded" />
+           
           </motion.div>
           
           <motion.h2 
@@ -90,6 +90,8 @@ const AboutStory = () => {
           >
             OUR JOURNEY
           </motion.h2>
+
+          
         </div>
 
         {/* Timeline Visual Container */}

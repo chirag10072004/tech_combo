@@ -86,7 +86,7 @@ const Industries = () => {
             delay: 2500,
             disableOnInteraction: false,
           }}
-          spaceBetween={24}
+          spaceBetween={150}
           breakpoints={{
             320: {
               slidesPerView: 1.2,

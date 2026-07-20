@@ -93,7 +93,7 @@ const Navbar = () => {
                 key={link.name}
                 to={link.path}
                 onClick={() => setActiveItem(link.name)}
-                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 hover:text-black ${activeItem === link.name
+                className={`relative px-4 py-2 text-sm font-medium transition-colors hover:text-black ${activeItem === link.name
                   ? 'text-green-400'
                   : isLightNavbar
                     ? 'text-slate-600'
