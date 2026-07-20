@@ -113,7 +113,7 @@ const ContactHero = () => {
                   </motion.g>
 
                   {/* Envelope Front / Pocket Sides */}
-                  <path d="M 180 200 L 290 285 rx 8 L 400 200 L 400 334 C 400 343 393 350 384 350 L 196 350 C 187 350 180 343 180 334 Z" fill="#EFF6FF" />
+                  <path d="M 180 200 L 290 285 L 400 200 L 400 334 C 400 343 393 350 384 350 L 196 350 C 187 350 180 343 180 334 Z" fill="#EFF6FF" />
                   {/* Left flap */}
                   <path d="M 180 200 L 290 285 L 180 350 Z" fill="#93C5FD" opacity="0.4" />
                   {/* Right flap */}

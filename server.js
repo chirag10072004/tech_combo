@@ -168,7 +168,8 @@ Tech Combo Team`,
     console.error('Error sending email:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to send message. Please check server configuration.'
+      message: `Failed to send message: ${error.message || 'Please check server configuration.'}`,
+      error: error.message
     });
   }
 });
@@ -324,7 +325,8 @@ Tech Combo Hiring Team`,
     console.error('Error handling career application:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to process career application. Please check server configuration.'
+      message: `Failed to process career application: ${error.message || 'Please check server configuration.'}`,
+      error: error.message
     });
   }
 });
