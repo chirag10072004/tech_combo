@@ -21,6 +21,7 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
 
 // SMTP Transporter configuration
 const getTransporter = () => {
+  dotenv.config(); // Reload environment variables dynamically
   const config = {};
   
   if (process.env.EMAIL_HOST) {
