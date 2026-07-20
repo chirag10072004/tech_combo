@@ -41,23 +41,26 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
 // SMTP Transporter configuration
 const getTransporter = () => {
   dotenv.config(); // Reload environment variables dynamically
-  
-  // Always use explicit host/port with forced IPv4 to avoid Render's IPv6 incompatibility
-  // Render free tier returns ENETUNREACH when connecting to Gmail's IPv6 addresses
+
+  // Use port 465 (SSL) — more reliable than 587 (STARTTLS) on cloud hosts like Render.
+  // Force IPv4 (family: 4) because Render free tier does not support IPv6 outbound.
   const config = {
     host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.EMAIL_PORT || '587', 10),
-    secure: process.env.EMAIL_SECURE === 'true', // false for port 587 (STARTTLS)
-    family: 4, // Force IPv4 — Render free tier does not support IPv6 outbound
+    port: parseInt(process.env.EMAIL_PORT || '465', 10),
+    secure: process.env.EMAIL_SECURE !== 'false', // true for port 465 (SSL)
+    family: 4,                   // Force IPv4
+    connectionTimeout: 10000,    // 10 seconds to establish connection
+    socketTimeout: 15000,        // 15 seconds socket inactivity timeout
+    greetingTimeout: 10000,      // 10 seconds to wait for SMTP greeting
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
     tls: {
-      rejectUnauthorized: false, // Allow self-signed certs (helps with some hosting environments)
+      rejectUnauthorized: false,
     },
   };
-  
+
   return nodemailer.createTransport(config);
 };
 
