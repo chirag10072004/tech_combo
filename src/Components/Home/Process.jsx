@@ -1,100 +1,360 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const steps = [
+  {
+    number: '01',
+    title: 'Requirement Analysis',
+    description:
+      'We understand your business goals and gather requirements.',
+    image: '/assets/Home/svg01.svg',
+  },
+  {
+    number: '02',
+    title: 'Planning & Strategy',
+    description:
+      'We plan the architecture, technology and project roadmap.',
+    image: '/assets/Home/svg02.svg',
+  },
+  {
+    number: '03',
+    title: 'Design & Development',
+    description:
+      'We design and develop clean, scalable digital solutions.',
+    image: '/assets/Home/svg03.svg',
+  },
+  {
+    number: '04',
+    title: 'Testing & Quality',
+    description:
+      'We test everything for reliability, security and performance.',
+    image: '/assets/Home/svg04.svg',
+  },
+  {
+    number: '05',
+    title: 'Deployment & Support',
+    description:
+      'We launch the product and provide ongoing support.',
+    image: '/assets/Home/svg05.svg',
+  },
+]
 
 const Process = () => {
-  const steps = [
-    {
-      num: '01',
-      title: 'Requirement Analysis',
-      desc: 'We understand your business goals and gather requirements.',
-    },
-    {
-      num: '02',
-      title: 'Planning & Strategy',
-      desc: 'We plan the architecture, tech stack and project roadmap.',
-    },
-    {
-      num: '03',
-      title: 'Design & Development',
-      desc: 'Our team designs and develops with clean and efficient code.',
-    },
-    {
-      num: '04',
-      title: 'Testing & Quality Check',
-      desc: 'We test rigorously to ensure reliability, security and performance.',
-    },
-    {
-      num: '05',
-      title: 'Deployment & Support',
-      desc: 'We deploy and provide ongoing support and maintenance.',
-    },
-  ]
+  const [activeStep, setActiveStep] = useState(0)
+
+  const active = steps[activeStep]
 
   return (
-    <section id="process" className="relative py-24 bg-[#F8FAFC] text-gray-900 overflow-hidden">
-      {/* Subtle light background details */}
-      <div className="absolute top-1/2 left-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl pointer-events-none opacity-50" />
+    <section
+      id="process"
+      className="relative bg-[#F3F7F8] overflow-hidden"
+    >
+      <div className="min-h-screen flex items-center py-16 sm:py-20 lg:py-0">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Heading */}
-        <div className="text-center space-y-4 mb-20">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-dark-navy">
-            Our Process
-          </h2>
-          <div className="w-12 h-1 bg-green-600 mx-auto rounded" />
-          <p className="text-gray-600 max-w-xl mx-auto font-light text-sm sm:text-base">
-            From design to launch, our systematic approach ensures quality and precision at every milestone.
-          </p>
-        </div>
+        <div className="w-full max-w-[1100px] mx-auto px-5 sm:px-8">
 
-        {/* Desktop View: Horizontal Timeline */}
-        <div className="hidden md:block relative">
-          {/* Connector Line */}
-          <div className="absolute top-6 left-[10%] right-[10%] h-0.5 bg-blue-100" />
+          <div
+            className="
+              grid
+              grid-cols-1
+              lg:grid-cols-[180px_1fr]
+              gap-10
+              lg:gap-14
+              items-start
+            "
+          >
 
-          <div className="grid grid-cols-5 gap-6">
-            {steps.map((step, idx) => (
-              <div key={step.num} className="relative flex flex-col items-center text-center group">
-                
-                {/* Step Circle */}
-                <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white border-2 border-green-600 shadow-md text-green-800 text-sm font-bold tracking-wider transition-all duration-300 group-hover:bg-green-100 group-hover:text-black group-hover:scale-110">
-                  {step.num}
-                </div>
+            {/* ================= LEFT SIDE ================= */}
 
-                {/* Card Container */}
-                <div className="mt-8 bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_8px_25px_rgba(0,0,0,0.02)] group-hover:shadow-[0_15px_35px_rgba(37,99,235,0.06)] group-hover:-translate-y-1 transition-all duration-300 flex-grow">
-                  <h3 className="text-base font-bold text-dark-navy mb-2 group-hover:text-green-500 transition-colors duration-300">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs text-gray-500 font-light leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
+            <div className="pt-0 lg:pt-1">
+
+              <h2
+                className="
+                  text-[22px]
+                  sm:text-[24px]
+                  font-bold
+                  text-[#151922]
+                  whitespace-nowrap
+                  mb-6
+                  lg:mb-7
+                "
+              >
+                How we work?
+              </h2>
+
+              {/* STEPS */}
+
+              <div className="flex flex-col items-start lg:items-center">
+
+                {steps.map((step, index) => {
+
+                  const isActive = index === activeStep
+
+                  return (
+                    <React.Fragment key={step.number}>
+
+                      {/* ONLY NUMBER IS CLICKABLE */}
+
+                      <button
+                        type="button"
+                        onClick={() => setActiveStep(index)}
+                        aria-label={`View step ${index + 1}: ${step.title}`}
+                        className="
+                          relative
+                          z-10
+                          cursor-pointer
+                          focus:outline-none
+                          focus-visible:ring-2
+                          focus-visible:ring-[#293EFF]
+                          rounded-full
+                        "
+                      >
+
+                        <motion.div
+                          animate={{
+                            backgroundColor: isActive
+                              ? '#293EFF'
+                              : '#F3F7F8',
+
+                            color: isActive
+                              ? '#FFFFFF'
+                              : '#252525',
+
+                            scale: isActive ? 1.08 : 1,
+                          }}
+                          transition={{
+                            duration: 0.2,
+                          }}
+                          className="
+                            w-[36px]
+                            h-[36px]
+                            sm:w-[34px]
+                            sm:h-[34px]
+                            rounded-full
+                            border
+                            border-[#E3E8EA]
+                            flex
+                            items-center
+                            justify-center
+                            text-[13px]
+                            sm:text-[14px]
+                            font-medium
+                          "
+                        >
+                          {index + 1}
+                        </motion.div>
+
+                      </button>
+
+                      {/* LINE */}
+
+                      {index !== steps.length - 1 && (
+                        <div
+                          className="
+                            w-px
+                            h-[14px]
+                            bg-[#DDE4E6]
+                            ml-[18px]
+                            lg:ml-0
+                          "
+                        />
+                      )}
+
+                    </React.Fragment>
+                  )
+                })}
+
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Mobile View: Vertical Timeline */}
-        <div className="md:hidden relative pl-8 space-y-12 before:content-[''] before:absolute before:left-3.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-blue-100">
-          {steps.map((step) => (
-            <div key={step.num} className="relative flex flex-col text-left group">
-              {/* Step Circle */}
-              <div className="absolute -left-8 flex items-center justify-center w-8 h-8 rounded-full bg-white border-2 border-primary-blue text-primary-blue text-xs font-bold shadow-sm z-10">
-                {step.num}
-              </div>
-
-              {/* Card */}
-              <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-                <h3 className="text-base font-bold text-dark-navy mb-1">
-                  {step.title}
-                </h3>
-                <p className="text-xs text-gray-500 font-light leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
             </div>
-          ))}
+
+            {/* ================= RIGHT SIDE ================= */}
+
+            <div
+              className="
+                flex
+                justify-center
+                w-full
+                pointer-events-none
+              "
+            >
+
+              <motion.div
+                className="
+                  w-full
+                  max-w-[680px]
+
+                  min-h-[340px]
+
+                  sm:min-h-[340px]
+
+                  bg-[#F3F7F8]
+
+                  border
+                  border-[#E3E8EA]
+
+                  rounded-[12px]
+
+                  flex
+                  flex-col
+                  items-center
+
+                  overflow-hidden
+
+                  px-4
+                  sm:px-6
+                  lg:px-0
+
+                  py-6
+                  sm:py-0
+                "
+              >
+
+                {/* ================= IMAGE ================= */}
+
+                <div
+                  className="
+                    w-full
+                    h-[170px]
+                    sm:h-[200px]
+                    lg:h-[220px]
+
+                    flex
+                    items-center
+                    justify-center
+                  "
+                >
+
+                  <AnimatePresence mode="wait">
+
+                    <motion.img
+                      key={active.image}
+                      src={active.image}
+                      alt={active.title}
+
+                      initial={{
+                        opacity: 0,
+                        y: 15,
+                        scale: 0.95,
+                      }}
+
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                      }}
+
+                      exit={{
+                        opacity: 0,
+                        y: -10,
+                        scale: 0.97,
+                      }}
+
+                      transition={{
+                        duration: 0.35,
+                        ease: 'easeOut',
+                      }}
+
+                      className="
+                        w-[190px]
+                        h-[160px]
+
+                        sm:w-[240px]
+                        sm:h-[190px]
+
+                        lg:w-[280px]
+                        lg:h-[220px]
+
+                        object-contain
+                      "
+                    />
+
+                  </AnimatePresence>
+
+                </div>
+
+                {/* ================= TEXT ================= */}
+
+                <AnimatePresence mode="wait">
+
+                  <motion.div
+                    key={active.number}
+
+                    initial={{
+                      opacity: 0,
+                      y: 10,
+                    }}
+
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+
+                    exit={{
+                      opacity: 0,
+                      y: -5,
+                    }}
+
+                    transition={{
+                      duration: 0.3,
+                    }}
+
+                    className="
+                      text-center
+
+                      px-2
+                      sm:px-6
+                      lg:px-8
+
+                      pb-6
+                      sm:pb-8
+                    "
+                  >
+
+                    <h3
+                      className="
+                        text-[19px]
+                        sm:text-[21px]
+                        lg:text-[22px]
+
+                        font-bold
+                        text-[#222222]
+
+                        leading-tight
+                      "
+                    >
+                      {active.title}
+                    </h3>
+
+                    <p
+                      className="
+                        mt-2
+
+                        text-[11px]
+                        sm:text-[12px]
+
+                        font-medium
+                        text-gray-500
+
+                        leading-[17px]
+
+                        max-w-[500px]
+                        mx-auto
+                      "
+                    >
+                      {active.description}
+                    </p>
+
+                  </motion.div>
+
+                </AnimatePresence>
+
+              </motion.div>
+
+            </div>
+
+          </div>
+
         </div>
 
       </div>

@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 // Load environment variables
@@ -34,17 +34,29 @@ app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ limit: '15mb', extended: true }));
 
 // Check required environment variables
-if (!process.env.RESEND_API_KEY) {
-  console.warn('WARNING: RESEND_API_KEY environment variable is not set. Email functionality will fail.');
+if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  console.warn('WARNING: SMTP_USER or SMTP_PASS environment variables are not set. Email functionality will fail.');
 }
 
-// Initialize Resend client
-const getResend = () => new Resend(process.env.RESEND_API_KEY);
+// Initialize Nodemailer transporter (Gmail SMTP)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
-// The "from" address must be from a Resend-verified domain.
-// During development / before domain verification, use: onboarding@resend.dev
-// After verifying your domain on resend.com, use your own address e.g. noreply@yourdomain.com
-const FROM_ADDRESS = process.env.EMAIL_FROM || 'Tech Combo <onboarding@resend.dev>';
+// Verify transporter connection on startup
+transporter.verify((error) => {
+  if (error) {
+    console.error('SMTP connection error:', error.message);
+  } else {
+    console.log('SMTP server is ready to send emails.');
+  }
+});
+
+const FROM_ADDRESS = process.env.EMAIL_FROM || process.env.SMTP_USER;
 const ADMIN_EMAIL  = process.env.EMAIL_RECEIVER || 'chiragpardhi2004@gmail.com';
 
 // ─── Contact Form ────────────────────────────────────────────────────────────
@@ -59,21 +71,19 @@ app.post('/api/contact', async (req, res) => {
     });
   }
 
-  if (!process.env.RESEND_API_KEY) {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
     return res.status(500).json({
       success: false,
-      message: 'Server Error: RESEND_API_KEY is not configured on Render Dashboard.',
+      message: 'Server Error: SMTP credentials are not configured.',
     });
   }
 
   try {
-    const resend = getResend();
-
     // 1. Notify admin
-    const { error: adminError } = await resend.emails.send({
+    await transporter.sendMail({
       from: FROM_ADDRESS,
-      to: [ADMIN_EMAIL],
-      reply_to: email,
+      to: ADMIN_EMAIL,
+      replyTo: email,
       subject: `New Contact Submission: ${subject}`,
       html: `
         <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
@@ -100,38 +110,36 @@ app.post('/api/contact', async (req, res) => {
       `,
     });
 
-    if (adminError) {
-      console.error('Resend admin email error:', adminError);
-      return res.status(500).json({ success: false, message: `Failed to send: ${adminError.message}` });
-    }
-
     // 2. Auto-reply to sender (best-effort)
     if (process.env.SEND_AUTO_REPLY !== 'false') {
-      const { error: replyError } = await resend.emails.send({
-        from: FROM_ADDRESS,
-        to: [email],
-        subject: `Thank you for contacting Tech Combo`,
-        html: `
-          <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
-            <div style="background:#1e293b;color:#fff;padding:20px;text-align:center;">
-              <h2 style="margin:0;font-size:24px;">Thank You!</h2>
+      try {
+        await transporter.sendMail({
+          from: FROM_ADDRESS,
+          to: email,
+          subject: `Thank you for contacting Tech Combo`,
+          html: `
+            <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+              <div style="background:#1e293b;color:#fff;padding:20px;text-align:center;">
+                <h2 style="margin:0;font-size:24px;">Thank You!</h2>
+              </div>
+              <div style="padding:24px;background:#fff;">
+                <p>Hi ${firstName},</p>
+                <p>Thank you for reaching out to <strong>Tech Combo</strong>!</p>
+                <p>We have successfully received your inquiry regarding <strong>"${subject}"</strong>, and a member of our team will get back to you as soon as possible.</p>
+                <p>In the meantime, feel free to browse our services on our website.</p>
+                <br>
+                <p style="margin-bottom:0;">Best regards,</p>
+                <p style="margin-top:4px;font-weight:bold;color:#2563eb;">Tech Combo Team</p>
+              </div>
+              <div style="background:#f8fafc;padding:12px;text-align:center;font-size:11px;color:#94a3b8;border-top:1px solid #e2e8f0;">
+                &copy; ${new Date().getFullYear()} Tech Combo. All rights reserved.
+              </div>
             </div>
-            <div style="padding:24px;background:#fff;">
-              <p>Hi ${firstName},</p>
-              <p>Thank you for reaching out to <strong>Tech Combo</strong>!</p>
-              <p>We have successfully received your inquiry regarding <strong>"${subject}"</strong>, and a member of our team will get back to you as soon as possible.</p>
-              <p>In the meantime, feel free to browse our services on our website.</p>
-              <br>
-              <p style="margin-bottom:0;">Best regards,</p>
-              <p style="margin-top:4px;font-weight:bold;color:#2563eb;">Tech Combo Team</p>
-            </div>
-            <div style="background:#f8fafc;padding:12px;text-align:center;font-size:11px;color:#94a3b8;border-top:1px solid #e2e8f0;">
-              &copy; ${new Date().getFullYear()} Tech Combo. All rights reserved.
-            </div>
-          </div>
-        `,
-      });
-      if (replyError) console.error('Auto-reply error (non-fatal):', replyError);
+          `,
+        });
+      } catch (replyError) {
+        console.error('Auto-reply error (non-fatal):', replyError.message);
+      }
     }
 
     res.status(200).json({ success: true, message: 'Message sent successfully.' });
@@ -158,31 +166,29 @@ app.post('/api/career', async (req, res) => {
     });
   }
 
-  if (!process.env.RESEND_API_KEY) {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
     return res.status(500).json({
       success: false,
-      message: 'Server Error: RESEND_API_KEY is not configured on Render Dashboard.',
+      message: 'Server Error: SMTP credentials are not configured.',
     });
   }
 
   try {
-    const resend = getResend();
-
     // Build attachments array (resume is base64-encoded)
     const attachments = [];
     if (resume) {
       const base64Data = resume.includes('base64,') ? resume.split('base64,')[1] : resume;
       attachments.push({
         filename: resumeName || 'resume.pdf',
-        content: base64Data,
+        content: Buffer.from(base64Data, 'base64'),
       });
     }
 
     // 1. Notify admin / HR
-    const { error: adminError } = await resend.emails.send({
+    await transporter.sendMail({
       from: FROM_ADDRESS,
-      to: [ADMIN_EMAIL],
-      reply_to: email,
+      to: ADMIN_EMAIL,
+      replyTo: email,
       subject: `New Job Application: ${job} — ${fullName}`,
       attachments,
       html: `
@@ -212,39 +218,37 @@ app.post('/api/career', async (req, res) => {
       `,
     });
 
-    if (adminError) {
-      console.error('Resend career admin email error:', adminError);
-      return res.status(500).json({ success: false, message: `Failed to send: ${adminError.message}` });
-    }
-
     // 2. Auto-reply to applicant (best-effort)
     if (process.env.SEND_AUTO_REPLY !== 'false') {
-      const { error: replyError } = await resend.emails.send({
-        from: FROM_ADDRESS,
-        to: [email],
-        subject: `Application Received: ${job} at Tech Combo`,
-        html: `
-          <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
-            <div style="background:#1e293b;color:#fff;padding:20px;text-align:center;">
-              <h2 style="margin:0;font-size:24px;">Application Received</h2>
-              <p style="margin:5px 0 0 0;font-size:14px;opacity:.9;">Position: ${job}</p>
+      try {
+        await transporter.sendMail({
+          from: FROM_ADDRESS,
+          to: email,
+          subject: `Application Received: ${job} at Tech Combo`,
+          html: `
+            <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+              <div style="background:#1e293b;color:#fff;padding:20px;text-align:center;">
+                <h2 style="margin:0;font-size:24px;">Application Received</h2>
+                <p style="margin:5px 0 0 0;font-size:14px;opacity:.9;">Position: ${job}</p>
+              </div>
+              <div style="padding:24px;background:#fff;">
+                <p>Hi ${fullName},</p>
+                <p>Thank you for your interest in joining <strong>Tech Combo</strong>!</p>
+                <p>We have successfully received your application for the <strong>"${job}"</strong> position. Our hiring team is currently reviewing your resume and details.</p>
+                <p>If your profile aligns with our requirements, we will reach out to you to discuss the next steps.</p>
+                <br>
+                <p style="margin-bottom:0;">Best regards,</p>
+                <p style="margin-top:4px;font-weight:bold;color:#16a34a;">Tech Combo Hiring Team</p>
+              </div>
+              <div style="background:#f8fafc;padding:12px;text-align:center;font-size:11px;color:#94a3b8;border-top:1px solid #e2e8f0;">
+                &copy; ${new Date().getFullYear()} Tech Combo. All rights reserved.
+              </div>
             </div>
-            <div style="padding:24px;background:#fff;">
-              <p>Hi ${fullName},</p>
-              <p>Thank you for your interest in joining <strong>Tech Combo</strong>!</p>
-              <p>We have successfully received your application for the <strong>"${job}"</strong> position. Our hiring team is currently reviewing your resume and details.</p>
-              <p>If your profile aligns with our requirements, we will reach out to you to discuss the next steps.</p>
-              <br>
-              <p style="margin-bottom:0;">Best regards,</p>
-              <p style="margin-top:4px;font-weight:bold;color:#16a34a;">Tech Combo Hiring Team</p>
-            </div>
-            <div style="background:#f8fafc;padding:12px;text-align:center;font-size:11px;color:#94a3b8;border-top:1px solid #e2e8f0;">
-              &copy; ${new Date().getFullYear()} Tech Combo. All rights reserved.
-            </div>
-          </div>
-        `,
-      });
-      if (replyError) console.error('Auto-reply to applicant error (non-fatal):', replyError);
+          `,
+        });
+      } catch (replyError) {
+        console.error('Auto-reply to applicant error (non-fatal):', replyError.message);
+      }
     }
 
     res.status(200).json({ success: true, message: 'Application submitted successfully.' });
@@ -264,8 +268,8 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
     message: 'Backend server is running.',
-    emailProvider: 'Resend',
-    resendConfigured: Boolean(process.env.RESEND_API_KEY),
+    emailProvider: 'Nodemailer (Gmail SMTP)',
+    smtpConfigured: Boolean(process.env.SMTP_USER && process.env.SMTP_PASS),
   });
 });
 
@@ -275,7 +279,7 @@ app.get('/api/ping', (req, res) => {
 
 // ─── Start server ─────────────────────────────────────────────────────────────
 app.listen(port, () => {
-  console.log(`Server is running on port ${port} | Email provider: Resend`);
+  console.log(`Server is running on port ${port} | Email provider: Nodemailer (Gmail SMTP)`);
 
   // Keep-alive self-ping every 10 minutes to prevent Render free tier cold starts
   if (process.env.NODE_ENV === 'production' || process.env.RENDER) {

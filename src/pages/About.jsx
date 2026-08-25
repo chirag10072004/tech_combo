@@ -7,7 +7,6 @@ import AboutStory from '../Components/About/AboutStory'
 import AboutMissionValues from '../Components/About/AboutMissionValues'
 import AboutWhyChoose from '../Components/About/AboutWhyChoose'
 import AboutTechStack from '../Components/About/AboutTechStack'
-import AboutIndustries from '../Components/About/AboutIndustries'
 import AboutStats from '../Components/About/AboutStats'
 import AboutCTA from '../Components/About/AboutCTA'
 
@@ -39,14 +38,9 @@ const About = () => {
       <AboutWhyChoose />
 
      
-      {/* Industries We Build For */}
-      <AboutIndustries />
-
       {/* Company Stats Counters */}
       <AboutStats />
 
-      {/* CTA Section Banner */}
-      <AboutCTA />
 
 
       {/* Footer */}

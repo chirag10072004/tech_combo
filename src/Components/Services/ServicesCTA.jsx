@@ -32,23 +32,34 @@ const ServicesCTA = () => {
             </div>
 
             {/* Middle/Right: Action Buttons & Contact Info */}
-            <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center space-y-4 w-full justify-self-center lg:justify-self-end">
-              <Link
-                to="/contact"
-                className="group flex items-center justify-center space-x-2 px-8 py-4 rounded-full text-base font-semibold text-green-600 bg-white hover:bg-blue-50 hover:text-blue-700 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto text-center"
-              >
-                <span>Get a Free Quote</span>
-                <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              
-              <a 
-                href="tel:+911234567890" 
-                className="flex items-center space-x-2 text-sm text-blue-100 hover:text-white transition-colors duration-300 group"
-              >
-                <FaPhoneAlt className="h-3.5 w-3.5 text-blue-300 group-hover:scale-115 transition-transform duration-300" />
-                <span className="font-semibold">Call Us: +91 12345 67890</span>
-              </a>
-            </div>
+  <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center w-full justify-self-center lg:justify-self-end">
+
+  <div className="flex flex-col items-start">
+    
+    <Link
+      to="/contact"
+      className="group flex items-center justify-center space-x-2 px-8 py-4 rounded-full text-base font-semibold text-green-600 bg-white hover:bg-blue-50 hover:text-blue-700 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+    >
+      <span>Discuss Your Idea</span>
+
+      <FaArrowRight
+        className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+      />
+    </Link>
+
+    <a
+      href="tel:+911234567890"
+      className="flex items-center space-x-2 text-sm text-blue-100 hover:text-white transition-colors duration-300 group mt-4"
+    >
+     
+      <span className="font-semibold pl-7">
+           Call Us  :  +91 12345 67890
+      </span>
+    </a>
+
+  </div>
+
+</div>
 
             {/* Far Right: Decorative floating glowing blue cubes */}
             <div className="hidden lg:block lg:col-span-2 relative h-32 w-full">

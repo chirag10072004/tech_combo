@@ -18,7 +18,7 @@ const Achievement = () => {
       suffix: '+',
       label: 'Projects',
       sublabel: 'Delivered',
-      bg: 'bg-blue-50',
+      bg: 'bg-green-50',
     },
     {
       id: 2,
@@ -56,7 +56,7 @@ const Achievement = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+
           {/* Left Side: Copy and Link */}
           <div className="lg:col-span-4 flex flex-col justify-center space-y-6 text-center lg:text-left">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-dark-navy leading-tight">
@@ -84,13 +84,13 @@ const Achievement = () => {
               {stats.map((stat) => (
                 <div
                   key={stat.id}
-                  className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center text-center group cursor-default"
+                  className="bg-gray-100 p-6 sm:p-8 rounded-2xl border border-green-500 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center text-center group cursor-default"
                 >
                   {/* Icon Wrapper */}
                   <div className={`p-4 rounded-2xl ${stat.bg} mb-4 transition-transform duration-300 group-hover:scale-110`}>
                     {stat.icon}
                   </div>
-                  
+
                   {/* Large Number */}
                   <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-dark-navy mb-2 flex items-center justify-center font-mono">
                     {inView ? (
@@ -103,7 +103,7 @@ const Achievement = () => {
                     )}
                     <span>{stat.suffix}</span>
                   </span>
-                  
+
                   {/* Label & Description */}
                   <span className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide">
                     {stat.label}

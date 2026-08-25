@@ -12,7 +12,15 @@ const ScrollToHashElement = () => {
       if (element) {
         // Delay slightly to allow the DOM/component to finish rendering
         const timer = setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' })
+          const nav = document.querySelector('nav')
+          const navHeight = nav ? nav.offsetHeight : 80
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+          const offsetPosition = elementPosition - navHeight - 20
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          })
         }, 100)
         return () => clearTimeout(timer)
       }

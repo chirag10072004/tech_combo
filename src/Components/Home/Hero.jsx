@@ -1,61 +1,219 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { FaArrowRight } from 'react-icons/fa'
-const HeroImg = '/assets/Home/Hero_IMAGE_BACKGROUND.png';
+import React, { useEffect, useState } from "react";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+} from "react-icons/fi";
+
+const slides = [
+  {
+    image: "/assets/Home/Hero_IMAGE_BACKGROUND.png",
+    category: "DIGITAL TRANSFORMATION",
+    title: "INTELLIGENCE",
+    description:
+      "Transform your business with intelligent digital solutions, innovative technology and powerful data-driven experiences.",
+  },
+  {
+    image: "/assets/Home/custom.png",
+    category: "CUSTOM SOFTWARE",
+    title: "SOFTWARE",
+    description:
+      "Build powerful software solutions designed around your unique business needs.",
+  },
+  {
+    image: "/assets/Home/cloud.png",
+    category: "CLOUD SOLUTIONS",
+    title: "CLOUD",
+    description:
+      "Scale your business with secure, flexible and reliable cloud solutions.",
+  },
+  {
+    image: "/assets/Home/app_web.png",
+    category: "WEB & APP DEVELOPMENT",
+    title: "DIGITAL",
+    description:
+      "Create modern web and mobile experiences that drive business growth.",
+  },
+];
 
 const Hero = () => {
+  const [current, setCurrent] = useState(0);
+  const [isChanging, setIsChanging] = useState(false);
+
+  // Next Slide
+  const nextSlide = () => {
+    setIsChanging(true);
+
+    setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+      setIsChanging(false);
+    }, 400);
+  };
+
+  // Previous Slide
+  const prevSlide = () => {
+    setIsChanging(true);
+
+    setTimeout(() => {
+      setCurrent(
+        (prev) => (prev - 1 + slides.length) % slides.length
+      );
+      setIsChanging(false);
+    }, 250);
+  };
+
+  // slide every 6 Seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const slide = slides[current];
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden bg-black">
+
       {/* Background Image */}
       <img
-        src={HeroImg}
-        alt="Hero Background"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        key={slide.image}
+        src={slide.image}
+        alt={slide.title}
+        className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${
+          isChanging
+            ? "scale-105 opacity-0"
+            : "scale-100 opacity-100"
+        }`}
       />
 
-      {/* Light dark overlay for text visibility */}
-      <div className="absolute inset-0 bg-black/20"></div>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/25" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-9 w-full">
-        <div className="max-w-3xl">
-          <h1 className="text-5xl lg:text-7xl font-bold leading-tight text-white">
-            We Build Powerful
-            <br />
-            <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              Software Solutions
-            </span>
-            <br />
-            That Drive Growth
-          </h1>
+      {/* Bottom Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
-          <p className="mt-8 text-lg text-gray-200 leading-8 max-w-2xl">
-            TechCombo is a full-service IT company that transforms ideas into
-            powerful digital products. We specialize in custom software
-            development, web applications, mobile apps, cloud solutions, AI,
-            and enterprise technology.
+      {/* Left Vertical Label */}
+      <div className="absolute left-6 top-1/2 z-10 hidden -translate-y-1/2 items-center gap-3 md:flex">
+
+        <span className="h-24 w-px bg-white/30" />
+
+        <div className="flex flex-col items-center text-[11px] tracking-[3px] text-white/70">
+
+          <span>
+            {String(current + 1).padStart(2, "0")}
+          </span>
+
+          <span className="my-2 text-orange-500">
+            /
+          </span>
+
+          <span>
+            {String(slides.length).padStart(2, "0")}
+          </span>
+
+         
+
+        </div>
+      </div>
+
+      {/* Hero Content */}
+      <div className="absolute inset-x-0 bottom-0 z-10 mx-auto max-w-[1500px] px-6 pb-10 md:px-12 md:pb-14 lg:px-16">
+
+        {/* Small Heading */}
+        <p
+          className={`mb-3 text-xs font-medium tracking-[4px] text-white/70 transition-all duration-500 ${
+            isChanging
+              ? "translate-y-3 opacity-0"
+              : "translate-y-0 opacity-100"
+          }`}
+        >
+          {slide.category}
+        </p>
+
+        {/* Main Heading */}
+        <h1
+          className={`text-[clamp(4rem,11vw,11rem)] font-black leading-[0.8] tracking-[-0.06em] text-white transition-all duration-500 ${
+            isChanging
+              ? "translate-y-5 opacity-0"
+              : "translate-y-0 opacity-100"
+          }`}
+        >
+          {slide.title}
+        </h1>
+
+        {/* Bottom Content */}
+        <div className="mt-8 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+
+          {/* Description */}
+          <p
+            className={`max-w-md text-sm leading-6 text-white/70 transition-all duration-500 ${
+              isChanging
+                ? "translate-y-3 opacity-0"
+                : "translate-y-0 opacity-100"
+            }`}
+          >
+            {slide.description}
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-4">
-            <Link
-              to="/contact"
-              className="px-8 py-4 rounded-full bg-black hover:bg-green-400 transition flex items-center justify-center gap-2 text-white font-semibold"
-            >
-              Discuss Your Project
-              <FaArrowRight />
-            </Link>
+          {/* Right Side */}
+          <div className="flex items-center gap-6">
 
-            <Link
-              to="/services"
-              className="px-8 py-4 rounded-full border border-white text-white hover:bg-white hover:text-black transition font-semibold text-center"
-            >
-              Explore Services
-            </Link>
+            {/* Slider Buttons */}
+            <div className="flex items-center gap-2">
+
+              {/* Previous */}
+              <button
+                onClick={prevSlide}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-all duration-300 hover:bg-white hover:text-black"
+              >
+                <FiChevronLeft size={18} />
+              </button>
+
+              {/* Next */}
+              <button
+                onClick={nextSlide}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-all duration-300 hover:bg-white hover:text-black"
+              >
+                <FiChevronRight size={18} />
+              </button>
+
+            </div>
+
           </div>
         </div>
       </div>
-    </section>
-  )
-}
 
-export default Hero
+      {/* Progress Bar */}
+      <div className="absolute bottom-0 left-0 z-20 h-[2px] bg-white/20 w-full">
+
+        <div
+          key={current}
+          className="h-full bg-white"
+          style={{
+            animation: "heroProgress 6s linear",
+          }}
+        />
+
+      </div>
+
+      {/* Animation */}
+      <style>
+        {`
+          @keyframes heroProgress {
+            from {
+              width: 0%;
+            }
+
+            to {
+              width: 100%;
+            }
+          }
+        `}
+      </style>
+
+    </section>
+  );
+};
+
+export default Hero;

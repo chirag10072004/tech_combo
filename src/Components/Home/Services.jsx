@@ -1,103 +1,222 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiCode, FiSmartphone, FiCloud, FiCpu, FiShield, FiArrowRight } from 'react-icons/fi'
+import { FiArrowRight } from 'react-icons/fi'
 
 const Services = () => {
-  const servicesList = [
+  const [active, setActive] = useState(null)
+
+  const services = [
     {
-      id: 1,
-      icon: <FiCode className="h-6 w-6 text-green-700" />,
+      num: '01',
+      label: 'SOFTWARE',
       title: 'Custom Software Development',
       desc: 'End-to-end custom software solutions tailored to your unique business needs and requirements',
-      link: '/services',
+      link: '/custom-software',
     },
     {
-      id: 2,
-      icon: <FiSmartphone className="h-6 w-6 text-green-700" />,
+      num: '02',
+      label: 'MOBILE',
       title: 'App Development',
       desc: 'Custom mobile applications designed for speed, scalability, and exceptional user engagement',
-      link: '/services',
+      link: '/app-development',
     },
     {
-      id: 3,
-      icon: <FiCloud className="h-6 w-6 text-green-700" />,
+      num: '03',
+      label: 'CLOUD',
       title: 'Cloud Solutions',
       desc: 'Scalable, secure, and cost-effective cloud infrastructure solutions on AWS, Azure & GCP',
-      link: '/services',
+      link: '/cloud-solutions',
     },
     {
-      id: 4,
-      icon: <FiCpu className="h-6 w-6 text-green-700" />,
+      num: '04',
+      label: 'WEB',
       title: 'Web Development',
       desc: 'Modern, responsive websites that deliver great user experiences and performance',
-      link: '/services',
+      link: '/web-development',
     },
     {
-      id: 5,
-      icon: <FiShield className="h-6 w-6 text-green-700" />,
+      num: '05',
+      label: 'SECURITY',
       title: 'Cybersecurity Services',
       desc: 'Protect your business with robust security audits, compliance, and threat mitigation models',
-      link: '/services',
-    },
+      link: '/cybersecurity',
+    }
   ]
 
   return (
-    <section id="services" className="relative py-24 bg-[#97e183] text-gray-900 overflow-hidden">
-      {/* Dynamic Background Accents */}
-      <div className="absolute top-10 left-10 w-72 h-72 bg-blue-100 rounded-full blur-3xl pointer-events-none opacity-40" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-indigo-100 rounded-full blur-3xl pointer-events-none opacity-40" />
+    <section className="bg-[#97e183] px-6 py-16 overflow-hidden">
+      <div className="max-w-[1400px] mx-auto">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        {/* Section Heading */}
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-dark-navy">
+        {/* Heading */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#061b3a]">
             Our IT Services
           </h2>
-          <div className="w-12 h-1 bg-primary-green mx-auto rounded" />
-          <p className="text-black-600 max-w-xl mx-auto  text-sm sm:text-base">
-            We take software tasks from requirements to deployment and support, enabling your business growth.
+
+          <div className="w-12 h-1 bg-green-700 rounded-full mx-auto my-4" />
+
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#183b2b]">
+            We take software tasks from requirements to deployment and support,
+            enabling your business growth.
           </p>
         </div>
 
-        {/* 5-Column Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {servicesList.map((service) => (
-            <div
-              key={service.id}
-              className="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_10px_25px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_45px_rgba(37,99,235,0.08)] hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between group"
-            >
-              <div className="space-y-4">
-                {/* Icon Circle */}
-                <div className="inline-flex p-3 rounded-xl bg-blue-50 border border-blue-100/50 transition-colors duration-300 group-hover:bg-primary-black group-hover:border-primary-green group-hover:text-white text-primary-blue">
-                  <span className="transition-colors duration-300 group-hover:text-white">
-                    {service.icon}
-                  </span>
+        {/* Desktop Cards */}
+        <div className="hidden lg:flex gap-5 h-[500px]">
+
+          {services.map((service, i) => {
+            const open = active === i
+
+            return (
+              <div
+                key={service.num}
+                onMouseEnter={() => setActive(i)}
+                onMouseLeave={() => setActive(null)}
+                className={`
+                  relative min-w-0 overflow-hidden cursor-pointer
+                  rounded-[32px] px-10 pt-8 pb-8
+                  transition-all duration-500 ease-in-out
+                  ${open
+                    ? 'flex-[2.5] bg-white border-2 border-[#b5d52b] shadow-[0_20px_45px_rgba(52,127,196,0.15)]'
+                    : 'flex-1 bg-[#edf5fa] border border-transparent'
+                  }
+                `}
+              >
+
+                {/* Number */}
+                <span
+                  className={`
+                    block text-[88px] font-bold leading-none select-none
+                    transition-colors duration-500
+                    ${open
+                      ? 'text-[#eef3d5]'
+                      : 'text-[#dce9f2]'
+                    }
+                  `}
+                >
+                  {service.num}
+                </span>
+
+                {/* Service Label */}
+                <span
+                  className={`
+                    absolute z-20 font-bold text-[10px] tracking-wide
+                    whitespace-nowrap
+                    transition-all duration-500 ease-in-out
+
+                    ${open
+                      ? `
+                        left-10 top-[175px]
+                        px-5 py-2
+                        rounded-full
+                        bg-[#b5d52b]
+                        text-[#061b3a]
+                        text-[12px]
+                      `
+                      : `
+                        left-0 top-1/2 -translate-y-1/2
+                        px-5 py-4
+                        rounded-l-2xl
+                        bg-[#347fc4]
+                        text-white
+                        [writing-mode:vertical-rl]
+                        rotate-180
+                      `
+                    }
+                  `}
+                >
+                  {service.label}
+                </span>
+
+                {/* Content */}
+                <div
+                  className={`
+                    absolute left-10 right-10 bottom-8
+                    min-w-0
+                    ${open ? 'max-w-[620px]' : 'max-w-[220px]'}
+                  `}
+                >
+
+                  <h3
+                    className={`
+                      font-bold leading-tight
+                      transition-all duration-500
+                      ${open
+                        ? 'text-3xl text-[#347fc4]'
+                        : 'text-[20px] text-[#061b3a]'
+                      }
+                    `}
+                  >
+                    {service.title}
+                  </h3>
+
+                  {/* Expanded Content */}
+                  <div
+                    className={`
+                      transition-all duration-500 overflow-hidden
+                      ${open
+                        ? 'max-h-[180px] opacity-100'
+                        : 'max-h-0 opacity-0'
+                      }
+                    `}
+                  >
+                    <p className="mt-5 text-sm leading-6 text-[#64809c]">
+                      {service.desc}
+                    </p>
+
+                    <Link
+                      to={service.link}
+                      onClick={(e) => e.stopPropagation()}
+                      className="
+                        mt-6 inline-flex items-center gap-2
+                        text-sm font-semibold text-blue-600
+                      "
+                    >
+                      Learn More
+                      <FiArrowRight />
+                    </Link>
+                  </div>
+
                 </div>
 
-                {/* Title */}
-                <h3 className="text-lg font-bold text-dark-navy leading-snug group-hover:text-green-600 transition-colors duration-300">
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm font-light text-gray-500 leading-relaxed">
-                  {service.desc}
-                </p>
               </div>
+            )
+          })}
 
-              {/* Learn More link */}
-              <div className="pt-6 border-t border-gray-50 mt-6">
-                <Link
-                  to={service.link}
-                  className="inline-flex items-center space-x-1 text-sm font-semibold text-primary-blue group-hover:text-blue-700 transition-colors duration-300"
-                >
-                  <span>Learn More</span>
-                  <FiArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
+        </div>
+
+        {/* Mobile */}
+        <div className="grid gap-5 md:grid-cols-2 lg:hidden">
+
+          {services.map((service) => (
+            <div
+              key={service.num}
+              className="rounded-[28px] bg-white p-7 overflow-hidden"
+            >
+
+              <span className="text-6xl font-bold text-[#edf3f7]">
+                {service.num}
+              </span>
+
+              <h3 className="mt-8 text-2xl font-bold text-[#061b3a]">
+                {service.title}
+              </h3>
+
+              <p className="mt-4 text-gray-500">
+                {service.desc}
+              </p>
+
+              <Link
+                to={service.link}
+                className="mt-5 inline-flex items-center gap-2 text-blue-600"
+              >
+                Learn More
+                <FiArrowRight />
+              </Link>
+
             </div>
           ))}
+
         </div>
 
       </div>

@@ -10,19 +10,19 @@ const Footer = () => {
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Industries', path: '/#industries' },
+    { name: 'Industries', path: '/industries' },
     { name: 'Our Work', path: '/#our-work' },
     { name: 'Careers', path: '/careers' },
     { name: 'Contact Us', path: '/contact' },
   ]
 
   const servicesLinks = [
-    { name: 'Custom Software Development', path: '#custom-software' },
-    { name: 'Mobile Development', path: '#web-mobile' },
-    { name: 'Cloud Solutions', path: '#cloud-solutions' },
-    { name: 'Web Development', path: '#ai-ml' },
-    { name: 'Cybersecurity', path: '#cybersecurity' },
-    { name: 'IT Consulting', path: '#it-consulting' },
+    { name: 'Custom Software Development', path: '/custom-software' },
+    { name: 'Mobile Development', path: '/app-development' },
+    { name: 'Cloud Solutions', path: '/cloud-solutions' },
+    { name: 'Web Development', path: '/web-development' },
+    { name: 'Cybersecurity', path: '/cybersecurity' },
+    { name: 'IT Consulting', path: '/services' },
   ]
 
   const industriesLinks = [

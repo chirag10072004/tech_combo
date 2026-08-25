@@ -58,9 +58,9 @@ const ContactInfo = () => {
               <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Email Address</h3>
               <div className="flex flex-col text-sm text-slate-500 font-normal mt-1 space-y-0.5">
                 <a href="mailto:hello@techcombo.in" className="hover:text-primary-blue transition-colors duration-200">
-                  hello@techcombo.in
+                  hr@techcombo.in
                 </a>
-                
+
               </div>
             </div>
           </div>

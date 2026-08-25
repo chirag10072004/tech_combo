@@ -1,153 +1,224 @@
 import React from 'react'
-import { motion } from 'framer-motion'
-import { FiCalendar, FiUsers, FiCloud, FiAward } from 'react-icons/fi'
-import { FaRocket } from 'react-icons/fa'
+import { FiArrowUpRight } from 'react-icons/fi'
+
+const journeyData = [
+  {
+    year: '2020',
+    title: 'Founded',
+    description:
+      'Company founded with a vision to deliver quality IT solutions.',
+  },
+  {
+    year: '2021',
+    title: 'Expansion',
+    description:
+      'Expanded software development capabilities and development team.',
+  },
+  {
+    year: '2022',
+    title: 'Innovation',
+    description:
+      'Started delivering cloud solutions, AI integration, and enterprise applications.',
+  },
+  {
+    year: '2023',
+    title: 'Global Delivery',
+    description:
+      'Successfully completed 100+ business projects across multiple industries.',
+  },
+  {
+    year: 'Today',
+    title: 'Scale & Growth',
+    description:
+      'Building scalable software products, AI solutions, and digital platforms for businesses worldwide.',
+  },
+]
 
 const AboutStory = () => {
-  const journey = [
-    {
-      id: 1,
-      year: '2020',
-      title: 'Founded',
-      desc: 'Company founded with a vision to deliver quality IT solutions.',
-      icon: <FiCalendar className="h-6 w-6" />,
-    },
-    {
-      id: 2,
-      year: '2021',
-      title: 'Expansion',
-      desc: 'Expanded software development capabilities and development team.',
-      icon: <FiUsers className="h-6 w-6" />,
-    },
-    {
-      id: 3,
-      year: '2022',
-      title: 'Innovation',
-      desc: 'Started delivering cloud solutions, AI integration, and enterprise applications.',
-      icon: <FiCloud className="h-6 w-6" />,
-    },
-    {
-      id: 4,
-      year: '2023',
-      title: 'Global Delivery',
-      desc: 'Successfully completed 100+ business projects across multiple industries.',
-      icon: <FiAward className="h-6 w-6" />,
-    },
-    {
-      id: 5,
-      year: 'Today',
-      title: 'Scale & Growth',
-      desc: 'Building scalable software products, AI solutions, and digital platforms for businesses worldwide.',
-      icon: <FaRocket className="h-6 w-6" />,
-    },
-  ]
-
-  // Animations configuration
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.12
-      }
-    }
-  }
-
-  const nodeVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' }
-    }
-  }
-
   return (
-    <section className="relative py-24 bg-[#F8FAFC] overflow-hidden">
-      {/* Decorative gradients */}
-      <div className="absolute top-1/4 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section className="bg-[#f8faf9] px-6 py-20 md:px-10 lg:px-20">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Title */}
-        <div className="text-center space-y-4 mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="flex flex-col items-center"
-          >
-           
-           
-          </motion.div>
-          
-          <motion.h2 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-bold tracking-tight text-[#071329]"
-          >
+      {/* Heading */}
+      <div className="mx-auto mb-20 max-w-7xl">
+
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-[2px] w-10 bg-emerald-500" />
+
+          <p className="text-xs font-bold tracking-[4px] text-emerald-600">
             OUR JOURNEY
-          </motion.h2>
-
-          
+          </p>
         </div>
 
-        {/* Timeline Visual Container */}
-        <div className="relative">
-          
-          {/* Horizontal line for desktop */}
-          <div className="absolute top-[32px] left-12 right-12 h-[2px] bg-blue-100 z-0 hidden lg:block" />
+        <div className="grid gap-6 md:grid-cols-2">
 
-          {/* Vertical line for mobile */}
-          <div className="absolute left-[31px] top-8 bottom-8 w-[2px] bg-blue-100 z-0 lg:hidden" />
+          <h2 className="text-5xl font-semibold leading-tight text-gray-900 md:text-6xl">
+            Creating
+            <br />
+            <span className="text-gray-400">
+              Our Story.
+            </span>
+          </h2>
 
-          {/* Timeline Nodes Grid */}
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-6 relative z-10"
-          >
-            {journey.map((node) => (
-              <motion.div
-                key={node.id}
-                variants={nodeVariants}
-                className="flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center group"
+          <p className="max-w-md self-end text-sm leading-7 text-gray-500 md:ml-auto">
+            From a simple vision to building digital solutions for
+            businesses worldwide, every milestone has shaped who we are
+            today.
+          </p>
+
+        </div>
+      </div>
+
+      {/* Timeline */}
+      <div className="relative mx-auto max-w-6xl">
+
+        {/* Center Line */}
+        <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gray-300 md:block" />
+
+        {journeyData.map((item, index) => {
+
+          const isLeft = index % 2 === 0
+
+          return (
+            <div
+              key={item.year}
+              className="relative mb-12 md:mb-16"
+            >
+
+              {/* Center Dot */}
+              <div className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 md:block">
+
+                <div className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-300 bg-[#f8faf9]">
+
+                  <div
+                    className={`h-3 w-3 rounded-full ${
+                      isLeft
+                        ? 'bg-emerald-500'
+                        : 'bg-blue-500'
+                    }`}
+                  />
+
+                </div>
+
+              </div>
+
+              {/* Card Position */}
+              <div
+                className={`flex ${
+                  isLeft
+                    ? 'justify-start md:pr-[52%]'
+                    : 'justify-end md:pl-[52%]'
+                }`}
               >
-                {/* Node Icon Circle */}
-                <div className="flex-shrink-0 w-[64px] h-[64px] rounded-full bg-white border-2 border-blue-100 text-green-600 flex items-center justify-center shadow-sm group-hover:border-green-400 group-hover:shadow-[0_4px_15px_rgba(37,99,235,0.2)] transition-all duration-300 relative z-10">
-                  {node.icon}
-                </div>
 
-                {/* Content area: positioned to the right on mobile, below on desktop */}
-                <div className="ml-6 lg:ml-0 lg:mt-6 space-y-2">
-                  {/* Year Tag */}
-                  <span className="text-xl font-bold text-green-800 font-mono block">
-                    {node.year}
-                  </span>
-                  
-                  {/* Title / Description */}
-                  <div className="space-y-1">
-                    <h3 className="text-base sm:text-lg font-bold text-[#071329]">
-                      {node.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-500 font-light leading-relaxed max-w-xs">
-                      {node.desc}
-                    </p>
-                  </div>
-                </div>
+                <JourneyCard
+                  item={item}
+                  green={isLeft}
+                />
 
-              </motion.div>
-            ))}
-          </motion.div>
+              </div>
+
+            </div>
+          )
+        })}
+
+      </div>
+
+      {/* End */}
+      <div className="mt-10 flex justify-center">
+
+        <div className="flex flex-col items-center">
+
+          <div className="h-8 w-px bg-gray-300" />
+
+          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm">
+
+            <FiArrowUpRight
+              size={20}
+              className="text-emerald-500"
+            />
+
+          </div>
 
         </div>
 
       </div>
+
     </section>
+  )
+}
+
+const JourneyCard = ({ item, green }) => {
+  return (
+    <div className="group relative w-full">
+
+      {/* Connector */}
+      <div
+        className={`absolute top-1/2 hidden h-px w-12 -translate-y-1/2 md:block ${
+          green
+            ? '-right-12 bg-emerald-200'
+            : '-left-12 bg-blue-200'
+        }`}
+      />
+
+      {/* Card */}
+      <div className="relative overflow-hidden rounded-3xl border border-white bg-white p-6 shadow-[0_10px_40px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(15,23,42,0.10)]">
+
+        {/* Background Year */}
+        <span
+          className={`pointer-events-none absolute -right-2 -top-5 text-8xl font-black leading-none ${
+            green
+              ? 'text-emerald-500/[0.06]'
+              : 'text-blue-500/[0.06]'
+          }`}
+        >
+          {item.year === 'Today' ? '∞' : item.year}
+        </span>
+
+        {/* Year */}
+        <div className="relative z-10">
+
+          <span
+            className={`rounded-full border px-3 py-1 text-xs font-bold ${
+              green
+                ? 'border-emerald-100 bg-emerald-50 text-emerald-600'
+                : 'border-blue-100 bg-blue-50 text-blue-600'
+            }`}
+          >
+            {item.year}
+          </span>
+
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 mt-6">
+
+          <h3 className="text-xl font-semibold text-gray-900">
+            {item.title}
+          </h3>
+
+          <p className="mt-2 text-sm leading-6 text-gray-500">
+            {item.description}
+          </p>
+
+        </div>
+
+        {/* Bottom Arrow */}
+        <div className="relative z-10 mt-6 flex justify-end">
+
+          <FiArrowUpRight
+            size={18}
+            className={`transition duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 ${
+              green
+                ? 'text-emerald-500'
+                : 'text-blue-500'
+            }`}
+          />
+
+        </div>
+
+      </div>
+
+    </div>
   )
 }
 

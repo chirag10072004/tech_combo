@@ -7,10 +7,14 @@ const Careers = () => {
   return (
     <>
       <Navbar />
+  
 
       <div className='pt-15'>
         <CareersSection />
+    
       </div>
+
+      
 
       <Footer />
     </>
