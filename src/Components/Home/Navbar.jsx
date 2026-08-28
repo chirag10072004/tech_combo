@@ -25,7 +25,6 @@ const Navbar = () => {
     { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'Industries', path: '/industries' },
-    { name: 'Products', path: '/#industries' },
     { name: 'Careers', path: '/careers' },
     { name: 'Contact Us', path: '/contact' },
   ]
@@ -132,13 +131,13 @@ const Navbar = () => {
               rounded-full
               text-sm
               font-semibold
-              hover:bg-black
+              hover:bg-green-600
               hover:scale-105
               transition-all
               duration-200
             "
           >
-            <FaSignInAlt className="text-sm" />
+          
             <span>Get in Touch</span>
           </Link>
 
@@ -200,7 +199,7 @@ const Navbar = () => {
                   justify-center
                   gap-2
                   mt-3
-                  bg-[#202124]
+                  bg-green-600
                   text-white
                   px-5
                   py-3
@@ -208,7 +207,7 @@ const Navbar = () => {
                   font-semibold
                 "
               >
-                <FaSignInAlt />
+               
                 Get in touch
               </Link>
             </div>

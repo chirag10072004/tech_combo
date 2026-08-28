@@ -9,6 +9,7 @@ import AboutWhyChoose from '../Components/About/AboutWhyChoose'
 import AboutTechStack from '../Components/About/AboutTechStack'
 import AboutStats from '../Components/About/AboutStats'
 import AboutCTA from '../Components/About/AboutCTA'
+import Services from '../Components/Home/Services'
 
 
 const About = () => {
@@ -27,6 +28,8 @@ const About = () => {
 
       {/* Who We Are */}
       <AboutWhoWeAre />
+
+      <Services/>
 
       {/* Our Story / Journey Timeline */}
       <AboutStory />

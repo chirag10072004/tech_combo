@@ -16,7 +16,7 @@ const industries = [
       'E-Commerce Mobile Apps',
     ],
     button: 'Build Better Commerce',
-    image: '/assets/Home/industry/Test.png',
+    image: '/assets/Industry/E_commarce.png',
   },
 
   {
@@ -32,7 +32,7 @@ const industries = [
       'Financial Data Dashboards',
     ],
     button: 'Build FinTech Solutions',
-    image: '/assets/Home/industry/Test.png',
+    image: '/assets/Industry/fintech.png',
   },
 
   {
@@ -48,7 +48,7 @@ const industries = [
       'Healthcare Data Dashboards',
     ],
     button: 'Transform Healthcare',
-    image: '/assets/Home/industry/Test.png',
+    image: '/assets/Industry/Healhcare.png',
   },
 
   {
@@ -64,7 +64,7 @@ const industries = [
       'Online Assessment Platforms',
     ],
     button: 'Build Better Learning',
-    image: '/assets/Home/industry/Test.png',
+    image: '/assets/Industry/Education.png',
   },
 
   {
@@ -80,7 +80,7 @@ const industries = [
       'Custom Enterprise Applications',
     ],
     button: 'Modernize Manufacturing',
-    image: '/assets/Industry/manufacturing.png',
+    image: '/assets/Industry/Manfactoring.png',
   },
 ]
 

@@ -59,7 +59,7 @@ const Services = () => {
             We take software tasks from requirements to deployment and support,
             enabling your business growth.
           </p>
-        </div>
+         </div>
 
         {/* Desktop Cards */}
         <div className="hidden lg:flex gap-5 h-[500px]">

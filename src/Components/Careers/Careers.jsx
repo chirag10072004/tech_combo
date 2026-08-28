@@ -101,7 +101,7 @@ const Careers = () => {
         <div className="max-w-7xl mx-auto px-6">
 
           <div className="text-center mb-14">       
-            <h1 className="text-5xl font-bold text-slate-900">
+            <h1 className="text-5xl font-bold pt-20 text-slate-900">
               Open Positions
             </h1>
 

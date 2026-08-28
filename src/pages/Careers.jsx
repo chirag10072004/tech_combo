@@ -6,10 +6,9 @@ import CareersSection from '../Components/Careers/Careers'
 const Careers = () => {
   return (
     <>
-      <Navbar />
-  
+       <Navbar/>
 
-      <div className='pt-15'>
+      <div  >
         <CareersSection />
     
       </div>

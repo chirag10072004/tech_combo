@@ -2,12 +2,12 @@ import React from 'react'
 import Navbar from '../Components/Home/Navbar'
 import Hero from '../Components/Home/Hero'
 import Achievement from '../Components/Home/Achievement'
-import Services from '../Components/Home/Services'
 import About from '../Components/Home/About'
 import Technologies from '../Components/Home/Technologies'
 import Process from '../Components/Home/Process'
 import Footer from '../Components/Home/Footer'
 import AboutIndustries from '../Components/Home/AboutIndustries'
+import ServicesShowcase from '../Components/Services/ServicesShowcase'
 
 const Home = () => {
   return (
@@ -18,17 +18,17 @@ const Home = () => {
 
       <Achievement />
 
-      <Services />
+      <ServicesShowcase />
 
       <About />
 
       <Technologies />
 
- 
+
 
       <Process />
 
-      <AboutIndustries/>
+      <AboutIndustries />
 
       <Footer />
     </div>

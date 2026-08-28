@@ -1,50 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const industries = [
   {
-    name: 'E-Commerce',
-    image: '/assets/Home/industry/e_commarce.png',
+    name: "E-Commerce",
+    image: "/assets/Home/industry/e_commarce.png",
   },
   {
-    name: 'Fintech',
-    image: '/assets/Home/industry/fintech.png',
+    name: "Fintech",
+    image: "/assets/Home/industry/fintech.png",
   },
   {
-    name: 'Healthcare',
-    image: '/assets/Home/industry/healthcare.png',
+    name: "Healthcare",
+    image: "/assets/Home/industry/healthcare.png",
   },
   {
-    name: 'Education',
-    image: '/assets/Home/industry/teacher.png',
+    name: "Education",
+    image: "/assets/Home/industry/teacher.png",
   },
   {
-    name: 'Manufacturing',
-    image: '/assets/Home/industry/manufactor.png',
+    name: "Manufacturing",
+    image: "/assets/Home/industry/manufactor.png",
   },
-]
+];
 
 const AboutIndustries = () => {
-  const [active, setActive] = useState(null)
+  const [active, setActive] = useState(null);
 
   return (
-    <section className="bg-white py-14 sm:py-16 md:py-20 overflow-hidden">
+    <section className="overflow-hidden bg-white py-14 sm:py-16 md:py-20">
 
       {/* ================= HEADING ================= */}
 
-      <div className="text-center mb-12 sm:mb-14 md:mb-10 px-4">
+      <div className="mb-12 px-4 text-center sm:mb-14 md:mb-10">
 
         <h2
           className="
             text-[23px]
+            font-black
+            leading-tight
+            tracking-[-0.5px]
+            text-[#111827]
             sm:text-3xl
             md:text-4xl
-
-            font-black
-            tracking-[-0.5px]
-
-            text-[#111827]
-
-            leading-tight
           "
         >
           INDUSTRIES WE BUILD FOR
@@ -52,16 +49,13 @@ const AboutIndustries = () => {
 
         <div
           className="
-            mt-3
             mx-auto
-
-            w-14
-            sm:w-16
-
+            mt-3
             h-[3px]
-
-            bg-[#293EFF]
+            w-14
             rounded-full
+            bg-[#293EFF]
+            sm:w-16
           "
         />
 
@@ -71,10 +65,10 @@ const AboutIndustries = () => {
 
       <div
         className="
+          mx-auto
           w-full
           max-w-7xl
-          mx-auto
-          px-3
+          px-2
           sm:px-6
         "
       >
@@ -82,10 +76,9 @@ const AboutIndustries = () => {
         <div
           className="
             flex
-            justify-center
             items-end
-
-            gap-1
+            justify-center
+            gap-0
             sm:gap-4
             md:gap-8
             lg:gap-10
@@ -94,8 +87,8 @@ const AboutIndustries = () => {
 
           {industries.map((industry, index) => {
 
-            const isActive = active === index
-            const isBlurred = active !== null && !isActive
+            const isActive = active === index;
+            const isBlurred = active !== null && !isActive;
 
             return (
               <div
@@ -103,42 +96,37 @@ const AboutIndustries = () => {
 
                 onMouseEnter={() => {
                   if (window.innerWidth >= 768) {
-                    setActive(index)
+                    setActive(index);
                   }
                 }}
 
                 onMouseLeave={() => {
                   if (window.innerWidth >= 768) {
-                    setActive(null)
+                    setActive(null);
                   }
                 }}
 
                 onClick={() => {
                   if (window.innerWidth < 768) {
-                    setActive(isActive ? null : index)
+                    setActive(isActive ? null : index);
                   }
                 }}
 
                 className="
                   relative
-
                   flex
+                  h-[290px]
+                  w-[68px]
+                  flex-shrink-0
+                  cursor-pointer
                   items-end
                   justify-center
-
-                  cursor-pointer
-
-                  w-[52px]
-                  sm:w-[85px]
-                  md:w-[150px]
-                  lg:w-[190px]
-
-                  h-[260px]
                   sm:h-[330px]
+                  sm:w-[85px]
                   md:h-[420px]
+                  md:w-[150px]
                   lg:h-[500px]
-
-                  flex-shrink-0
+                  lg:w-[190px]
                 "
               >
 
@@ -148,37 +136,29 @@ const AboutIndustries = () => {
                   <div
                     className="
                       absolute
-
-                      top-0
                       left-1/2
-                      -translate-x-1/2
-
+                      top-0
+                      z-20
                       flex
+                      -translate-x-1/2
                       flex-col
                       items-center
-
-                      z-20
                     "
                   >
 
                     <span
                       className="
                         whitespace-nowrap
-
                         text-[11px]
-                        sm:text-[14px]
-                        md:text-[15px]
-                        lg:text-[17px]
-
                         font-extrabold
                         uppercase
-
-                        tracking-[0.2px]
-                        sm:tracking-[0.5px]
-
-                        text-[#111827]
-
                         leading-none
+                        tracking-[0.2px]
+                        text-[#111827]
+                        sm:text-[14px]
+                        sm:tracking-[0.5px]
+                        md:text-[15px]
+                        lg:text-[17px]
                       "
                     >
                       {industry.name}
@@ -189,17 +169,13 @@ const AboutIndustries = () => {
                     <div
                       className="
                         mt-2
-                        sm:mt-3
-
-                        w-2
                         h-2
-
-                        sm:w-[10px]
-                        sm:h-[10px]
-
+                        w-2
                         rounded-full
-
                         bg-[#293EFF]
+                        sm:mt-3
+                        sm:h-[10px]
+                        sm:w-[10px]
                       "
                     />
 
@@ -207,13 +183,11 @@ const AboutIndustries = () => {
 
                     <div
                       className="
-                        w-[2px]
-
                         h-8
+                        w-[2px]
+                        bg-[#CBD5E1]
                         sm:h-10
                         md:h-12
-
-                        bg-[#CBD5E1]
                       "
                     />
 
@@ -225,29 +199,25 @@ const AboutIndustries = () => {
                 <img
                   src={industry.image}
                   alt={industry.name}
-
                   className={`
+                    h-[270px]
                     w-full
-
-                    h-[220px]
-                    sm:h-[280px]
-                    md:h-[360px]
-                    lg:h-[430px]
-
                     object-contain
-
                     transition-all
                     duration-500
                     ease-in-out
 
-                    ${
-                      isActive
-                        ? `
+                    sm:h-[280px]
+                    md:h-[360px]
+                    lg:h-[430px]
+
+                    ${isActive
+                      ? `
                           scale-110
                           opacity-100
                           blur-0
                         `
-                        : isBlurred
+                      : isBlurred
                         ? `
                           scale-95
                           opacity-35
@@ -263,7 +233,7 @@ const AboutIndustries = () => {
                 />
 
               </div>
-            )
+            );
           })}
 
         </div>
@@ -271,7 +241,7 @@ const AboutIndustries = () => {
       </div>
 
     </section>
-  )
-}
+  );
+};
 
-export default AboutIndustries
+export default AboutIndustries;

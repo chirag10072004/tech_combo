@@ -1,113 +1,265 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { 
-  FaReact, 
-  FaNodeJs, 
-  FaPython, 
-  FaJava, 
-  FaAws, 
-  FaDocker, 
-  FaBrain 
-} from 'react-icons/fa'
-import { 
-  SiNextdotjs, 
-  SiTypescript, 
-  SiKubernetes, 
-  SiMongodb, 
-  SiPostgresql, 
-  SiMysql, 
-  SiTailwindcss 
-} from 'react-icons/si'
-import { TbBrandAzure } from 'react-icons/tb'
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  FaReact,
+  FaNodeJs,
+  FaPython,
+  FaJava,
+  FaAws,
+  FaDocker,
+  FaBrain,
+} from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiTypescript,
+  SiKubernetes,
+  SiMongodb,
+  SiPostgresql,
+  SiMysql,
+  SiTailwindcss,
+} from "react-icons/si";
+import { TbBrandAzure } from "react-icons/tb";
 
 const AboutTechStack = () => {
   const techs = [
-    { name: 'React', icon: <FaReact className="h-5 w-5 text-[#61DAFB]" /> },
-    { name: 'Next.js', icon: <SiNextdotjs className="h-5 w-5 text-white bg-black rounded-full" /> },
-    { name: 'Node.js', icon: <FaNodeJs className="h-5 w-5 text-[#339933]" /> },
-    { name: 'TypeScript', icon: <SiTypescript className="h-5 w-5 text-[#3178C6] rounded-sm" /> },
-    { name: 'Python', icon: <FaPython className="h-5 w-5 text-[#3776AB]" /> },
-    { name: 'Java', icon: <FaJava className="h-5 w-5 text-[#007396]" /> },
-    { name: 'AWS', icon: <FaAws className="h-5 w-5 text-[#FF9900]" /> },
-    { name: 'Azure', icon: <TbBrandAzure className="h-5 w-5 text-[#0089D6]" /> },
-    { name: 'Docker', icon: <FaDocker className="h-5 w-5 text-[#2496ED]" /> },
-    { name: 'Kubernetes', icon: <SiKubernetes className="h-5 w-5 text-[#326CE5]" /> },
-    { name: 'MongoDB', icon: <SiMongodb className="h-5 w-5 text-[#47A248]" /> },
-    { name: 'PostgreSQL', icon: <SiPostgresql className="h-5 w-5 text-[#4169E1]" /> },
-    { name: 'MySQL', icon: <SiMysql className="h-5 w-5 text-[#4479A1]" /> },
-    { name: 'Tailwind CSS', icon: <SiTailwindcss className="h-5 w-5 text-[#06B6D4]" /> },
-    { name: 'AI / Machine Learning', icon: <FaBrain className="h-5 w-5 text-[#EC4899]" /> },
-  ]
+    {
+      name: "React",
+      category: "Frontend",
+      icon: <FaReact />,
+      color: "#61DAFB",
+    },
+    {
+      name: "Next.js",
+      category: "Frontend",
+      icon: <SiNextdotjs />,
+      color: "#111111",
+    },
+    {
+      name: "TypeScript",
+      category: "Frontend",
+      icon: <SiTypescript />,
+      color: "#3178C6",
+    },
+    {
+      name: "Node.js",
+      category: "Backend",
+      icon: <FaNodeJs />,
+      color: "#339933",
+    },
+    {
+      name: "Python",
+      category: "Backend",
+      icon: <FaPython />,
+      color: "#3776AB",
+    },
+    {
+      name: "Java",
+      category: "Backend",
+      icon: <FaJava />,
+      color: "#ED8B00",
+    },
+    {
+      name: "AWS",
+      category: "Cloud",
+      icon: <FaAws />,
+      color: "#FF9900",
+    },
+    {
+      name: "Azure",
+      category: "Cloud",
+      icon: <TbBrandAzure />,
+      color: "#0089D6",
+    },
+    {
+      name: "Docker",
+      category: "DevOps",
+      icon: <FaDocker />,
+      color: "#2496ED",
+    },
+    {
+      name: "Kubernetes",
+      category: "DevOps",
+      icon: <SiKubernetes />,
+      color: "#326CE5",
+    },
+    {
+      name: "MongoDB",
+      category: "Database",
+      icon: <SiMongodb />,
+      color: "#47A248",
+    },
+    {
+      name: "PostgreSQL",
+      category: "Database",
+      icon: <SiPostgresql />,
+      color: "#4169E1",
+    },
+    {
+      name: "MySQL",
+      category: "Database",
+      icon: <SiMysql />,
+      color: "#4479A1",
+    },
+    {
+      name: "Tailwind CSS",
+      category: "Frontend",
+      icon: <SiTailwindcss />,
+      color: "#06B6D4",
+    },
+    {
+      name: "AI / ML",
+      category: "Intelligence",
+      icon: <FaBrain />,
+      color: "#C026D3",
+    },
+  ];
 
-  // Stagger animation
-  const containerVariants = {
-    hidden: {},
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 18,
+    },
     visible: {
-      transition: {
-        staggerChildren: 0.05
-      }
-    }
-  }
-
-  const badgeVariants = {
-    hidden: { opacity: 0, scale: 0.85, y: 15 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
+      opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' }
-    }
-  }
+      transition: {
+        duration: 0.45,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
-<section className="relative py-20 bg-[#97e183] overflow-hidden border-t border-b border-green-100">
-  {/* Soft Green Glow */}
-  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-green- rounded-full blur-[120px] pointer-events-none" />
+    <section className="relative overflow-hidden bg-[#f6f5f2] py-20 sm:py-24 lg:py-28">
 
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    {/* Content */}
-        
-        {/* Title */}
-        <div className="text-center space-y-4 mb-14">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-black block">
-            Technologies We Work With
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-            Our Technology Stack
+      {/* Subtle Decorative Shape */}
+      <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full border border-black/[0.04]" />
+
+      <div className="pointer-events-none absolute -bottom-40 -left-40 h-[400px] w-[400px] rounded-full bg-blue-500/[0.04] blur-[100px]" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 max-w-2xl sm:mb-14"
+        >
+
+          <div className="mb-5 flex items-center gap-3">
+            <span className="h-px w-8 bg-black" />
+
+            <span className="text-[10px] font-bold uppercase tracking-[3px] text-black/50">
+              Technology
+            </span>
+          </div>
+
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-[-0.045em] text-[#111] sm:text-5xl lg:text-6xl">
+            Technology that
+            <span className="block text-black/40">
+              powers our solutions.
+            </span>
           </h2>
-          <div className="w-8 h-[2px] bg-blue-500 mx-auto rounded" />
-        </div>
 
-        {/* Badges Container */}
-        <motion.div 
-          variants={containerVariants}
+          <p className="mt-6 max-w-xl text-sm leading-7 text-black/50 sm:text-base">
+            We work with modern technologies across frontend, backend,
+            cloud, databases and artificial intelligence to build
+            reliable digital products.
+          </p>
+
+        </motion.div>
+
+        {/* Technology Pills */}
+        <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="flex flex-wrap items-center justify-center gap-4 max-w-4xl mx-auto"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ staggerChildren: 0.04 }}
+          className="flex flex-wrap gap-3"
         >
-          {techs.map((tech, i) => (
+          {techs.map((tech) => (
             <motion.div
-              key={i}
-              variants={badgeVariants}
-              whileHover={{ 
-                scale: 1.05,
-                borderColor: 'rgba(59, 130, 246, 0.6)',
-                boxShadow: '0 0 15px rgba(59, 130, 246, 0.25)'
+              key={tech.name}
+              variants={itemVariants}
+              whileHover={{
+                y: -4,
+                boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
               }}
-              className="flex items-center space-x-3 px-5 py-2.5 rounded-full bg-white border border-slate-800 backdrop-blur-sm text-slate-300 hover:text-white cursor-default transition-all duration-300"
+              className="
+                group
+                relative
+                flex
+                items-center
+                gap-3
+                overflow-hidden
+                rounded-2xl
+                border
+                border-black/[0.08]
+                bg-white
+                px-5
+                py-3.5
+                transition-all
+                duration-300
+                hover:border-black/[0.15]
+              "
             >
-              {tech.icon}
-              <span className="text-xs sm:text-sm font-semibold tracking-wide text-black">
-                {tech.name}
+
+              {/* Icon */}
+              <span
+                className="text-lg transition-transform duration-300 group-hover:scale-110"
+                style={{
+                  color: tech.color,
+                }}
+              >
+                {tech.icon}
               </span>
+
+              {/* Text */}
+              <div className="flex items-center gap-2">
+
+                <span className="text-xs font-semibold text-[#111] sm:text-sm">
+                  {tech.name}
+                </span>
+
+                <span className="hidden text-[9px] uppercase tracking-[1px] text-black/30 sm:block">
+                  {tech.category}
+                </span>
+
+              </div>
+
+              {/* Tiny Accent */}
+              <span
+                className="absolute bottom-0 left-5 right-5 h-[2px] origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                style={{
+                  backgroundColor: tech.color,
+                }}
+              />
+
             </motion.div>
           ))}
         </motion.div>
 
+        {/* Bottom */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="mt-12 border-t border-black/[0.08] pt-7"
+        >
+
+          <p className="text-xs text-black/40 sm:text-sm">
+            From idea to deployment — the right technology for every
+            stage of your product.
+          </p>
+
+        </motion.div>
+
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default AboutTechStack
+export default AboutTechStack;

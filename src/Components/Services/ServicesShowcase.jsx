@@ -97,20 +97,6 @@ const ServicesShowcase = () => {
         'Scalable database schema design',
       ],
     },
-
-    {
-      id: 6,
-      title: 'AI Solutions',
-      image: aiImage,
-      path: '/ai-solutions',
-      desc: 'Build intelligent AI-powered applications with automation, analytics, and machine learning.',
-      features: [
-        'Machine Learning Models',
-        'AI Chatbots & Assistants',
-        'Predictive Analytics',
-        'Business Process Automation',
-      ],
-    },
   ]
 
   return (

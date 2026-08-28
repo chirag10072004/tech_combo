@@ -42,9 +42,7 @@ const AboutMissionValues = () => {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <p className="mb-3 text-sm font-semibold tracking-[4px] text-blue-600">
-            OUR STORY
-          </p>
+     
 
           <h2 className="max-w-3xl text-4xl font-bold leading-tight text-[#071329] md:text-5xl">
             Technology with purpose,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Navbar from '../Components/Home/Navbar'
 import ServicesHero from '../Components/Services/ServicesHero'
-import ServicesShowcase from '../Components/Services/ServicesShowcase'
+import HomeServices from '../Components/Home/Services'
 import ProcessSection from '../Components/Services/ProcessSection'
 import ServicesCTA from '../Components/Services/ServicesCTA'
 import Footer from '../Components/Home/Footer'
@@ -20,8 +20,8 @@ const Services = () => {
       {/* Hero Section */}
       <ServicesHero />
 
-      {/* Core Services Swiper Section */}
-      <ServicesShowcase />
+      {/* Core Services Section */}
+      <HomeServices />
 
       {/* Process Section */}
       <ProcessSection />
