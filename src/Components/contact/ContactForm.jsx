@@ -32,6 +32,11 @@ const ContactForm = () => {
     setIsSubmitting(true)
     setStatus({ type: 'info', message: 'Sending your message, please wait...' })
 
+    // Timer for Render server cold start warning
+    const slowNoticeTimer = setTimeout(() => {
+      setStatus({ type: 'info', message: 'Connecting to server... (If the backend is waking up, this may take up to 30 seconds)' })
+    }, 4000);
+
     try {
       const apiBase = import.meta.env.VITE_API_URL || ''
       const response = await fetch(`${apiBase}/api/contact`, {
@@ -41,7 +46,18 @@ const ContactForm = () => {
         },
         body: JSON.stringify(formData)
       });
-      const result = await response.json();
+
+      clearTimeout(slowNoticeTimer);
+
+      const contentType = response.headers.get("content-type");
+      let result = {};
+      if (contentType && contentType.includes("application/json")) {
+        result = await response.json();
+      } else {
+        const text = await response.text();
+        result = { success: false, message: `Server Error (${response.status}): ${text.slice(0, 120)}` };
+      }
+
       if (response.ok && result.success) {
         setStatus({ type: 'success', message: 'Your message has been sent successfully! We\'ll get back to you soon.' })
         setFormData({
@@ -57,6 +73,7 @@ const ContactForm = () => {
         setStatus({ type: 'error', message: result.message || 'Something went wrong. Please try again.' })
       }
     } catch (err) {
+      clearTimeout(slowNoticeTimer);
       console.error('Contact form error:', err)
       setStatus({ type: 'error', message: 'Network error. Please check your connection and try again.' })
     } finally {

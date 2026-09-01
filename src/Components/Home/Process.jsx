@@ -47,9 +47,9 @@ const Process = () => {
   return (
     <section
       id="process"
-      className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28"
+      className="relative overflow-hidden bg-white py-15 sm:py-24 lg:py-15"
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-6xl px-5 sm:px-4">
 
         {/* ================= HEADER ================= */}
 
@@ -236,7 +236,7 @@ const Process = () => {
             overflow-hidden
             rounded-2xl
             border
-            border-[#E8EAED]
+         
             bg-white
           "
         >

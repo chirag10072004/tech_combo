@@ -27,210 +27,98 @@ const AboutIndustries = () => {
   const [active, setActive] = useState(null);
 
   return (
-    <section className="overflow-hidden bg-white py-14 sm:py-16 md:py-20">
+    <section className="bg-gray-50 py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
 
-      {/* ================= HEADING ================= */}
+        {/* Heading */}
+        <div className="mb-8 md:mb-12">
+          <p className="mb-3 text-xs font-bold tracking-widest text-blue-600">
+            OUR EXPERTISE
+          </p>
 
-      <div className="mb-12 px-4 text-center sm:mb-14 md:mb-10">
+          <h2 className="text-3xl font-black text-gray-900 sm:text-4xl lg:text-5xl">
+            Industries We{" "}
+            <span className="text-blue-600">Build For</span>
+          </h2>
+        </div>
 
-        <h2
-          className="
-            text-[23px]
-            font-black
-            leading-tight
-            tracking-[-0.5px]
-            text-[#111827]
-            sm:text-3xl
-            md:text-4xl
-          "
-        >
-          INDUSTRIES WE BUILD FOR
-        </h2>
 
+        {/* Industry Cards */}
         <div
-          className="
-            mx-auto
-            mt-3
-            h-[3px]
-            w-14
-            rounded-full
-            bg-[#293EFF]
-            sm:w-16
-          "
-        />
-
-      </div>
-
-      {/* ================= PEOPLE ================= */}
-
-      <div
-        className="
-          mx-auto
-          w-full
-          max-w-7xl
-          px-2
-          sm:px-6
-        "
-      >
-
-        <div
-          className="
-            flex
-            items-end
-            justify-center
-            gap-0
-            sm:gap-4
-            md:gap-8
-            lg:gap-10
-          "
+          className="flex gap-3 overflow-x-auto pb-3 md:h-[430px] md:overflow-hidden"
+          onMouseLeave={() => setActive(null)}
         >
 
           {industries.map((industry, index) => {
-
             const isActive = active === index;
-            const isBlurred = active !== null && !isActive;
+            const hasActive = active !== null;
 
             return (
               <div
                 key={industry.name}
-
-                onMouseEnter={() => {
-                  if (window.innerWidth >= 768) {
-                    setActive(index);
+                onMouseEnter={() => setActive(index)}
+                onClick={() => setActive(index)}
+                className={`
+                  relative h-[285px] w-[72vw]
+                  flex-shrink-0 cursor-pointer
+                  overflow-hidden rounded-2xl
+                  transition-all duration-500
+                  md:h-full md:w-auto
+                  ${isActive
+                    ? "md:flex-[1.7]"
+                    : "md:flex-1"
                   }
-                }}
-
-                onMouseLeave={() => {
-                  if (window.innerWidth >= 768) {
-                    setActive(null);
-                  }
-                }}
-
-                onClick={() => {
-                  if (window.innerWidth < 768) {
-                    setActive(isActive ? null : index);
-                  }
-                }}
-
-                className="
-                  relative
-                  flex
-                  h-[290px]
-                  w-[68px]
-                  flex-shrink-0
-                  cursor-pointer
-                  items-end
-                  justify-center
-                  sm:h-[330px]
-                  sm:w-[85px]
-                  md:h-[420px]
-                  md:w-[150px]
-                  lg:h-[500px]
-                  lg:w-[190px]
-                "
+                `}
               >
 
-                {/* ================= INDUSTRY LABEL ================= */}
-
-                {isActive && (
-                  <div
-                    className="
-                      absolute
-                      left-1/2
-                      top-0
-                      z-20
-                      flex
-                      -translate-x-1/2
-                      flex-col
-                      items-center
-                    "
-                  >
-
-                    <span
-                      className="
-                        whitespace-nowrap
-                        text-[11px]
-                        font-extrabold
-                        uppercase
-                        leading-none
-                        tracking-[0.2px]
-                        text-[#111827]
-                        sm:text-[14px]
-                        sm:tracking-[0.5px]
-                        md:text-[15px]
-                        lg:text-[17px]
-                      "
-                    >
-                      {industry.name}
-                    </span>
-
-                    {/* BLUE DOT */}
-
-                    <div
-                      className="
-                        mt-2
-                        h-2
-                        w-2
-                        rounded-full
-                        bg-[#293EFF]
-                        sm:mt-3
-                        sm:h-[10px]
-                        sm:w-[10px]
-                      "
-                    />
-
-                    {/* LINE */}
-
-                    <div
-                      className="
-                        h-8
-                        w-[2px]
-                        bg-[#CBD5E1]
-                        sm:h-10
-                        md:h-12
-                      "
-                    />
-
-                  </div>
-                )}
-
-                {/* ================= PERSON ================= */}
-
+                {/* Image */}
                 <img
                   src={industry.image}
                   alt={industry.name}
                   className={`
-                    h-[270px]
-                    w-full
-                    object-contain
-                    transition-all
-                    duration-500
-                    ease-in-out
-
-                    sm:h-[280px]
-                    md:h-[360px]
-                    lg:h-[430px]
-
+                    h-full w-full object-contain object-bottom
+                    transition-all duration-500
                     ${isActive
-                      ? `
-                          scale-110
-                          opacity-100
-                          blur-0
-                        `
-                      : isBlurred
-                        ? `
-                          scale-95
-                          opacity-35
-                          blur-[4px]
-                        `
-                        : `
-                          scale-100
-                          opacity-100
-                          blur-0
-                        `
+                      ? "scale-105 grayscale-0 opacity-100"
+                      : hasActive
+                        ? "grayscale opacity-35"
+                        : "grayscale-0 opacity-100"
                     }
                   `}
                 />
+
+                {/* Active Overlay */}
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                )}
+
+                {/* Number */}
+                <span
+                  className={`
+                    absolute left-4 top-4 text-xs font-bold
+                    ${isActive
+                      ? "text-white"
+                      : "text-gray-500"
+                    }
+                  `}
+                >
+                  0{index + 1}
+                </span>
+
+                {/* Name */}
+                <div className="absolute bottom-5 left-5">
+                  <h3
+                    className={`
+                      text-lg font-bold
+                      ${isActive
+                        ? "text-white"
+                        : "text-gray-600"
+                      }
+                    `}
+                  >
+                    {industry.name}
+                  </h3>
+                </div>
 
               </div>
             );
@@ -238,8 +126,25 @@ const AboutIndustries = () => {
 
         </div>
 
-      </div>
 
+        {/* Mobile Dots */}
+        <div className="mt-4 flex justify-center gap-2 md:hidden">
+          {industries.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActive(index)}
+              className={`
+                h-1.5 rounded-full
+                ${active === index
+                  ? "w-6 bg-blue-600"
+                  : "w-1.5 bg-gray-300"
+                }
+              `}
+            />
+          ))}
+        </div>
+
+      </div>
     </section>
   );
 };

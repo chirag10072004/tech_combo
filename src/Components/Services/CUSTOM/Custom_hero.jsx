@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Custom_Hero = () => {
   return (
@@ -18,8 +19,9 @@ const Custom_Hero = () => {
             }}
             className="
               relative
-              w-screen
-              -ml-5
+              w-full
+              max-w-full
+              ml-0
               flex
               items-center
               justify-center
@@ -133,42 +135,52 @@ const Custom_Hero = () => {
               gap-3
             ">
 
-              <button className="
-                w-full
-                sm:w-auto
-                bg-[#ff512f]
-                text-white
-                font-semibold
-                px-7
-                py-3.5
-                rounded-lg
-                shadow-[0_10px_25px_rgba(255,81,47,0.20)]
-                hover:bg-[#f44828]
-                hover:-translate-y-0.5
-                transition-all
-                duration-300
-              ">
-                Request Service
-              </button>
+              <Link
+                to="/contact"
+                className="
+                  w-full
+                  sm:w-auto
+                  inline-block
+                  text-center
+                  bg-[#ff512f]
+                  text-white
+                  font-semibold
+                  px-7
+                  py-3.5
+                  rounded-lg
+                  shadow-[0_10px_25px_rgba(255,81,47,0.20)]
+                  hover:bg-[#f44828]
+                  hover:-translate-y-0.5
+                  transition-all
+                  duration-300
+                "
+              >
+                Get a free quote
+              </Link>
 
 
-              <button className="
-                w-full
-                sm:w-auto
-                border
-                border-[#082b55]
-                text-[#082b55]
-                font-semibold
-                px-7
-                py-3.5
-                rounded-lg
-                hover:bg-[#082b55]
-                hover:text-white
-                transition-all
-                duration-300
-              ">
+              <Link
+                to="/contact"
+                className="
+                  w-full
+                  sm:w-auto
+                  inline-block
+                  text-center
+                  border
+                  border-[#082b55]
+                  text-[#082b55]
+                  font-semibold
+                  px-7
+                  py-3.5
+                  rounded-lg
+                  hover:bg-[#082b55]
+                  hover:text-white
+                  transition-all
+                  duration-300
+                "
+              >
                 Talk to our experts
-              </button>
+              </Link>
 
             </div>
 

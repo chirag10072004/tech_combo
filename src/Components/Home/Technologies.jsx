@@ -130,7 +130,7 @@ const AboutTechStack = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#f6f5f2] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-[#f6f5f2] py-20 sm:py-24 lg:py-15">
 
       {/* Subtle Decorative Shape */}
       <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full border border-black/[0.04]" />
@@ -241,23 +241,7 @@ const AboutTechStack = () => {
           ))}
         </motion.div>
 
-        {/* Bottom */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-12 border-t border-black/[0.08] pt-7"
-        >
-
-          <p className="text-xs text-black/40 sm:text-sm">
-            From idea to deployment — the right technology for every
-            stage of your product.
-          </p>
-
-        </motion.div>
-
-      </div>
+            </div>
     </section>
   );
 };

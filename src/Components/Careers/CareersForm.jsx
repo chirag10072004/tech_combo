@@ -85,16 +85,23 @@ const CareerForm = ({ job, onClose }) => {
         }),
       });
 
-      const result = await response.json();
+      const contentType = response.headers.get("content-type");
+      let result = {};
+      if (contentType && contentType.includes("application/json")) {
+        result = await response.json();
+      } else {
+        const text = await response.text();
+        result = { success: false, message: `Server Error (${response.status}): ${text.slice(0, 120)}` };
+      }
 
       if (response.ok && result.success) {
         setIsSuccess(true);
       } else {
-        alert(result.message || "Submission failed");
+        alert(result.message || "Submission failed. Please check your details and try again.");
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("Network error. Please try again.");
+      alert("Network error. Please check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }

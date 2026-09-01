@@ -18,7 +18,7 @@ const App = () => {
   return (
     <Router>
       <ScrollToHashElement />
-      <div className=" font-bold min-h-screen bg-[#071329] text-white">
+      <div className="font-bold min-h-screen bg-[#071329] text-white w-full max-w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

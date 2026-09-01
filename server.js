@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import dotenv from 'dotenv';
 
 // Load environment variables
@@ -9,55 +10,87 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// CORS configuration - allow Vercel production and localhost dev
-const allowedOrigins = [
-  'https://tech-combo-2-0.vercel.app',
-  'https://tech-combo.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:4173',
-  'http://localhost:3000',
-];
-
+// Enable CORS for all origins (Public API endpoints)
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (Postman, curl, Vercel server-side rewrites)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    // Allow any vercel.app subdomain for preview deployments
-    if (origin.endsWith('.vercel.app')) return callback(null, true);
-    callback(new Error(`CORS not allowed for origin: ${origin}`));
-  },
+  origin: true,
   credentials: true,
 }));
 
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ limit: '15mb', extended: true }));
 
-// Check required environment variables
-if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-  console.warn('WARNING: SMTP_USER or SMTP_PASS environment variables are not set. Email functionality will fail.');
+// Initialize Resend if key is available
+const resendClient = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+// Initialize Nodemailer transporter (Gmail SMTP) if credentials are available
+let transporter = null;
+if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+  transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  transporter.verify((error) => {
+    if (error) {
+      console.error('SMTP connection error:', error.message);
+    } else {
+      console.log('SMTP server is ready to send emails.');
+    }
+  });
 }
 
-// Initialize Nodemailer transporter (Gmail SMTP)
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+// Log status on startup
+if (resendClient) {
+  console.log('Email provider configured: Resend API');
+} else if (transporter) {
+  console.log('Email provider configured: Nodemailer (Gmail SMTP)');
+} else {
+  console.warn('WARNING: Neither RESEND_API_KEY nor SMTP_USER/SMTP_PASS are set. Email delivery will fail until configured.');
+}
 
-// Verify transporter connection on startup
-transporter.verify((error) => {
-  if (error) {
-    console.error('SMTP connection error:', error.message);
+const ADMIN_EMAIL = process.env.EMAIL_RECEIVER || 'cloudstorageforphotos01@gmail.com';
+
+/**
+ * Unified email sender supporting Resend & Nodemailer
+ */
+async function sendMailHelper({ to, subject, html, replyTo, attachments = [] }) {
+  if (process.env.RESEND_API_KEY && resendClient) {
+    const fromAddress = process.env.EMAIL_FROM || 'Tech Combo <onboarding@resend.dev>';
+    const resendAttachments = attachments.map(att => ({
+      filename: att.filename,
+      content: Buffer.isBuffer(att.content) ? att.content.toString('base64') : att.content,
+    }));
+
+    const { data, error } = await resendClient.emails.send({
+      from: fromAddress,
+      to,
+      subject,
+      html,
+      reply_to: replyTo,
+      attachments: resendAttachments.length > 0 ? resendAttachments : undefined,
+    });
+
+    if (error) {
+      throw new Error(`Resend Error: ${error.message}`);
+    }
+    return data;
+  } else if (transporter) {
+    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_USER;
+    return await transporter.sendMail({
+      from: fromAddress,
+      to,
+      replyTo,
+      subject,
+      html,
+      attachments,
+    });
   } else {
-    console.log('SMTP server is ready to send emails.');
+    throw new Error('Email credentials are not configured on the server. Please set RESEND_API_KEY or SMTP_USER/SMTP_PASS in environment variables.');
   }
-});
-
-const FROM_ADDRESS = process.env.EMAIL_FROM || process.env.SMTP_USER;
-const ADMIN_EMAIL  = process.env.EMAIL_RECEIVER || 'chiragpardhi2004@gmail.com';
+}
 
 // ─── Contact Form ────────────────────────────────────────────────────────────
 app.post('/api/contact', async (req, res) => {
@@ -71,17 +104,16 @@ app.post('/api/contact', async (req, res) => {
     });
   }
 
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  if (!process.env.RESEND_API_KEY && (!process.env.SMTP_USER || !process.env.SMTP_PASS)) {
     return res.status(500).json({
       success: false,
-      message: 'Server Error: SMTP credentials are not configured.',
+      message: 'Server Error: Email service credentials are not configured on the backend server.',
     });
   }
 
   try {
     // 1. Notify admin
-    await transporter.sendMail({
-      from: FROM_ADDRESS,
+    await sendMailHelper({
       to: ADMIN_EMAIL,
       replyTo: email,
       subject: `New Contact Submission: ${subject}`,
@@ -113,8 +145,7 @@ app.post('/api/contact', async (req, res) => {
     // 2. Auto-reply to sender (best-effort)
     if (process.env.SEND_AUTO_REPLY !== 'false') {
       try {
-        await transporter.sendMail({
-          from: FROM_ADDRESS,
+        await sendMailHelper({
           to: email,
           subject: `Thank you for contacting Tech Combo`,
           html: `
@@ -166,10 +197,10 @@ app.post('/api/career', async (req, res) => {
     });
   }
 
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  if (!process.env.RESEND_API_KEY && (!process.env.SMTP_USER || !process.env.SMTP_PASS)) {
     return res.status(500).json({
       success: false,
-      message: 'Server Error: SMTP credentials are not configured.',
+      message: 'Server Error: Email service credentials are not configured on the backend server.',
     });
   }
 
@@ -185,8 +216,7 @@ app.post('/api/career', async (req, res) => {
     }
 
     // 1. Notify admin / HR
-    await transporter.sendMail({
-      from: FROM_ADDRESS,
+    await sendMailHelper({
       to: ADMIN_EMAIL,
       replyTo: email,
       subject: `New Job Application: ${job} — ${fullName}`,
@@ -221,8 +251,7 @@ app.post('/api/career', async (req, res) => {
     // 2. Auto-reply to applicant (best-effort)
     if (process.env.SEND_AUTO_REPLY !== 'false') {
       try {
-        await transporter.sendMail({
-          from: FROM_ADDRESS,
+        await sendMailHelper({
           to: email,
           subject: `Application Received: ${job} at Tech Combo`,
           html: `
@@ -265,11 +294,19 @@ app.post('/api/career', async (req, res) => {
 
 // ─── Health / Ping ────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
+  const provider = process.env.RESEND_API_KEY
+    ? 'Resend API'
+    : (process.env.SMTP_USER && process.env.SMTP_PASS)
+      ? 'Nodemailer (Gmail SMTP)'
+      : 'None';
+
   res.status(200).json({
     status: 'ok',
     message: 'Backend server is running.',
-    emailProvider: 'Nodemailer (Gmail SMTP)',
+    emailProvider: provider,
+    configured: Boolean(process.env.RESEND_API_KEY || (process.env.SMTP_USER && process.env.SMTP_PASS)),
     smtpConfigured: Boolean(process.env.SMTP_USER && process.env.SMTP_PASS),
+    resendConfigured: Boolean(process.env.RESEND_API_KEY),
   });
 });
 
@@ -277,9 +314,18 @@ app.get('/api/ping', (req, res) => {
   res.status(200).json({ status: 'alive', timestamp: new Date().toISOString() });
 });
 
+// ─── Global Error Handler ─────────────────────────────────────────────────────
+app.use((err, req, res, next) => {
+  console.error('Unhandled server error:', err);
+  res.status(500).json({
+    success: false,
+    message: err.message || 'Internal Server Error',
+  });
+});
+
 // ─── Start server ─────────────────────────────────────────────────────────────
 app.listen(port, () => {
-  console.log(`Server is running on port ${port} | Email provider: Nodemailer (Gmail SMTP)`);
+  console.log(`Server is running on port ${port}`);
 
   // Keep-alive self-ping every 10 minutes to prevent Render free tier cold starts
   if (process.env.NODE_ENV === 'production' || process.env.RENDER) {

@@ -42,7 +42,7 @@ const AboutMissionValues = () => {
           viewport={{ once: true }}
           className="mb-16"
         >
-     
+
 
           <h2 className="max-w-3xl text-4xl font-bold leading-tight text-[#071329] md:text-5xl">
             Technology with purpose,
@@ -190,9 +190,6 @@ const AboutMissionValues = () => {
                 className="group flex items-center gap-3"
               >
 
-                <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
-                  <FiCheck size={14} />
-                </span>
 
                 <span className="text-sm font-medium text-slate-600">
                   {value}

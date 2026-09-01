@@ -1,243 +1,373 @@
 import React, { useState } from "react";
 
 const techData = {
-    Frontend: [
-        {
-            name: "React JS",
-            logo: "https://cdn.simpleicons.org/react/61DAFB",
-        },
-        {
-            name: "Angular",
-            logo: "https://cdn.simpleicons.org/angular/DD0031",
-        },
-        {
-            name: "Java",
-            logo: "https://cdn.simpleicons.org/java/ED8B00",
-        },
-        {
-            name: "Vue JS",
-            logo: "https://cdn.simpleicons.org/vuedotjs/4FC08D",
-        },
-        {
-            name: "Next.js",
-            logo: "https://cdn.simpleicons.org/nextdotjs/000000",
-        },
-        {
-            name: "Svelte / SvelteKit",
-            logo: "https://cdn.simpleicons.org/svelte/FF3E00",
-        },
-    ],
+  Frontend: [
+    {
+      name: "React JS",
+      logo: "https://cdn.simpleicons.org/react/61DAFB",
+    },
+    {
+      name: "Angular",
+      logo: "https://cdn.simpleicons.org/angular/DD0031",
+    },
+    {
+      name: "Java",
+      logo: "https://static.cdnlogo.com/logos/j/11/java_800.png",
+    },
+    {
+      name: "Vue JS",
+      logo: "https://cdn.simpleicons.org/vuedotjs/4FC08D",
+    },
+    {
+      name: "Next.js",
+      logo: "https://cdn.simpleicons.org/nextdotjs/000000",
+    },
+    {
+      name: "Svelte / SvelteKit",
+      logo: "https://cdn.simpleicons.org/svelte/FF3E00",
+    },
+  ],
 
-    Backend: [
-        {
-            name: "Node.js",
-            logo: "https://cdn.simpleicons.org/nodedotjs/339933",
-        },
-        {
-            name: "Express.js",
-            logo: "https://cdn.simpleicons.org/express/000000",
-        },
-        {
-            name: "Python",
-            logo: "https://cdn.simpleicons.org/python/3776AB",
-        },
-        {
-            name: "Django",
-            logo: "https://cdn.simpleicons.org/django/092E20",
-        },
-        {
-            name: "PHP",
-            logo: "https://cdn.simpleicons.org/php/777BB4",
-        },
-        {
-            name: "Laravel",
-            logo: "https://cdn.simpleicons.org/laravel/FF2D20",
-        },
-    ],
+  Backend: [
+    {
+      name: "Node.js",
+      logo: "https://cdn.simpleicons.org/nodedotjs/339933",
+    },
+    {
+      name: "Express.js",
+      logo: "https://cdn.simpleicons.org/express/000000",
+    },
+    {
+      name: "Python",
+      logo: "https://cdn.simpleicons.org/python/3776AB",
+    },
+    {
+      name: "Django",
+      logo: "https://cdn.simpleicons.org/django/092E20",
+    },
+    {
+      name: "PHP",
+      logo: "https://cdn.simpleicons.org/php/777BB4",
+    },
+    {
+      name: "Laravel",
+      logo: "https://cdn.simpleicons.org/laravel/FF2D20",
+    },
+  ],
 
-    Database: [
-        {
-            name: "MySQL",
-            logo: "https://cdn.simpleicons.org/mysql/4479A1",
-        },
-        {
-            name: "PostgreSQL",
-            logo: "https://cdn.simpleicons.org/postgresql/4169E1",
-        },
-        {
-            name: "MongoDB",
-            logo: "https://cdn.simpleicons.org/mongodb/47A248",
-        },
-        {
-            name: "SQLite",
-            logo: "https://cdn.simpleicons.org/sqlite/003B57",
-        },
-        {
-            name: "Microsoft SQL Server",
-            logo: "https://cdn.simpleicons.org/microsoftsqlserver/CC2927",
-        },
-        {
-            name: "Redis",
-            logo: "https://cdn.simpleicons.org/redis/DC382D",
-        },
-        {
-            name: "Firebase",
-            logo: "https://cdn.simpleicons.org/firebase/FFCA28",
-        },
-    ],
+  Database: [
+    {
+      name: "MySQL",
+      logo: "https://cdn.simpleicons.org/mysql/4479A1",
+    },
+    {
+      name: "PostgreSQL",
+      logo: "https://cdn.simpleicons.org/postgresql/4169E1",
+    },
+    {
+      name: "MongoDB",
+      logo: "https://cdn.simpleicons.org/mongodb/47A248",
+    },
+    {
+      name: "SQLite",
+      logo: "https://cdn.simpleicons.org/sqlite/003B57",
+    },
+    {
+      name: "Microsoft SQL Server",
+      logo: "https://static.cdnlogo.com/logos/m/21/microsoft-sql-server.svg",
+    },
+    {
+      name: "Redis",
+      logo: "https://cdn.simpleicons.org/redis/DC382D",
+    },
+    {
+      name: "Firebase",
+      logo: "https://cdn.simpleicons.org/firebase/FFCA28",
+    },
+  ],
 };
 
 const tabs = [
-    {
-        number: "01",
-        name: "Frontend",
-    },
-    {
-        number: "02",
-        name: "Backend",
-    },
-    {
-        number: "03",
-        name: "Database",
-    },
+  {
+    number: "01",
+    name: "Frontend",
+  },
+  {
+    number: "02",
+    name: "Backend",
+  },
+  {
+    number: "03",
+    name: "Database",
+  },
 ];
 
 const Tech = () => {
-    const [activeTab, setActiveTab] = useState("Frontend");
+  const [activeTab, setActiveTab] = useState("Frontend");
 
-    return (
-        <section className="bg-white py-16 sm:py-20 lg:py-24">
-            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
+  return (
+    <section className="relative bg-[#f7f9fc] py-20 sm:py-24 lg:py-28 overflow-hidden">
 
-                {/* HEADER */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 mb-12">
+      {/* Background Shapes */}
+      <div className="absolute top-[-180px] right-[-120px] w-[450px] h-[450px] rounded-full bg-[#2864d7]/[0.06] blur-3xl" />
 
-                    <div>
-                        <p className="text-[#168bd2] text-xs font-bold tracking-[0.18em] uppercase mb-5">
-                            TECH STACK
-                        </p>
+      <div className="absolute bottom-[-200px] left-[-150px] w-[450px] h-[450px] rounded-full bg-[#168bd2]/[0.04] blur-3xl" />
 
-                        <h2 className="text-[#050b18] text-4xl sm:text-5xl lg:text-[64px] font-extrabold leading-[1] tracking-[-0.04em]">
-                            <span className="text-[#2864d7]">
-                                Tech Stack
-                            </span>{" "}
-                            We Leverage
-                            <br />
-                            For Web Development
-                        </h2>
-                    </div>
+      <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
 
-                    <div className="flex items-center">
-                        <p className="text-[#5d626b] text-base sm:text-lg lg:text-xl leading-7 max-w-[600px]">
-                            To deliver best-quality enterprise-grade web development
-                            services, our developers use cutting-edge frameworks and
-                            technologies. We select the right stack to build fast,
-                            scalable, secure, and user-friendly digital experiences.
-                        </p>
-                    </div>
+        {/* ================= HEADER ================= */}
 
-                </div>
+        <div className="text-center max-w-[850px] mx-auto">
 
+          <div className="inline-flex items-center gap-3 mb-6">
 
-                {/* TABS */}
-                <div className="grid grid-cols-3 max-w-[650px] border-b border-[#e5eaf0] mb-10">
+            <span className="w-8 h-[1px] bg-[#2864d7]" />
 
-                    {tabs.map((tab) => {
-                        const isActive = activeTab === tab.name;
+            <span className="text-[#2864d7] text-xs font-bold tracking-[0.2em]">
+              TECHNOLOGY
+            </span>
 
-                        return (
-                            <button
-                                key={tab.name}
-                                type="button"
-                                onClick={() => setActiveTab(tab.name)}
-                                className={`
-                  relative
-                  text-left
-                  pb-5
-                  transition-all
-                  duration-300
-                  ${isActive
-                                        ? "text-[#2864d7]"
-                                        : "text-[#666b73] hover:text-[#2864d7]"
-                                    }
-                `}
-                            >
-                                <div className="text-xl sm:text-2xl font-medium">
-                                    {tab.number}
-                                </div>
+            <span className="w-8 h-[1px] bg-[#2864d7]" />
 
-                                <div className="mt-3 text-sm sm:text-base font-medium">
-                                    {tab.name}
-                                </div>
+          </div>
 
-                                {isActive && (
-                                    <span className="absolute left-0 bottom-[-1px] w-full h-[3px] bg-[#2864d7]" />
-                                )}
-                            </button>
-                        );
-                    })}
+          <h2 className="text-[#07111f] text-4xl sm:text-5xl lg:text-[64px] font-extrabold leading-[1] tracking-[-0.05em]">
 
-                </div>
+            <span className="text-[#2864d7]">
+              Technologies
+            </span>{" "}
+
+            That Power
+
+            <br />
+
+            Digital Experiences
+
+          </h2>
+
+          <p className="mt-7 text-[#69717d] text-base sm:text-lg leading-7 max-w-[650px] mx-auto">
+            We combine modern frameworks, powerful backend systems and
+            reliable databases to create digital products built for
+            performance, scalability and long-term growth.
+          </p>
+
+        </div>
 
 
-                {/* TECHNOLOGY GRID */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-t border-l border-[#e4e9ef]">
+        {/* ================= TABS ================= */}
 
-                    {techData[activeTab].map((tech) => (
-                        <div
-                            key={tech.name}
-                            className="
+        <div className="flex justify-center mt-12 sm:mt-14">
+
+          <div className="inline-flex items-center p-1.5 bg-white rounded-full border border-[#e3e8ef] shadow-sm">
+
+            {tabs.map((tab) => {
+
+              const active = activeTab === tab.name;
+
+              return (
+                <button
+                  key={tab.name}
+                  onClick={() => setActiveTab(tab.name)}
+                  className={`
+                    relative
+                    flex items-center
+                    gap-2.5
+                    px-5 sm:px-7
+                    py-3
+                    rounded-full
+                    text-sm
+                    font-semibold
+                    transition-all
+                    duration-300
+                    ${
+                      active
+                        ? "bg-[#2864d7] text-white shadow-[0_8px_25px_rgba(40,100,215,0.25)]"
+                        : "text-[#737b86] hover:text-[#2864d7]"
+                    }
+                  `}
+                >
+
+                  <span
+                    className={`
+                      text-[10px]
+                      font-bold
+                      ${
+                        active
+                          ? "text-white/60"
+                          : "text-[#a6adb6]"
+                      }
+                    `}
+                  >
+                    {tab.number}
+                  </span>
+
+                  {tab.name}
+
+                </button>
+              );
+
+            })}
+
+          </div>
+
+        </div>
+
+
+        {/* ================= TECHNOLOGIES ================= */}
+
+        <div
+          key={activeTab}
+          className="
+            mt-16
+            grid
+            grid-cols-2
+            sm:grid-cols-3
+            lg:grid-cols-6
+            gap-x-5
+            gap-y-8
+            sm:gap-y-10
+          "
+        >
+
+          {techData[activeTab].map((tech, index) => (
+
+            <div
+              key={tech.name}
+              className={`
                 group
-                h-[210px]
-                sm:h-[240px]
-                lg:h-[280px]
-                border-r
-                border-b
-                border-[#e4e9ef]
+                relative
                 flex
                 flex-col
                 items-center
-                justify-center
                 text-center
                 transition-all
-                duration-300
-                hover:bg-[#f8fbfe]
-                hover:border-[#2864d7]
-              "
-                        >
+                duration-500
+                ${
+                  index % 2 === 1
+                    ? "lg:translate-y-8"
+                    : ""
+                }
+              `}
+            >
 
-                            <div className="
-                w-16
-                h-16
-                sm:w-20
-                sm:h-20
-                flex
-                items-center
-                justify-center
-                mb-5
-                transition-transform
-                duration-300
-                group-hover:scale-110
-              ">
-                                <img
-                                    src={tech.logo}
-                                    alt={tech.name}
-                                    className="w-full h-full object-contain"
-                                />
-                            </div>
+              {/* Logo Circle */}
 
-                            <p className="text-[#111827] text-xs sm:text-sm font-medium px-3">
-                                {tech.name}
-                            </p>
+              <div
+                className="
+                  relative
+                  w-[100px]
+                  h-[100px]
+                  sm:w-[115px]
+                  sm:h-[115px]
+                  rounded-full
+                  bg-white
+                  flex
+                  items-center
+                  justify-center
+                  shadow-[0_12px_40px_rgba(20,40,70,0.07)]
+                  border
+                  border-white
+                  transition-all
+                  duration-500
+                  group-hover:-translate-y-3
+                  group-hover:shadow-[0_25px_55px_rgba(40,100,215,0.15)]
+                "
+              >
 
-                        </div>
-                    ))}
+                {/* Outer Ring */}
 
-                </div>
+                <div
+                  className="
+                    absolute
+                    inset-[-7px]
+                    rounded-full
+                    border
+                    border-[#2864d7]/0
+                    group-hover:border-[#2864d7]/20
+                    transition-all
+                    duration-500
+                  "
+                />
+
+                <img
+                  src={tech.logo}
+                  alt={tech.name}
+                  className="
+                    w-11
+                    h-11
+                    sm:w-14
+                    sm:h-14
+                    object-contain
+                    transition-transform
+                    duration-500
+                    group-hover:scale-110
+                  "
+                />
+
+              </div>
+
+
+              {/* Connector */}
+
+              <div
+                className="
+                  w-px
+                  h-7
+                  bg-gradient-to-b
+                  from-[#2864d7]/30
+                  to-transparent
+                  mt-3
+                "
+              />
+
+
+              {/* Name */}
+
+              <p
+                className="
+                  text-[#17202d]
+                  text-sm
+                  font-semibold
+                  leading-5
+                  max-w-[130px]
+                  transition-colors
+                  duration-300
+                  group-hover:text-[#2864d7]
+                "
+              >
+                {tech.name}
+              </p>
 
             </div>
-        </section>
-    );
+
+          ))}
+
+        </div>
+
+
+        {/* ================= BOTTOM ================= */}
+
+        <div className="mt-20 flex items-center gap-5">
+
+          <div className="flex-1 h-px bg-[#dfe5ec]" />
+
+          <div className="flex items-center gap-2">
+
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2864d7]" />
+
+
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2864d7]" />
+
+          </div>
+
+          <div className="flex-1 h-px bg-[#dfe5ec]" />
+
+        </div>
+
+      </div>
+
+    </section>
+  );
 };
 
 export default Tech;
