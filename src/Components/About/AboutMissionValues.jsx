@@ -161,45 +161,39 @@ const AboutMissionValues = () => {
           className="mt-20 border-t border-gray-200 pt-14"
         >
 
-          <div className="mb-10 flex items-end justify-between">
+          
 
-            <div>
-              <p className="mb-2 text-xs font-semibold tracking-[3px] text-blue-600">
-                WHAT WE BELIEVE IN
-              </p>
+            <div className="flex mb-10 gap-4">
+
+              
+            <FiAward
+              size={30}
+              className="hidden text-blue-500 sm:block"
+            />
 
               <h3 className="text-3xl font-bold text-[#071329]">
                 Our Values
               </h3>
             </div>
 
-            <FiAward
-              size={30}
-              className="hidden text-blue-500 sm:block"
-            />
-
-          </div>
+          
 
 
           {/* VALUES */}
-          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-3">
-
+          <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3">
             {values.map((value) => (
               <div
-                key={value}
-                className="group flex items-center gap-3"
+              key={value}
+              className="group flex items-center gap-3 rounded-lg px-3 py-2 transition-all duration-200 hover:bg-slate-50"
               >
+             <span className="h-1.5 w-1.5 rounded-full bg-slate-400 transition-all duration-200 group-hover:scale-125 group-hover:bg-slate-900" />
 
-
-                <span className="text-sm font-medium text-slate-600">
-                  {value}
-                </span>
-
-              </div>
+             <span className="text-sm font-medium text-slate-600 transition-colors duration-200 group-hover:text-slate-900">
+            {value}
+            </span>
+           </div>
             ))}
-
-          </div>
-
+         </div>
         </motion.div>
 
       </div>
