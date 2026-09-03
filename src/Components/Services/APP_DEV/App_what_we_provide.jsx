@@ -1,66 +1,107 @@
 import React from "react";
-import { FiArrowUpRight } from "react-icons/fi";
+import {
+    FiArrowUpRight,
+    FiSmartphone,
+    FiRefreshCw,
+    FiDatabase,
+    FiUploadCloud,
+    FiPenTool,
+} from "react-icons/fi";
 
 const services = [
     {
+        category: "Mobile Development",
         title: "Native iOS & Android Development",
         description:
             "High-performance native mobile apps built specifically for iOS (Swift) and Android (Kotlin) platforms.",
+        icon: FiSmartphone,
+        bg: "bg-[#edf6ff]",
+        iconBg: "bg-[#dff0ff]",
+        iconColor: "text-[#168bd2]",
     },
     {
+        category: "Cross-Platform",
         title: "Cross-Platform Apps (React Native / Flutter)",
         description:
             "Deliver native-like experiences on both iOS and Android from a single unified codebase.",
+        icon: FiRefreshCw,
+        bg: "bg-[#eefaf6]",
+        iconBg: "bg-[#dcf5eb]",
+        iconColor: "text-[#159b72]",
     },
     {
+        category: "Data & Synchronization",
         title: "Offline-First Synchronization",
         description:
             "Ensure seamless user experience with reliable local database storage and background data sync.",
+        icon: FiDatabase,
+        bg: "bg-[#fff0f4]",
+        iconBg: "bg-[#ffe1e9]",
+        iconColor: "text-[#e84770]",
     },
     {
+        category: "App Publishing",
         title: "App Store Compliance & Publishing",
         description:
             "End-to-end guidance for Apple App Store and Google Play Store submission and compliance.",
+        icon: FiUploadCloud,
+        bg: "bg-[#f3efff]",
+        iconBg: "bg-[#e8e0ff]",
+        iconColor: "text-[#7956d8]",
     },
     {
+        category: "UI / UX Design",
         title: "Mobile UI/UX Design & Prototyping",
         description:
             "Intuitive, user-centered mobile design interfaces designed for maximum user retention and engagement.",
+        icon: FiPenTool,
+        bg: "bg-[#fff7e9]",
+        iconBg: "bg-[#ffedca]",
+        iconColor: "text-[#df9600]",
     },
 ];
 
 const App_what_we_provide = () => {
     return (
-        <section className="bg-[#fdfaf5] py-20 sm:py-24 lg:py-28 overflow-hidden">
-            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
+        <section className="overflow-hidden bg-[#fdfaf5] px-5 py-15 sm:px-8 sm:py-24 lg:px-16 lg:py-28">
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+            <div className="mx-auto max-w-[1400px]">
+
+                <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
+
 
                     {/* ================= LEFT ================= */}
+
                     <div className="lg:h-[650px]">
+
                         <div className="lg:sticky lg:top-24">
 
-                            <p className="
-                                text-[#168bd2]
-                                text-[10px]
-                                sm:text-xs
-                                font-bold
-                                tracking-[0.18em]
-                                uppercase
-                            ">
+                            <p
+                                className="
+                                    text-[10px]
+                                    font-bold
+                                    uppercase
+                                    tracking-[0.18em]
+                                    text-[#168bd2]
+                                    sm:text-xs
+                                "
+                            >
                                 WHAT WE PROVIDE
                             </p>
 
-                            <h2 className="
-                                mt-4
-                                text-[#082b55]
-                                font-extrabold
-                                tracking-[-0.045em]
-                                leading-[0.95]
-                                text-5xl
-                                sm:text-6xl
-                                lg:text-[72px]
-                            ">
+
+                            <h2
+                                className="
+                                    mt-4
+                                    text-5xl
+                                    font-extrabold
+                                    leading-[0.95]
+                                    tracking-[-0.045em]
+                                    text-[#082b55]
+                                    sm:text-6xl
+                                    lg:text-[72px]
+                                "
+                            >
                                 What We
                                 <br />
 
@@ -69,143 +110,213 @@ const App_what_we_provide = () => {
                                 </span>
                             </h2>
 
-                            <p className="
-                                mt-6
-                                text-[#55708e]
-                                text-base
-                                sm:text-lg
-                                leading-7
-                                max-w-[470px]
-                            ">
+
+                            <p
+                                className="
+                                    mt-6
+                                    max-w-[470px]
+                                    text-base
+                                    leading-7
+                                    text-[#55708e]
+                                    sm:text-lg
+                                "
+                            >
                                 We build powerful mobile experiences that combine
                                 performance, usability, and scalable technology.
                             </p>
 
                         </div>
+
                     </div>
 
 
                     {/* ================= RIGHT ================= */}
+
                     <div className="relative">
 
                         <div
                             className="
+                                space-y-4
                                 lg:h-[650px]
                                 lg:overflow-y-auto
                                 lg:pr-4
-                                space-y-5
-                                lg:[scrollbar-width:thin]
                                 lg:[scrollbar-color:#cbd5e1_transparent]
+                                lg:[scrollbar-width:thin]
                             "
                         >
 
-                            {services.map((service, index) => (
-                                <div
-                                    key={index}
-                                    className="
-                                        group
-                                        bg-white
-                                        border
-                                        border-[#e5e7eb]
-                                        rounded-2xl
-                                        p-6
-                                        sm:p-8
-                                        min-h-[230px]
-                                        transition-all
-                                        duration-300
-                                        hover:border-[#168bd2]
-                                        hover:-translate-y-1
-                                        hover:shadow-[0_15px_40px_rgba(8,43,85,0.08)]
-                                    "
-                                >
+                            {services.map((service, index) => {
 
-                                    {/* TOP */}
-                                    <div className="flex items-center justify-between">
+                                const Icon = service.icon;
 
-                                        <span className="
-                                            text-[#168bd2]
-                                            text-xs
-                                            font-bold
-                                            tracking-[0.15em]
-                                        ">
-                                            0{index + 1}
-                                        </span>
-
-                                        <div className="
-                                            w-10
-                                            h-10
-                                            rounded-full
+                                return (
+                                    <div
+                                        key={index}
+                                        className={`
+                                            group
+                                            relative
+                                            overflow-hidden
+                                            rounded-xl
                                             border
-                                            border-[#dce5ed]
-                                            flex
-                                            items-center
-                                            justify-center
-                                            text-[#082b55]
+                                            border-black/[0.06]
+                                            ${service.bg}
+                                            p-6
                                             transition-all
                                             duration-300
-                                            group-hover:bg-[#168bd2]
-                                            group-hover:text-white
-                                            group-hover:border-[#168bd2]
-                                        ">
-                                            <FiArrowUpRight size={19} />
+                                            hover:-translate-y-1
+                                            hover:bg-white
+                                            hover:shadow-[0_12px_30px_rgba(8,43,85,0.08)]
+                                            sm:p-7
+                                        `}
+                                    >
+
+                                        {/* ================= TOP ================= */}
+
+                                        <div className="flex items-start justify-between">
+
+                                            {/* Icon */}
+
+                                            <div
+                                                className={`
+                                                    flex
+                                                    h-9
+                                                    w-9
+                                                    items-center
+                                                    justify-center
+                                                    rounded-lg
+                                                    ${service.iconBg}
+                                                    ${service.iconColor}
+                                                `}
+                                            >
+                                                <Icon size={16} />
+                                            </div>
+
+
+                                            {/* Small Number */}
+
+                                            <span
+                                                className={`
+                                                    text-[10px]
+                                                    font-bold
+                                                    ${service.iconColor}
+                                                    opacity-60
+                                                `}
+                                            >
+                                                0{index + 1}
+                                            </span>
+
                                         </div>
 
+
+                                        {/* ================= CATEGORY ================= */}
+
+                                        <div className="mt-4">
+
+                                            <span
+                                                className={`
+                                                    inline-flex
+                                                    rounded-full
+                                                    px-2.5
+                                                    py-1
+                                                    text-[9px]
+                                                    font-bold
+                                                    ${service.iconBg}
+                                                    ${service.iconColor}
+                                                `}
+                                            >
+                                                {service.category}
+                                            </span>
+
+                                        </div>
+
+
+                                        {/* ================= TITLE ================= */}
+
+                                        <h3
+                                            className="
+                                                mt-3
+                                                max-w-[600px]
+                                                text-lg
+                                                font-bold
+                                                leading-[1.3]
+                                                tracking-[-0.015em]
+                                                text-[#082b55]
+                                                sm:text-xl
+                                            "
+                                        >
+                                            {service.title}
+                                        </h3>
+
+
+                                        {/* ================= DESCRIPTION ================= */}
+
+                                        <p
+                                            className="
+                                                mt-2.5
+                                                max-w-[650px]
+                                                text-sm
+                                                leading-6
+                                                text-[#667f96]
+                                                sm:text-[15px]
+                                            "
+                                        >
+                                            {service.description}
+                                        </p>
+
+
+                                        {/* ================= BOTTOM ================= */}
+
+                                                    
+
+                                        {/* ================= DECORATIVE NUMBER ================= */}
+
+                                        <span
+                                            className="
+                                                pointer-events-none
+                                                absolute
+                                                -bottom-8
+                                                -right-2
+                                                text-[100px]
+                                                font-black
+                                                leading-none
+                                                tracking-[-8px]
+                                                text-black/[0.025]
+                                                transition-all
+                                                duration-500
+                                                group-hover:text-[#168bd2]/[0.035]
+                                            "
+                                        >
+                                            {index + 1}
+                                        </span>
+
                                     </div>
-
-
-                                    {/* TITLE */}
-                                    <h3 className="
-                                        mt-7
-                                        text-[#082b55]
-                                        text-xl
-                                        sm:text-2xl
-                                        font-bold
-                                        leading-snug
-                                        max-w-[600px]
-                                    ">
-                                        {service.title}
-                                    </h3>
-
-
-                                    {/* DESCRIPTION */}
-                                    <p className="
-                                        mt-4
-                                        text-[#667f96]
-                                        text-sm
-                                        sm:text-base
-                                        leading-7
-                                        max-w-[620px]
-                                    ">
-                                        {service.description}
-                                    </p>
-
-                                </div>
-                            ))}
+                                );
+                            })}
 
                         </div>
 
 
-                        {/* SCROLL INDICATOR */}
-                        <div className="
-                            hidden
-                            lg:flex
-                            flex-col
-                            items-center
-                            justify-center
-                            text-amber-700
-                            pt-4
-                        ">
-                            <div className="text-sm font-semibold">
+                        {/* ================= SCROLL INDICATOR ================= */}
+
+                        <div
+                            className="
+                                hidden
+                                flex-col
+                                items-center
+                                justify-center
+                                pt-4
+                                lg:flex
+                            "
+                        >
+
+                            <div className="text-xs font-semibold text-[#55708e]">
                                 Scroll Here
                             </div>
 
-                            <span className="
-                                text-3xl
-                                text-violet-800
-                                animate-bounce
-                            ">
+                            <span className="animate-bounce text-2xl text-[#168bd2]">
                                 ↓
                             </span>
+
                         </div>
 
                     </div>
@@ -213,6 +324,7 @@ const App_what_we_provide = () => {
                 </div>
 
             </div>
+
         </section>
     );
 };

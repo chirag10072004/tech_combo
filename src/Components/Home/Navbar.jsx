@@ -97,7 +97,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-7">
+          <div className="hidden lg:flex  justify-between gap-7">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -106,7 +106,7 @@ const Navbar = () => {
                   text-sm
                   font-semibold
                   text-slate-900
-                  hover:text-blue-600
+                  hover:text-green-900
                   transition-colors
                   duration-200
                   whitespace-nowrap

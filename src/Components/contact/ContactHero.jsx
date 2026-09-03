@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 const ContactHero = () => {
   return (
-    <section className="relative lg:pt-40 pb-20 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-white">
+    <section className="relative lg:pt-40 pb-20 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-white pt-25">
       {/* Dynamic Background Glows */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-sky-100/30 rounded-full blur-[100px] pointer-events-none" />

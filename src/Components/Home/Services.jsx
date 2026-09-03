@@ -44,7 +44,7 @@ const Services = () => {
   ]
 
   return (
-    <section className="bg-[#97e183] px-6 py-16 overflow-hidden">
+    <section className="bg-gray-300 px-6 py-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
 
         {/* Heading */}
@@ -53,7 +53,7 @@ const Services = () => {
             Our IT Services
           </h2>
 
-          <div className="w-12 h-1 bg-green-700 rounded-full mx-auto my-4" />
+          <div className="w-12 h-1 bg-black rounded-full mx-auto my-4" />
 
           <p className="max-w-2xl mx-auto text-sm md:text-base text-[#183b2b]">
             We take software tasks from requirements to deployment and support,

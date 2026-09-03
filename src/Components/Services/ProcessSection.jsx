@@ -1,168 +1,153 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { FiSearch, FiTarget, FiLayers, FiCheckSquare, FiSend } from 'react-icons/fi'
+import React, { useState } from "react";
 
 const ProcessSection = () => {
+  const [flipped, setFlipped] = useState(null);
+
   const steps = [
     {
-      id: 1,
-      number: '01',
-      title: 'Requirement Analysis',
-      desc: 'We gather and analyze your requirements to create a robust software roadmap.',
-      icon: <FiSearch className="h-6 w-6" />,
+      number: "01",
+      title: "Requirement Analysis",
+      desc: "We gather and analyze your requirements to create a robust software roadmap.",
+      image: "/assets/Home/process/Requirment.png",
     },
     {
-      id: 2,
-      number: '02',
-      title: 'Planning & Strategy',
-      desc: 'We design the architecture, select the tech stack, and structure project phases.',
-      icon: <FiTarget className="h-6 w-6" />,
+      number: "02",
+      title: "Planning & Strategy",
+      desc: "We design the architecture, select the tech stack, and structure project phases.",
+      image: "/assets/Home/process/planning.png",
     },
     {
-      id: 3,
-      number: '03',
-      title: 'Design & Development',
-      desc: 'Our engineers build clean, high-performance, and scalable digital solutions.',
-      icon: <FiLayers className="h-6 w-6" />,
+      number: "03",
+      title: "Design & Development",
+      desc: "Our engineers build clean, high-performance, and scalable digital solutions.",
+      image: "/assets/Home/process/Devlopment.png",
     },
     {
-      id: 4,
-      number: '04',
-      title: 'Testing & QA',
-      desc: 'We perform rigorous quality assurance checks to ensure reliable, bug-free software solutions.',
-      icon: <FiCheckSquare className="h-6 w-6" />,
+      number: "04",
+      title: "Testing & QA",
+      desc: "We perform rigorous quality assurance checks to ensure reliable, bug-free software solutions.",
+      image: "/assets/Home/process/Testing.png",
     },
     {
-      id: 5,
-      number: '05',
-      title: 'Deployment & Support',
-      desc: 'We deploy the application smoothly and provide 24/7 post-launch maintenance.',
-      icon: <FiSend className="h-6 w-6" />,
+      number: "05",
+      title: "Deployment & Support",
+      desc: "We deploy the application smoothly and provide 24/7 post-launch maintenance.",
+      image: "/assets/Home/process/Deploy.png",
     },
-  ]
-
-  // Animation variants
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.12
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' }
-    }
-  }
+  ];
 
   return (
-    <section className="relative py-24 bg-white overflow-hidden">
-      {/* Background soft gradients */}
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
+    <section className="py-20">
+      <div className="mx-auto max-w-[1600px] px-5 lg:px-6">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* HEADING */}
+        <div className="mb-12 max-w-2xl">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+            Our Process
+          </p>
 
-        {/* Section Header */}
-        <div className="text-center space-y-4 mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="flex flex-col items-center"
-          >
-
-            <div className="w-8 h-[2px] bg-green-600 mt-2 rounded" />
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-bold tracking-tight text-[#071329]"
-          >
+          <h2 className="text-4xl font-bold text-slate-900 lg:text-5xl">
             How We Work
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-slate-500 max-w-xl mx-auto text-sm sm:text-base font-normal"
-          >
-            From alignment to delivery, we follow a transparent and streamlined approach.
-          </motion.p>
+          </h2>
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative">
+        {/* CARDS */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+          {steps.map((step, index) => (
+            <div
+              key={step.number}
+              className="group h-[400px] cursor-pointer [perspective:1000px]"
+              onClick={() =>
+                setFlipped(flipped === index ? null : index)
+              }
+            >
+              <div
+                className={`
+                  relative h-full w-full
+                  transition-transform duration-700
+                  [transform-style:preserve-3d]
 
-          {/* Horizontal connecting line (Desktop only) */}
-          <div className="absolute top-[35px] left-8 right-8 h-[2px] border-t border-dashed border-blue-200 z-0 hidden lg:block" />
+                  /* CLICK */
+                  ${flipped === index ? "[transform:rotateY(180deg)]" : ""}
 
-          {/* Vertical connecting line (Mobile/Tablet only) */}
-          <div className="absolute left-[31px] top-8 bottom-8 w-[2px] border-l border-dashed border-blue-200 z-0 lg:hidden" />
-
-          {/* Steps Grid */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-6 relative z-10"
-          >
-            {steps.map((step) => (
-              <motion.div
-                key={step.id}
-                variants={itemVariants}
-                className="relative flex flex-row lg:flex-col items-start lg:items-center group"
+                  /* HOVER */
+                  group-hover:[transform:rotateY(180deg)]
+                `}
               >
 
-                {/* Visual Connector Node & Number Badge */}
-                <div className="flex-shrink-0 flex items-center justify-center w-[64px] h-[64px] lg:mb-8 rounded-full bg-white border-2 border-blue-100 text-green-600 shadow-md group-hover:border-green-600 group-hover:shadow-[0_4px_15px_rgba(37,99,235,0.2)] transition-all duration-300 relative z-10">
-                  <span className="text-sm font-bold font-mono">{step.number}</span>
-                </div>
+                {/* BACK / IMAGE
+                    This is visible initially
+                */}
+                <div
+                  className="
+                    absolute inset-0
+                    overflow-hidden rounded-2xl
+                    bg-slate-900
+                    [backface-visibility:hidden]
+                  "
+                >
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="h-full w-full object-cover"
+                  />
 
-                {/* Content Card (placed next to node on mobile, below on desktop) */}
-                <div className="ml-6 lg:ml-0 lg:text-center flex-grow flex flex-col items-start lg:items-center space-y-4">
+                  <div className="absolute inset-0 bg-black/20" />
 
-                  {/* Card wrapper to resemble high-end container */}
-                  <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-[0_15px_35px_rgba(37,99,235,0.06)] hover:-translate-y-1 transition-all duration-300 w-full flex flex-col items-start lg:items-center text-left lg:text-center space-y-4">
-                    {/* Icon container */}
-                    <div className="p-3 rounded-xl bg-blue-50 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
-                      {step.icon}
-                    </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <span className="text-sm font-bold text-white/70">
+                      {step.number}
+                    </span>
 
-                    {/* Step Title */}
-                    <h3 className="text-base sm:text-lg font-bold text-[#071329] group-hover:text-green-600 transition-colors duration-300">
+                    <h3 className="mt-2 text-2xl font-bold text-white">
                       {step.title}
                     </h3>
-
-                    {/* Step Desc */}
-                    <p className="text-xs sm:text-sm text-slate-500 font-light leading-relaxed">
-                      {step.desc}
-                    </p>
                   </div>
-
                 </div>
 
-              </motion.div>
-            ))}
-          </motion.div>
+                {/* FRONT / CONTENT
+                    This appears after flip
+                */}
+                <div
+                  className="
+                    absolute inset-0
+                    rounded-2xl
+                    border border-slate-200
+                    bg-white p-6
+                    [backface-visibility:hidden]
+                    [transform:rotateY(180deg)]
+                  "
+                >
+                  <div className="flex h-full flex-col">
 
+                    <span className="text-sm font-bold text-slate-400">
+                      {step.number}
+                    </span>
+
+                    <div className="mt-auto">
+
+                      <h3 className="text-2xl font-bold text-slate-900">
+                        {step.title}
+                      </h3>
+
+                      <div className="my-5 h-px bg-slate-200" />
+
+                      <p className="text-base leading-7 text-slate-600 font-normal">
+                        {step.desc}
+                      </p>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ProcessSection
+export default ProcessSection;

@@ -18,7 +18,7 @@ const AppDevelopment = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="pt-20 lg:pt-24">
+      <div className="pt-20 lg:pt-5 ">
         <App_Hero />
       </div>
 

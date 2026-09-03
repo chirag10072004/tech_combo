@@ -145,7 +145,6 @@ const AboutMissionValues = () => {
               a measurable digital footprint.
             </p>
 
-            <div className="mt-6 h-[2px] w-12 bg-orange-400" />
 
           </div>
 
@@ -158,7 +157,7 @@ const AboutMissionValues = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-20 border-t border-gray-200 pt-14"
+          className=" mt-5 pt-14"
         >
 
           
