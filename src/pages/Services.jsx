@@ -5,6 +5,7 @@ import HomeServices from '../Components/Home/Services'
 import ProcessSection from '../Components/Services/ProcessSection'
 import ServicesCTA from '../Components/Services/ServicesCTA'
 import Footer from '../Components/Home/Footer'
+import WhyChooseUs from '../Components/Services/WhyChooseUs'
 
 const Services = () => {
   // Reset scroll position on page mount
@@ -25,6 +26,8 @@ const Services = () => {
 
       {/* Process Section */}
       <ProcessSection />
+
+      <WhyChooseUs/>
 
       {/* Call to Action Section */}
       <ServicesCTA />

@@ -132,7 +132,7 @@ const Process = () => {
                         <motion.p
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
-                          className="mt-3 text-sm leading-6 text-gray-800"
+                          className="mt-3 text-sm leading-6 text-gray-800 font-mono"
                         >
                           {step.description}
                         </motion.p>

@@ -7,142 +7,273 @@ const ProcessSection = () => {
     {
       number: "01",
       title: "Requirement Analysis",
+      subtitle: "Understanding your vision",
       desc: "We gather and analyze your requirements to create a robust software roadmap.",
+      points: ["Business goals", "Project requirements"],
       image: "/assets/Home/process/Requirment.png",
     },
     {
       number: "02",
       title: "Planning & Strategy",
+      subtitle: "Creating the right direction",
       desc: "We design the architecture, select the tech stack, and structure project phases.",
+      points: ["Tech stack", "Project roadmap"],
       image: "/assets/Home/process/planning.png",
     },
     {
       number: "03",
       title: "Design & Development",
+      subtitle: "Turning ideas into reality",
       desc: "Our engineers build clean, high-performance, and scalable digital solutions.",
+      points: ["UI/UX design", "Development"],
       image: "/assets/Home/process/Devlopment.png",
     },
     {
       number: "04",
       title: "Testing & QA",
+      subtitle: "Ensuring reliable quality",
       desc: "We perform rigorous quality assurance checks to ensure reliable, bug-free software solutions.",
+      points: ["Quality testing", "Bug fixing"],
       image: "/assets/Home/process/Testing.png",
     },
     {
       number: "05",
       title: "Deployment & Support",
+      subtitle: "Launching with confidence",
       desc: "We deploy the application smoothly and provide 24/7 post-launch maintenance.",
+      points: ["Deployment", "Ongoing support"],
       image: "/assets/Home/process/Deploy.png",
     },
   ];
 
   return (
-    <section className="py-20">
-      <div className="mx-auto max-w-[1600px] px-5 lg:px-6">
+    <section className="bg-white py-20 lg:py-20">
+      <div className="mx-auto max-w-[1600px] px-5 sm:px-8 lg:px-10">
 
-        {/* HEADING */}
-        <div className="mb-12 max-w-2xl">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
-            Our Process
-          </p>
+        {/* ================= HEADER ================= */}
 
-          <h2 className="text-4xl font-bold text-slate-900 lg:text-5xl">
+        <div className="mb-11">
+
+          <div className="mb-3 flex items-center gap-3">
+            <span className="h-px w-8 bg-[#51c982]" />
+
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#42b875]">
+              Our Process
+            </span>
+          </div>
+
+          <h2 className="text-4xl font-bold tracking-tight text-[#0b172a] sm:text-5xl">
             How We Work
           </h2>
+
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[#64748b] sm:text-[15px]">
+            A simple and structured process that turns your ideas into
+            reliable digital solutions.
+          </p>
+
         </div>
 
-        {/* CARDS */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+        {/* ================= CARDS ================= */}
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+
           {steps.map((step, index) => (
+
             <div
               key={step.number}
-              className="group h-[400px] cursor-pointer [perspective:1000px]"
+              className="group h-[365px] cursor-pointer [perspective:1200px]"
               onClick={() =>
                 setFlipped(flipped === index ? null : index)
               }
             >
+
               <div
                 className={`
                   relative h-full w-full
                   transition-transform duration-700
                   [transform-style:preserve-3d]
 
-                  /* CLICK */
-                  ${flipped === index ? "[transform:rotateY(180deg)]" : ""}
+                  ${
+                    flipped === index
+                      ? "[transform:rotateY(180deg)]"
+                      : ""
+                  }
 
-                  /* HOVER */
-                  group-hover:[transform:rotateY(180deg)]
+                  lg:group-hover:[transform:rotateY(180deg)]
                 `}
               >
 
-                {/* BACK / IMAGE
-                    This is visible initially
-                */}
+                {/* ================= IMAGE SIDE ================= */}
+
                 <div
                   className="
                     absolute inset-0
-                    overflow-hidden rounded-2xl
-                    bg-slate-900
+                    overflow-hidden
+                    rounded-[20px]
+                    bg-[#0b172a]
                     [backface-visibility:hidden]
                   "
                 >
+
                   <img
                     src={step.image}
                     alt={step.title}
-                    className="h-full w-full object-cover"
+                    className="
+                      h-full w-full
+                      object-cover
+                      transition-transform
+                      duration-700
+                      group-hover:scale-105
+                    "
                   />
 
-                  <div className="absolute inset-0 bg-black/20" />
+                  {/* Overlay */}
 
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <span className="text-sm font-bold text-white/70">
-                      {step.number}
-                    </span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/5" />
 
-                    <h3 className="mt-2 text-2xl font-bold text-white">
+                  {/* Number */}
+
+                  <div className="absolute left-5 top-5">
+
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-black/20 backdrop-blur-sm">
+
+                      <span className="text-[11px] font-semibold text-white">
+                        {step.number}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  {/* Content */}
+
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+
+                    <div className="mb-3 h-[2px] w-8 bg-[#63d88f]" />
+
+                    <h3 className="max-w-[200px] text-[19px] font-semibold leading-[1.2] text-white">
                       {step.title}
                     </h3>
+
+                    <p className="mt-2 text-[11px] leading-4 text-white/65">
+                      {step.subtitle}
+                    </p>
+
+                    <div className="mt-4 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#6ee19a]">
+                      Click to explore →
+                    </div>
+
                   </div>
+
                 </div>
 
-                {/* FRONT / CONTENT
-                    This appears after flip
-                */}
+                {/* ================= CONTENT SIDE ================= */}
+
                 <div
                   className="
                     absolute inset-0
-                    rounded-2xl
-                    border border-slate-200
-                    bg-white p-6
+                    overflow-hidden
+                    rounded-[20px]
+                    border border-[#dfe8e2]
+                    bg-[#f8fbf9]
+                    p-6
                     [backface-visibility:hidden]
                     [transform:rotateY(180deg)]
                   "
                 >
-                  <div className="flex h-full flex-col">
 
-                    <span className="text-sm font-bold text-slate-400">
+                  {/* Small decorative circle */}
+
+                  <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#55cf84]/10" />
+
+                  <div className="relative flex h-full flex-col">
+
+                    {/* Number */}
+
+                    <span className="text-[11px] font-bold tracking-[0.15em] text-[#46bb76]">
                       {step.number}
                     </span>
 
+                    {/* Main */}
+
                     <div className="mt-auto">
 
-                      <h3 className="text-2xl font-bold text-slate-900">
+                      <div className="mb-3 h-[3px] w-8 rounded-full bg-[#55ca83]" />
+
+                      <h3 className="text-[21px] font-bold leading-tight tracking-tight text-[#0b172a]">
                         {step.title}
                       </h3>
 
-                      <div className="my-5 h-px bg-slate-200" />
+                      <p className="mt-2 text-[11px] font-medium text-[#4f8b68]">
+                        {step.subtitle}
+                      </p>
 
-                      <p className="text-base leading-7 text-slate-600 font-normal">
+                      <div className="my-4 h-px bg-[#dfe8e2]" />
+
+                      <p className="text-[12px] leading-5 text-[#5f6f82]">
                         {step.desc}
                       </p>
 
+                      {/* Small points */}
+
+                      <div className="mt-4 space-y-2">
+
+                        {step.points.map((point) => (
+
+                          <div
+                            key={point}
+                            className="flex items-center gap-2"
+                          >
+
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#55ca83]" />
+
+                            <span className="text-[10px] font-medium text-[#64748b]">
+                              {point}
+                            </span>
+
+                          </div>
+
+                        ))}
+
+                      </div>
+
                     </div>
+
+                    {/* Bottom */}
+
+                    <div className="mt-5 flex items-center justify-between border-t border-[#dfe8e2] pt-4">
+
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#94a3b8]">
+                        Our Process
+                      </span>
+
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#55ca83] text-xs text-white">
+                        →
+                      </span>
+
+                    </div>
+
                   </div>
+
                 </div>
 
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ================= BOTTOM FLOW ================= */}
+
+        <div className="mt-9 flex items-center gap-4">
+
+          <div className="h-px flex-1 bg-[#e2e8f0]" />
+
+          <p className="whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.15em] text-[#94a3b8]">
+            Idea → Strategy → Build → Test → Launch
+          </p>
+
+          <div className="h-px flex-1 bg-[#e2e8f0]" />
+
         </div>
 
       </div>

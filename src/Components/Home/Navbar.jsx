@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { FaBars, FaTimes, FaSignInAlt } from 'react-icons/fa'
+import { NavLink, Link } from 'react-router-dom'
+import { FaBars, FaTimes } from 'react-icons/fa'
 
 const Logo = '/assets/Home/Logo.png'
 
@@ -26,7 +26,6 @@ const Navbar = () => {
     { name: 'Services', path: '/services' },
     { name: 'Industries', path: '/industries' },
     { name: 'Careers', path: '/careers' },
-    { name: 'Contact Us', path: '/contact' },
   ]
 
   return (
@@ -37,7 +36,6 @@ const Navbar = () => {
         ${isScrolled ? 'top-3 left-0 w-full' : 'top-0 left-0 w-full'}
       `}
     >
-      {/* Navbar Wrapper */}
       <div
         className={`
           mx-auto
@@ -49,12 +47,10 @@ const Navbar = () => {
           }
         `}
       >
-        {/* Navbar */}
         <div
           className={`
             flex items-center justify-between
             transition-all duration-500 ease-out
-
             ${
               isScrolled
                 ? `
@@ -78,6 +74,7 @@ const Navbar = () => {
             }
           `}
         >
+
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <img
@@ -87,9 +84,6 @@ const Navbar = () => {
                 h-12
                 w-auto
                 object-contain
-                brightness-75
-                contrast-125
-                drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]
                 transition-all
                 duration-500
               "
@@ -97,34 +91,54 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex  justify-between gap-7">
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
-              <Link
+              <NavLink
                 key={link.name}
                 to={link.path}
-                className="
+                className={({ isActive }) => `
+                  relative
+                  py-2
                   text-sm
                   font-semibold
-                  text-slate-900
-                  hover:text-green-900
+                  whitespace-nowrap
                   transition-colors
                   duration-200
-                  whitespace-nowrap
-                "
+
+                  ${
+                    isActive
+                      ? 'text-green-600'
+                      : 'text-slate-900 hover:text-green-600'
+                  }
+
+                  after:absolute
+                  after:left-0
+                  after:bottom-0
+                  after:h-[2px]
+                  after:bg-green-600
+                  after:transition-all
+                  after:duration-300
+
+                  ${
+                    isActive
+                      ? 'after:w-full'
+                      : 'after:w-0 hover:after:w-full'
+                  }
+                `}
               >
                 {link.name}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
-          {/* Get In Touch Button */}
+          {/* Contact Us Button */}
           <Link
             to="/contact"
             className="
               hidden lg:flex
               items-center
-              gap-2
-              bg-[#202124]
+              justify-center
+              bg-blue-600
               text-white
               px-6
               py-3
@@ -137,8 +151,7 @@ const Navbar = () => {
               duration-200
             "
           >
-          
-            <span>Get in Touch</span>
+            Contact Us
           </Link>
 
           {/* Mobile Menu Button */}
@@ -170,26 +183,32 @@ const Navbar = () => {
             "
           >
             <div className="flex flex-col gap-1">
+
               {navLinks.map((link) => (
-                <Link
+                <NavLink
                   key={link.name}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className="
+                  className={({ isActive }) => `
                     px-4
                     py-3
                     rounded-xl
-                    text-slate-900
                     font-medium
-                    hover:bg-white/50
-                    transition
-                  "
+                    transition-all
+                    duration-200
+
+                    ${
+                      isActive
+                        ? 'text-green-600 bg-green-50'
+                        : 'text-slate-900 hover:bg-white/50'
+                    }
+                  `}
                 >
                   {link.name}
-                </Link>
+                </NavLink>
               ))}
 
-              {/* Mobile Get In Touch */}
+              {/* Mobile Contact Us */}
               <Link
                 to="/contact"
                 onClick={() => setIsOpen(false)}
@@ -197,7 +216,6 @@ const Navbar = () => {
                   flex
                   items-center
                   justify-center
-                  gap-2
                   mt-3
                   bg-green-600
                   text-white
@@ -207,9 +225,9 @@ const Navbar = () => {
                   font-semibold
                 "
               >
-               
-                Get in touch
+                Contact Us
               </Link>
+
             </div>
           </div>
         )}

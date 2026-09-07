@@ -31,7 +31,7 @@ const WhyChooseUs = () => {
   ]
 
   return (
-    <section className="relative py-16 bg-[#F8FAFC]">
+    <section className="relative bg-white ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Banner Container */}
@@ -40,7 +40,7 @@ const WhyChooseUs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="bg-blue-50/50 border border-blue-100/60 rounded-[24px] p-8 sm:p-12 lg:p-16 relative overflow-hidden"
+          className="bg-blue-50/50 border  rounded-[24px] p-8 sm:p-12 lg:p-16 relative overflow-hidden"
         >
           {/* Subtle Glow Effect Inside Banner */}
           <div className="absolute -top-24 -left-24 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
@@ -49,12 +49,12 @@ const WhyChooseUs = () => {
             
             {/* Left Content */}
             <div className="lg:col-span-4 space-y-5">
-              <span className="text-xs font-bold uppercase tracking-widest text-green-600 block">
+              <span className="text-xs font-bold uppercase tracking-widest text-gray-900 block">
                 Why Choose Us
               </span>
               
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#071329] leading-tight">
-                Building Solutions That Drive <span className="text-green-600">Real Impact</span>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-600 leading-tight">
+                Building Solutions That Drive <span className="text-blue-600">Real Impact</span>
               </h2>
               
               <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed">
@@ -70,7 +70,7 @@ const WhyChooseUs = () => {
               {features.map((feat) => (
                 <div key={feat.id} className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4 group">
                   {/* Icon Wrapper */}
-                  <div className="p-3.5 rounded-2xl bg-white border border-blue-100/50 shadow-sm text-green-600 flex-shrink-0 group-hover:bg-green-600 group-hover:text-white transition-all duration-300">
+                  <div className="p-3.5 rounded-2xl bg-white border border-blue-100/50 shadow-sm text-green-600 flex-shrink-0 group-hover:bg-green-200 group-hover:text-black transition-all duration-300">
                     {feat.icon}
                   </div>
                   

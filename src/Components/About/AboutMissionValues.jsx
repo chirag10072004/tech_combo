@@ -162,7 +162,7 @@ const AboutMissionValues = () => {
 
           
 
-            <div className="flex mb-10 gap-4">
+            <div className="flex mb-10 ml-13 gap-4">
 
               
             <FiAward

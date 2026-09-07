@@ -2,7 +2,7 @@ import React from 'react'
 
 const CareersHero = () => {
   return (
-    <section className="bg-white pt-16 lg:pt-16">
+    <section className="bg-white pt-16 lg:pt-30">
 
       <div className="mx-auto max-w-[1600px] px-5 lg:px-10">
 
