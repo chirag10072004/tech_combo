@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,7 +8,8 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// CORS
+// ─── CORS ────────────────────────────────────────────────────────────────────
+
 app.use(
   cors({
     origin: true,
@@ -19,31 +20,11 @@ app.use(
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ limit: '15mb', extended: true }));
 
-// ─── Nodemailer / Gmail SMTP ────────────────────────────────────────────────
+// ─── Resend Email API ────────────────────────────────────────────────────────
 
-let transporter = null;
-
-if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-  transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-
-  transporter.verify((error) => {
-    if (error) {
-      console.error('SMTP connection error:', error.message);
-    } else {
-      console.log('SMTP server is ready to send emails.');
-    }
-  });
-} else {
-  console.warn(
-    'WARNING: SMTP_USER or SMTP_PASS is missing from environment variables.'
-  );
-}
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 // ─── Email Configuration ────────────────────────────────────────────────────
 
@@ -58,22 +39,31 @@ async function sendMailHelper({
   replyTo,
   attachments = [],
 }) {
-  if (!transporter) {
+  if (!resend) {
     throw new Error(
-      'Email credentials are not configured. Please set SMTP_USER and SMTP_PASS.'
+      'Resend is not configured. Please set RESEND_API_KEY in environment variables.'
     );
   }
 
-  const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_USER;
+  const fromAddress =
+    process.env.EMAIL_FROM || 'Tech Combo <onboarding@resend.dev>';
 
-  return await transporter.sendMail({
+  const emailData = {
     from: fromAddress,
     to,
-    replyTo,
     subject,
     html,
-    attachments,
-  });
+  };
+
+  if (replyTo) {
+    emailData.replyTo = replyTo;
+  }
+
+  if (attachments.length > 0) {
+    emailData.attachments = attachments;
+  }
+
+  return await resend.emails.send(emailData);
 }
 
 // ─── Contact Form ────────────────────────────────────────────────────────────
@@ -98,34 +88,36 @@ app.post('/api/contact', async (req, res) => {
     });
   }
 
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  if (!process.env.RESEND_API_KEY) {
     return res.status(500).json({
       success: false,
-      message:
-        'Server Error: SMTP_USER and SMTP_PASS are not configured.',
+      message: 'Server Error: RESEND_API_KEY is not configured.',
     });
   }
 
   try {
-    // 1. Send email to admin
+    // ─── 1. Send email to admin ──────────────────────────────────────────────
+
     await sendMailHelper({
       to: ADMIN_EMAIL,
       replyTo: email,
       subject: `New Contact Submission: ${subject}`,
       html: `
         <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
-          
+
           <div style="background:#2563eb;color:#fff;padding:20px;text-align:center;">
             <h2 style="margin:0;font-size:24px;">New Contact Message</h2>
           </div>
 
           <div style="padding:24px;background:#fff;">
+
             <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
-              
+
               <tr>
                 <td style="padding:8px 0;font-weight:bold;width:30%;border-bottom:1px solid #f1f5f9;">
                   Name:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${firstName} ${lastName}
                 </td>
@@ -135,6 +127,7 @@ app.post('/api/contact', async (req, res) => {
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Email:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   <a href="mailto:${email}" style="color:#2563eb;">
                     ${email}
@@ -146,6 +139,7 @@ app.post('/api/contact', async (req, res) => {
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Phone:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${phone || 'N/A'}
                 </td>
@@ -155,6 +149,7 @@ app.post('/api/contact', async (req, res) => {
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Company:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${company || 'N/A'}
                 </td>
@@ -164,6 +159,7 @@ app.post('/api/contact', async (req, res) => {
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Subject:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${subject}
                 </td>
@@ -172,6 +168,7 @@ app.post('/api/contact', async (req, res) => {
             </table>
 
             <div style="margin-top:20px;">
+
               <h4 style="margin-bottom:8px;color:#1e293b;">
                 Message:
               </h4>
@@ -179,7 +176,9 @@ app.post('/api/contact', async (req, res) => {
               <p style="white-space:pre-wrap;background:#f8fafc;padding:16px;border-radius:8px;border:1px solid #e2e8f0;margin:0;font-size:14px;">
                 ${message}
               </p>
+
             </div>
+
           </div>
 
           <div style="background:#f8fafc;padding:12px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0;">
@@ -190,24 +189,30 @@ app.post('/api/contact', async (req, res) => {
       `,
     });
 
-    // 2. Auto reply
+    // ─── 2. Auto reply ──────────────────────────────────────────────────────
+
     if (process.env.SEND_AUTO_REPLY !== 'false') {
       try {
         await sendMailHelper({
           to: email,
           subject: 'Thank you for contacting Tech Combo',
+
           html: `
             <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
 
               <div style="background:#1e293b;color:#fff;padding:20px;text-align:center;">
-                <h2 style="margin:0;font-size:24px;">Thank You!</h2>
+                <h2 style="margin:0;font-size:24px;">
+                  Thank You!
+                </h2>
               </div>
 
               <div style="padding:24px;background:#fff;">
+
                 <p>Hi ${firstName},</p>
 
                 <p>
-                  Thank you for reaching out to <strong>Tech Combo</strong>!
+                  Thank you for reaching out to
+                  <strong>Tech Combo</strong>!
                 </p>
 
                 <p>
@@ -222,11 +227,14 @@ app.post('/api/contact', async (req, res) => {
 
                 <br>
 
-                <p style="margin-bottom:0;">Best regards,</p>
+                <p style="margin-bottom:0;">
+                  Best regards,
+                </p>
 
                 <p style="margin-top:4px;font-weight:bold;color:#2563eb;">
                   Tech Combo Team
                 </p>
+
               </div>
 
               <div style="background:#f8fafc;padding:12px;text-align:center;font-size:11px;color:#94a3b8;border-top:1px solid #e2e8f0;">
@@ -248,7 +256,9 @@ app.post('/api/contact', async (req, res) => {
       success: true,
       message: 'Message sent successfully.',
     });
+
   } catch (error) {
+
     console.error('Contact form error:', error);
 
     res.status(500).json({
@@ -264,6 +274,7 @@ app.post('/api/contact', async (req, res) => {
 // ─── Career Form ─────────────────────────────────────────────────────────────
 
 app.post('/api/career', async (req, res) => {
+
   const {
     job,
     fullName,
@@ -292,19 +303,21 @@ app.post('/api/career', async (req, res) => {
     });
   }
 
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  if (!process.env.RESEND_API_KEY) {
     return res.status(500).json({
       success: false,
-      message:
-        'Server Error: SMTP_USER and SMTP_PASS are not configured.',
+      message: 'Server Error: RESEND_API_KEY is not configured.',
     });
   }
 
   try {
-    // Resume attachment
+
+    // ─── Resume attachment ──────────────────────────────────────────────────
+
     const attachments = [];
 
     if (resume) {
+
       const base64Data = resume.includes('base64,')
         ? resume.split('base64,')[1]
         : resume;
@@ -315,16 +328,23 @@ app.post('/api/career', async (req, res) => {
       });
     }
 
-    // 1. Send application to admin / HR
+    // ─── 1. Send application to admin / HR ──────────────────────────────────
+
     await sendMailHelper({
+
       to: ADMIN_EMAIL,
+
       replyTo: email,
+
       subject: `New Job Application: ${job} — ${fullName}`,
+
       attachments,
+
       html: `
         <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
 
           <div style="background:#16a34a;color:#fff;padding:20px;text-align:center;">
+
             <h2 style="margin:0;font-size:24px;">
               New Job Application
             </h2>
@@ -332,6 +352,7 @@ app.post('/api/career', async (req, res) => {
             <p style="margin:5px 0 0 0;font-size:14px;">
               Position: ${job}
             </p>
+
           </div>
 
           <div style="padding:24px;background:#fff;">
@@ -342,65 +363,84 @@ app.post('/api/career', async (req, res) => {
                 <td style="padding:8px 0;font-weight:bold;width:35%;border-bottom:1px solid #f1f5f9;">
                   Full Name:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${fullName}
                 </td>
               </tr>
 
               <tr>
+
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Email:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   <a href="mailto:${email}" style="color:#16a34a;">
                     ${email}
                   </a>
                 </td>
+
               </tr>
 
               <tr>
+
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Phone:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${phone}
                 </td>
+
               </tr>
 
               <tr>
+
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Experience:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${experience}
                 </td>
+
               </tr>
 
               <tr>
+
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Portfolio/LinkedIn:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
+
                   ${
                     portfolio && portfolio !== 'N/A'
                       ? `<a href="${portfolio}" target="_blank" style="color:#16a34a;">${portfolio}</a>`
                       : 'N/A'
                   }
+
                 </td>
+
               </tr>
 
               <tr>
+
                 <td style="padding:8px 0;font-weight:bold;border-bottom:1px solid #f1f5f9;">
                   Resume:
                 </td>
+
                 <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;">
                   ${resume ? resumeName : 'None attached'}
                 </td>
+
               </tr>
 
             </table>
 
             <div style="margin-top:20px;">
+
               <h4 style="margin-bottom:8px;color:#1e293b;">
                 Cover Message:
               </h4>
@@ -408,6 +448,7 @@ app.post('/api/career', async (req, res) => {
               <p style="white-space:pre-wrap;background:#f8fafc;padding:16px;border-radius:8px;border:1px solid #e2e8f0;margin:0;font-size:14px;">
                 ${message}
               </p>
+
             </div>
 
           </div>
@@ -420,16 +461,23 @@ app.post('/api/career', async (req, res) => {
       `,
     });
 
-    // 2. Auto reply to applicant
+    // ─── 2. Auto reply to applicant ─────────────────────────────────────────
+
     if (process.env.SEND_AUTO_REPLY !== 'false') {
+
       try {
+
         await sendMailHelper({
+
           to: email,
+
           subject: `Application Received: ${job} at Tech Combo`,
+
           html: `
             <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:600px;margin:0 auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
 
               <div style="background:#1e293b;color:#fff;padding:20px;text-align:center;">
+
                 <h2 style="margin:0;font-size:24px;">
                   Application Received
                 </h2>
@@ -437,6 +485,7 @@ app.post('/api/career', async (req, res) => {
                 <p style="margin:5px 0 0 0;font-size:14px;">
                   Position: ${job}
                 </p>
+
               </div>
 
               <div style="padding:24px;background:#fff;">
@@ -461,7 +510,9 @@ app.post('/api/career', async (req, res) => {
 
                 <br>
 
-                <p style="margin-bottom:0;">Best regards,</p>
+                <p style="margin-bottom:0;">
+                  Best regards,
+                </p>
 
                 <p style="margin-top:4px;font-weight:bold;color:#16a34a;">
                   Tech Combo Hiring Team
@@ -476,7 +527,9 @@ app.post('/api/career', async (req, res) => {
             </div>
           `,
         });
+
       } catch (replyError) {
+
         console.error(
           'Auto-reply to applicant error:',
           replyError.message
@@ -488,7 +541,9 @@ app.post('/api/career', async (req, res) => {
       success: true,
       message: 'Application submitted successfully.',
     });
+
   } catch (error) {
+
     console.error('Career form error:', error);
 
     res.status(500).json({
@@ -504,36 +559,54 @@ app.post('/api/career', async (req, res) => {
 // ─── Health Check ────────────────────────────────────────────────────────────
 
 app.get('/api/health', (req, res) => {
+
   res.status(200).json({
+
     status: 'ok',
+
     message: 'Backend server is running.',
-    emailProvider: 'Nodemailer (Gmail SMTP)',
+
+    emailProvider: 'Resend API',
+
     configured: Boolean(
-      process.env.SMTP_USER && process.env.SMTP_PASS
+      process.env.RESEND_API_KEY
     ),
+
   });
 });
 
+// ─── Ping ────────────────────────────────────────────────────────────────────
+
 app.get('/api/ping', (req, res) => {
+
   res.status(200).json({
+
     status: 'alive',
+
     timestamp: new Date().toISOString(),
+
   });
 });
 
 // ─── Global Error Handler ────────────────────────────────────────────────────
 
 app.use((err, req, res, next) => {
+
   console.error('Unhandled server error:', err);
 
   res.status(500).json({
+
     success: false,
+
     message: err.message || 'Internal Server Error',
+
   });
 });
 
 // ─── Start Server ────────────────────────────────────────────────────────────
- 
+
 app.listen(port, () => {
+
   console.log(`Server is running on port ${port}`);
-}); 
+
+});
