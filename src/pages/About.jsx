@@ -9,6 +9,7 @@ import AboutWhyChoose from '../Components/About/AboutWhyChoose'
 import AboutTechStack from '../Components/About/AboutTechStack'
 import AboutStats from '../Components/About/AboutStats'
 import AboutCTA from '../Components/About/AboutCTA'
+import Achievement from '../Components/Home/Achievement'
 
 
 
@@ -42,7 +43,10 @@ const About = () => {
 
      
       {/* Company Stats Counters */}
-      <AboutStats />
+      
+      <Achievement/>
+
+      
 
 
 

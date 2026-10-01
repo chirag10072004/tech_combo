@@ -30,7 +30,7 @@ const AboutMissionValues = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white py-24">
+    <section className="relative overflow-hidden bg-blue-50 py-24">
 
       <div className="mx-auto max-w-6xl px-6 md:px-10">
 

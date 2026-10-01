@@ -8,6 +8,8 @@ import Process from '../Components/Home/Process'
 import Footer from '../Components/Home/Footer'
 import AboutIndustries from '../Components/Home/AboutIndustries'
 import ServicesShowcase from '../Components/Services/ServicesShowcase'
+import AboutStats from '../Components/About/AboutStats'
+
 
 
 const Home = () => {
@@ -17,7 +19,7 @@ const Home = () => {
 
       <Hero />
 
-      <Achievement />
+      <AboutStats />
 
       <ServicesShowcase />
 
