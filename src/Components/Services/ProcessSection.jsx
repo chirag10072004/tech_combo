@@ -10,7 +10,7 @@ const ProcessSection = () => {
       subtitle: "Understanding your vision",
       desc: "We gather and analyze your requirements to create a robust software roadmap.",
       points: ["Business goals", "Project requirements"],
-      image: "/assets/Home/process/Requirment.png",
+      image: "/assets/Home/process/requirment.png",
     },
     {
       number: "02",
@@ -26,7 +26,7 @@ const ProcessSection = () => {
       subtitle: "Turning ideas into reality",
       desc: "Our engineers build clean, high-performance, and scalable digital solutions.",
       points: ["UI/UX design", "Development"],
-      image: "/assets/Home/process/Devlopment.png",
+      image: "/assets/Home/process/development.png",
     },
     {
       number: "04",
@@ -34,7 +34,7 @@ const ProcessSection = () => {
       subtitle: "Ensuring reliable quality",
       desc: "We perform rigorous quality assurance checks to ensure reliable, bug-free software solutions.",
       points: ["Quality testing", "Bug fixing"],
-      image: "/assets/Home/process/Testing.png",
+      image: "/assets/Home/process/tester.png",
     },
     {
       number: "05",
@@ -42,7 +42,7 @@ const ProcessSection = () => {
       subtitle: "Launching with confidence",
       desc: "We deploy the application smoothly and provide 24/7 post-launch maintenance.",
       points: ["Deployment", "Ongoing support"],
-      image: "/assets/Home/process/Deploy.png",
+      image: "/assets/Home/process/deploye.png",
     },
   ];
 

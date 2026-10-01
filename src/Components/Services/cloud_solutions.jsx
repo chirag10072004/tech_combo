@@ -18,7 +18,7 @@ const CloudSolutions = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="pt-20 lg:pt-24">
+      <div className=" ">
         <Cloud_Hero />
       </div>
 

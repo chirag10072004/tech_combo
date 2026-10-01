@@ -9,6 +9,7 @@ import Footer from '../Components/Home/Footer'
 import AboutIndustries from '../Components/Home/AboutIndustries'
 import ServicesShowcase from '../Components/Services/ServicesShowcase'
 
+
 const Home = () => {
   return (
     <div className="min-h-screen text-white">
@@ -31,6 +32,7 @@ const Home = () => {
       <AboutIndustries />
 
       <Footer />
+     
     </div>
   )
 }

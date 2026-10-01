@@ -1,131 +1,235 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+FiArrowUpRight,
+FiShield,
+FiClipboard,
+FiLock,
+FiActivity,
+FiKey,
+} from "react-icons/fi";
 
 const services = [
-    {
-        title: "Vulnerability Assessments & Pen Testing",
-        description:
-            "Identify, analyze, and neutralize security loopholes across your infrastructure before malicious actors exploit them.",
-    },
-    {
-        title: "Compliance Alignments (GDPR, ISO, HIPAA)",
-        description:
-            "Comprehensive regulatory compliance audits ensuring full data privacy and legal standard adherence.",
-    },
-    {
-        title: "Data Encryption & Zero-Trust Architecture",
-        description:
-            "Implement robust end-to-end data encryption and strict identity access controls to protect sensitive customer data.",
-    },
-    {
-        title: "24/7 Incident Response & Threat Mitigation",
-        description:
-            "Continuous real-time threat monitoring, automated intrusion detection, and immediate emergency mitigation.",
-    },
-    {
-        title: "Identity & Access Management (IAM)",
-        description:
-            "Enforce multi-factor authentication (MFA), role-based permissions, and privileged access management.",
-    },
+{
+number: "01",
+title: "Vulnerability Assessments & Pen Testing",
+description:
+"Identify, analyze, and neutralize security loopholes across your infrastructure before malicious actors exploit them. Our security assessments and penetration testing help uncover vulnerabilities, evaluate security controls, and strengthen your overall security posture.",
+icon: FiShield,
+tag: "SECURITY TESTING",
+},
+{
+number: "02",
+title: "Compliance Alignments (GDPR, ISO, HIPAA)",
+description:
+"Strengthen your regulatory compliance with structured security assessments and compliance audits. We help organizations align their security practices with GDPR, ISO, and HIPAA requirements, improve data privacy, and establish effective compliance processes.",
+icon: FiClipboard,
+tag: "REGULATORY COMPLIANCE",
+},
+{
+number: "03",
+title: "Data Encryption & Zero-Trust Architecture",
+description:
+"Protect sensitive business information through robust data encryption and zero-trust security architecture. Implement strict identity verification, secure communication, and granular access controls to reduce unauthorized access and strengthen data protection.",
+icon: FiLock,
+tag: "DATA PROTECTION",
+},
+{
+number: "04",
+title: "24/7 Incident Response & Threat Mitigation",
+description:
+"Strengthen your security operations with continuous threat monitoring, intrusion detection, and structured incident response. Identify suspicious activities, investigate potential security incidents, and implement mitigation measures to minimize disruption and protect critical systems.",
+icon: FiActivity,
+tag: "THREAT MANAGEMENT",
+},
+{
+number: "05",
+title: "Identity & Access Management (IAM)",
+description:
+"Secure user identities and control access to critical business resources with comprehensive identity and access management. Implement multi-factor authentication, role-based access control, and privileged access management to reduce unauthorized access.",
+icon: FiKey,
+tag: "ACCESS SECURITY",
+},
 ];
 
 const Cyber_What_We_Provide = () => {
-    return (
-        <section className="bg-[#fdfaf5] py-20 sm:py-24 lg:py-28">
-            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
+const [activeCard, setActiveCard] = useState(null);
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+const toggleCard = (number) => {
+if (window.innerWidth >= 1024) return;
 
-                    {/* LEFT */}
-                    <div className="lg:sticky lg:top-24 lg:self-start h-fit">
+```
+setActiveCard((current) =>
+  current === number ? null : number
+);
+```
 
-                        <p className="text-[#168bd2] text-xs sm:text-sm font-bold tracking-[0.18em] uppercase">
-                            OUR EXPERTISE
-                        </p>
+};
 
-                        <h2 className="mt-4 text-[#082b55] text-5xl sm:text-6xl lg:text-[72px] font-extrabold leading-[0.95] tracking-[-0.045em]">
-                            What We
-                            <br />
-                            <span className="text-[#ff512f]">Provide</span>
-                        </h2>
+return ( <section className="relative w-full overflow-hidden bg-[#f8fafc] py-20 sm:py-24 lg:py-28">
+{/* Background decoration */} <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-100/40 blur-[120px]" /> <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-orange-100/30 blur-[120px]" />
 
-                        <p className="mt-7 text-[#55708e] text-base sm:text-lg leading-7 max-w-[500px]">
-                            Protect your business with proactive cybersecurity solutions
-                            designed to identify threats, secure critical systems, and
-                            reduce your overall attack surface.
-                        </p>
+```
+  <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-16">
+    {/* Section heading */}
+    <div className="mb-14 grid items-end gap-8 lg:mb-20 lg:grid-cols-2 lg:gap-16">
+      {/* Heading */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7 }}
+      >
+        <div className="mb-5 inline-flex items-center gap-3">
+          <span className="h-[2px] w-8 bg-[#ff512f]" />
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#168bd2] sm:text-sm">
+            OUR EXPERTISE
+          </p>
+        </div>
 
-                    </div>
+        <h2 className="text-5xl font-extrabold leading-[0.98] tracking-[-0.055em] text-[#082b55] sm:text-6xl lg:text-[76px]">
+          What We
+          <br />
+          <span className="text-[#ff512f]">Provide.</span>
+        </h2>
+      </motion.div>
 
-                    {/* RIGHT - SCROLLABLE */}
-                    <div className="relative">
+      {/* Description */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, delay: 0.15 }}
+        className="lg:pb-2"
+      >
+        <p className="max-w-[540px] text-base leading-8 text-[#55708e] sm:text-lg">
+          Protect your business with proactive cybersecurity
+          solutions designed to identify threats, secure
+          critical systems, and reduce your overall attack
+          surface.
+        </p>
 
-                        <div className="lg:h-[650px] lg:overflow-y-auto space-y-5 pr-3 pb-12 scrollbar-thin">
+        <div className="mt-6 flex items-center gap-3">
+          <span className="h-2 w-2 rounded-full bg-green-500" />
+          <span className="text-sm font-semibold tracking-wide text-[#082b55]">
+            Security first. Resilience by design.
+          </span>
+        </div>
+      </motion.div>
+    </div>
 
-                            {services.map((service, index) => (
-                                <div
-                                    key={index}
-                                    className="
-                                        group
-                                        bg-white
-                                        border border-[#e5e7eb]
-                                        rounded-2xl
-                                        p-6 sm:p-8
-                                        transition-all duration-300
-                                        hover:border-[#168bd2]
-                                        hover:-translate-y-1
-                                        hover:shadow-[0_15px_40px_rgba(8,43,85,0.08)]
-                                    "
-                                >
+    {/* Service cards */}
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6 xl:grid-cols-3">
+      {services.map((service, index) => {
+        const Icon = service.icon;
+        const isActive = activeCard === service.number;
 
-                                    <div className="flex items-center justify-between">
+        return (
+          <motion.div
+            key={service.number}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{
+              duration: 0.55,
+              delay: (index % 3) * 0.1,
+              ease: "easeOut",
+            }}
+            onClick={() => toggleCard(service.number)}
+            className={`group relative flex min-h-[320px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white p-6 transition-all duration-500 ease-out sm:min-h-[340px] sm:p-8 ${
+              isActive
+                ? "border-[#168bd2]/60 shadow-[0_20px_55px_rgba(8,43,85,0.10)]"
+                : "border-[#e2e8f0] hover:-translate-y-2 hover:border-[#168bd2]/50 hover:shadow-[0_20px_55px_rgba(8,43,85,0.10)]"
+            }`}
+          >
+            {/* Card background */}
+            <div
+              className={`pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-orange-50 transition-opacity duration-500 ${
+                isActive
+                  ? "opacity-100 lg:opacity-0"
+                  : "opacity-0 group-hover:opacity-100"
+              }`}
+            />
 
-                                        <span className="text-[#168bd2] text-sm font-bold">
-                                            0{index + 1}
-                                        </span>
+            {/* Card top */}
+            <div className="relative z-10 flex items-start justify-between">
+              <span className="text-sm font-bold tracking-widest text-[#168bd2]">
+                / {service.number}
+              </span>
 
-                                        <span className="
-                                            text-[#082b55]
-                                            text-xl
-                                            transition-transform
-                                            duration-300
-                                            group-hover:translate-x-1
-                                            group-hover:-translate-y-1
-                                        ">
-                                            ↗
-                                        </span>
-
-                                    </div>
-
-                                    <h3 className="mt-6 text-[#082b55] text-xl sm:text-2xl font-bold leading-tight">
-                                        {service.title}
-                                    </h3>
-
-                                    <p className="mt-3 text-[#667f96] leading-6 text-sm sm:text-base">
-                                        {service.description}
-                                    </p>
-
-                                </div>
-                            ))}
-
-                        </div>
-
-                        {/* SCROLL INDICATOR */}
-                        <div className="hidden lg:flex flex-col items-center justify-center text-amber-700 pt-4">
-                            <span className="text-sm font-semibold">
-                                Scroll Here
-                            </span>
-
-                            <span className="text-3xl text-violet-800 animate-bounce">
-                                ↓
-                            </span>
-                        </div>
-
-                    </div>
-
-                </div>
+              <div
+                className={`flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-500 ${
+                  isActive
+                    ? "bg-[#082b55] text-white lg:bg-[#f0f7fc] lg:text-[#168bd2]"
+                    : "bg-[#f0f7fc] text-[#168bd2] group-hover:bg-[#082b55] group-hover:text-white"
+                }`}
+              >
+                <Icon size={23} strokeWidth={1.7} />
+              </div>
             </div>
-        </section>
-    );
+
+            {/* Card content */}
+            <div className="relative z-10 mt-8 flex-1">
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#ff512f] sm:text-[11px]">
+                {service.tag}
+              </p>
+
+              <h3
+                className={`text-xl font-bold leading-snug tracking-tight transition-colors duration-300 sm:text-2xl ${
+                  isActive
+                    ? "text-[#168bd2] lg:text-[#082b55]"
+                    : "text-[#082b55] group-hover:text-[#168bd2]"
+                }`}
+              >
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <div
+                className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+                  isActive
+                    ? "grid-rows-[1fr] opacity-100 lg:grid-rows-[0fr] lg:opacity-0"
+                    : "grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <p
+                    className={`pt-4 text-[14px] font-normal leading-7 tracking-[0.01em] text-[#526b83] transition-transform duration-500 ease-out sm:text-[15px] ${
+                      isActive
+                        ? "translate-y-0 lg:translate-y-3"
+                        : "translate-y-3 group-hover:translate-y-0"
+                    }`}
+                  >
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card footer */}
+            <div className="relative z-10 mt-7 flex items-center justify-between border-t border-[#e9eef4] pt-5">
+              <span className="text-[11px] font-semibold tracking-[0.16em] text-[#8aa0b5]">
+                TECHCOMBO
+              </span>
+
+              <div
+                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 ${
+                  isActive
+                    ? "rotate-45 border-[#ff512f] bg-[#ff512f] text-white lg:rotate-0 lg:border-[#dce5ef] lg:bg-transparent lg:text-[#082b55]"
+                    : "border-[#dce5ef] text-[#082b55] group-hover:border-[#ff512f] group-hover:bg-[#ff512f] group-hover:text-white"
+                }`}
+              >
+                <FiArrowUpRight size={18} />
+              </div>
+            </div>
+          </motion.div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+);
 };
 
 export default Cyber_What_We_Provide;

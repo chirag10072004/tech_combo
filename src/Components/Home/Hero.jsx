@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
     FiChevronLeft,
@@ -7,28 +8,24 @@ import {
 
 const slides = [
     {
-        image: "/assets/Home/Hero_IMAGE_BACKGROUND.png",
         category: "DIGITAL TRANSFORMATION",
-        title: "INTELLIGENCE",
+        title: "INTELIGENCE",
         description:
             "Transform your business with intelligent digital solutions, innovative technology and powerful data-driven experiences.",
     },
     {
-        image: "/assets/Home/custom.png",
         category: "CUSTOM SOFTWARE",
         title: "SOFTWARE",
         description:
             "Build powerful software solutions designed around your unique business needs.",
     },
     {
-        image: "/assets/Home/cloud.png",
         category: "CLOUD SOLUTIONS",
         title: "CLOUD",
         description:
             "Scale your business with secure, flexible and reliable cloud solutions.",
     },
     {
-        image: "/assets/Home/app_web.png",
         category: "WEB & APP DEVELOPMENT",
         title: "DIGITAL",
         description:
@@ -85,13 +82,14 @@ const Hero = () => {
                 bg-black
             "
         >
-
-            {/* ================= BACKGROUND IMAGE ================= */}
-            <img
-                key={slide.image}
-                src={slide.image}
-                alt={slide.title}
-                className={`
+            {/* ================= BACKGROUND VIDEO ================= */}
+            <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="
                     absolute
                     inset-0
                     h-full
@@ -100,14 +98,14 @@ const Hero = () => {
                     object-cover
                     object-[75%_center]
                     md:object-center
-                    transition-all
-                    duration-700
-                    ${isChanging
-                        ? "scale-105 opacity-0"
-                        : "scale-100 opacity-100"
-                    }
-                `}
-            />
+                "
+            >
+                <source
+                    src="/assets/Home/videoplayback.webm"
+                    type="video/webm"
+                />
+                Your browser does not support the video tag.
+            </video>
 
             {/* ================= DARK OVERLAY ================= */}
             <div className="absolute inset-0 bg-black/30" />
@@ -117,7 +115,7 @@ const Hero = () => {
 
             {/* ================= HERO CONTENT ================= */}
             <div
-                className="
+                className={`
                     absolute
                     inset-x-0
                     bottom-0
@@ -132,9 +130,8 @@ const Hero = () => {
                     md:px-12
                     md:pb-14
                     lg:px-16
-                "
+                `}
             >
-
                 {/* Category */}
                 <p
                     className={`
@@ -147,9 +144,10 @@ const Hero = () => {
                         duration-500
                         sm:text-xs
                         sm:tracking-[4px]
-                        ${isChanging
-                            ? "translate-y-3 opacity-0"
-                            : "translate-y-0 opacity-100"
+                        ${
+                            isChanging
+                                ? "translate-y-3 opacity-0"
+                                : "translate-y-0 opacity-100"
                         }
                     `}
                 >
@@ -174,9 +172,10 @@ const Hero = () => {
                         text-white
                         transition-all
                         duration-500
-                        ${isChanging
-                            ? "translate-y-5 opacity-0"
-                            : "translate-y-0 opacity-100"
+                        ${
+                            isChanging
+                                ? "translate-y-5 opacity-0"
+                                : "translate-y-0 opacity-100"
                         }
                     `}
                 >
@@ -190,13 +189,13 @@ const Hero = () => {
                         transition-all
                         duration-500
                         sm:mt-7
-                        ${isChanging
-                            ? "translate-y-3 opacity-0"
-                            : "translate-y-0 opacity-100"
+                        ${
+                            isChanging
+                                ? "translate-y-3 opacity-0"
+                                : "translate-y-0 opacity-100"
                         }
                     `}
                 >
-
                     {/* Description */}
                     <p
                         className="
@@ -290,7 +289,6 @@ const Hero = () => {
                                 "
                             />
                         </a>
-
                     </div>
 
                     {/* ================= SERVICE KEYWORDS ================= */}
@@ -335,7 +333,6 @@ const Hero = () => {
                             Cybersecurity
                         </span>
                     </div>
-
                 </div>
             </div>
 
@@ -355,7 +352,6 @@ const Hero = () => {
                     lg:right-14
                 "
             >
-
                 {/* Previous */}
                 <button
                     onClick={prevSlide}
@@ -404,7 +400,6 @@ const Hero = () => {
                 >
                     <FiChevronRight size={18} />
                 </button>
-
             </div>
 
             {/* ================= PROGRESS BAR ================= */}
@@ -415,7 +410,7 @@ const Hero = () => {
                     style={{
                         animation: "heroProgress 5s linear",
                     }}
-                /> 
+                />
             </div>
 
             {/* ================= ANIMATION ================= */}
@@ -432,7 +427,6 @@ const Hero = () => {
                     }
                 `}
             </style>
-
         </section>
     );
 };
