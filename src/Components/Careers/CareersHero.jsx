@@ -57,10 +57,10 @@ const CareersHero = () => {
 
 
           {/* RIGHT - IMAGE */}
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center ">
 
             <img
-              src="/assets/Home/process/Requirment.png"
+              src="/assets/services/csd.png"
               alt="Career Hero"
               className="w-full max-w-[500px] lg:max-w-[550px]"
             />

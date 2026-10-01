@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Custom_Hero = () => {
   return (
-    <section className="min-h-screen bg-[#fdfaf5] overflow-hidden flex items-center">
-      <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-8 sm:py-14 lg:py-20">
+    <section className="relative -mt-4 flex min-h-[calc(100vh-95px)] w-full items-center overflow-hidden bg-[#fdfaf5]">
+      <div className="mx-auto w-full max-w-[1400px] px-5 py-4 sm:px-8 sm:py-8 lg:px-16 lg:py-10 xl:px-20">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
 
@@ -21,14 +21,14 @@ const Custom_Hero = () => {
               relative
               w-full
               max-w-full
-              ml-0
+              
               flex
               items-center
               justify-center
               order-1
               lg:order-2
               lg:w-full
-              lg:ml-0
+              
             "
           >
             <motion.img

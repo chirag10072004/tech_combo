@@ -1,235 +1,245 @@
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
-FiArrowUpRight,
-FiCode,
-FiGitMerge,
-FiRefreshCw,
-FiLink,
-FiDatabase,
+  FiArrowUpRight,
+  FiCode,
+  FiGitMerge,
+  FiRefreshCw,
+  FiLink,
+  FiDatabase,
 } from "react-icons/fi";
 
 const services = [
-{
-number: "01",
-title: "Custom Software Development",
-description:
-"Build tailor-made software applications from the ground up, designed specifically around your business requirements. From intuitive interfaces to robust backend systems, we develop reliable, secure, and scalable solutions that streamline operations and support long-term business growth.",
-icon: FiCode,
-tag: "SOFTWARE ENGINEERING",
-},
-{
-number: "02",
-title: "Custom Workflow Automation Tools",
-description:
-"Eliminate repetitive manual tasks with intelligent workflow automation solutions tailored to your business processes. We develop custom automation tools that improve operational efficiency, reduce human error, accelerate workflows, and allow your team to focus on more valuable activities.",
-icon: FiGitMerge,
-tag: "PROCESS AUTOMATION",
-},
-{
-number: "03",
-title: "Legacy Application Modernization",
-description:
-"Transform outdated applications into modern, efficient, and scalable software systems. We upgrade legacy architectures, improve application performance, modernize user interfaces, and migrate existing systems to newer technologies while preserving essential business functionality.",
-icon: FiRefreshCw,
-tag: "DIGITAL TRANSFORMATION",
-},
-{
-number: "04",
-title: "Third-party API & CRM Integrations",
-description:
-"Connect your business applications with third-party APIs, CRM platforms, and external services through seamless integrations. We enable secure data exchange, automate cross-platform workflows, eliminate disconnected systems, and create a unified digital ecosystem for your business.",
-icon: FiLink,
-tag: "SYSTEM INTEGRATION",
-},
-{
-number: "05",
-title: "Scalable Database Schema Design",
-description:
-"Design robust, optimized database architectures that efficiently manage growing volumes of business data. We focus on data integrity, query performance, efficient relationships, and scalability to ensure your applications remain reliable as your business and data requirements evolve.",
-icon: FiDatabase,
-tag: "DATABASE ARCHITECTURE",
-},
+  {
+    number: "01",
+    title: "Custom Software Development",
+    description:
+      "Build tailor-made software applications from the ground up, designed specifically around your business requirements. From intuitive interfaces to robust backend systems, we develop reliable, secure, and scalable solutions that streamline operations and support long-term business growth.",
+    icon: FiCode,
+    tag: "SOFTWARE ENGINEERING",
+  },
+  {
+    number: "02",
+    title: "Custom Workflow Automation Tools",
+    description:
+      "Eliminate repetitive manual tasks with intelligent workflow automation solutions tailored to your business processes. We develop custom automation tools that improve operational efficiency, reduce human error, accelerate workflows, and allow your team to focus on more valuable activities.",
+    icon: FiGitMerge,
+    tag: "PROCESS AUTOMATION",
+  },
+  {
+    number: "03",
+    title: "Legacy Application Modernization",
+    description:
+      "Transform outdated applications into modern, efficient, and scalable software systems. We upgrade legacy architectures, improve application performance, modernize user interfaces, and migrate existing systems to newer technologies while preserving essential business functionality.",
+    icon: FiRefreshCw,
+    tag: "DIGITAL TRANSFORMATION",
+  },
+  {
+    number: "04",
+    title: "Third-party API & CRM Integrations",
+    description:
+      "Connect your business applications with third-party APIs, CRM platforms, and external services through seamless integrations. We enable secure data exchange, automate cross-platform workflows, eliminate disconnected systems, and create a unified digital ecosystem for your business.",
+    icon: FiLink,
+    tag: "SYSTEM INTEGRATION",
+  },
+  {
+    number: "05",
+    title: "Scalable Database Schema Design",
+    description:
+      "Design robust, optimized database architectures that efficiently manage growing volumes of business data. We focus on data integrity, query performance, efficient relationships, and scalability to ensure your applications remain reliable as your business and data requirements evolve.",
+    icon: FiDatabase,
+    tag: "DATABASE ARCHITECTURE",
+  },
 ];
 
 const Custom_What_We_Provide = () => {
-const [activeCard, setActiveCard] = useState(null);
+  const [activeCard, setActiveCard] = useState(null);
 
-const toggleCard = (number) => {
-if (window.innerWidth >= 1024) return;
+  const toggleCard = (number) => {
+    if (window.innerWidth >= 1024) return;
 
-```
-setActiveCard((current) =>
-  current === number ? null : number
-);
-```
+    setActiveCard((current) =>
+      current === number ? null : number
+    );
+  };
 
-};
+  return (
+    <section className="relative w-full overflow-hidden bg-[#f8fafc] py-20 sm:py-24 lg:py-28">
+      {/* Background decoration */}
+      <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-100/40 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-orange-100/30 blur-[120px]" />
 
-return ( <section className="relative w-full overflow-hidden bg-[#f8fafc] py-20 sm:py-24 lg:py-28">
-{/* Background decoration */} <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-100/40 blur-[120px]" /> <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-orange-100/30 blur-[120px]" />
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-16">
 
-```
-  <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-16">
-    {/* Section heading */}
-    <div className="mb-14 grid items-end gap-8 lg:mb-20 lg:grid-cols-2 lg:gap-16">
-      {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.7 }}
-      >
-        <div className="mb-5 inline-flex items-center gap-3">
-          <span className="h-[2px] w-8 bg-[#ff512f]" />
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#168bd2] sm:text-sm">
-            OUR EXPERTISE
-          </p>
-        </div>
+        {/* Section heading */}
+        <div className="mb-14 grid items-end gap-8 lg:mb-20 lg:grid-cols-2 lg:gap-16">
 
-        <h2 className="text-5xl font-extrabold leading-[0.98] tracking-[-0.055em] text-[#082b55] sm:text-6xl lg:text-[76px]">
-          What We
-          <br />
-          <span className="text-[#ff512f]">Provide.</span>
-        </h2>
-      </motion.div>
-
-      {/* Description */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.7, delay: 0.15 }}
-        className="lg:pb-2"
-      >
-        <p className="max-w-[540px] text-base leading-8 text-[#55708e] sm:text-lg">
-          From custom software engineering to intelligent
-          automation, we build reliable digital solutions
-          that simplify operations, connect systems, and
-          help businesses grow with confidence.
-        </p>
-
-        <div className="mt-6 flex items-center gap-3">
-          <span className="h-2 w-2 rounded-full bg-green-500" />
-          <span className="text-sm font-semibold tracking-wide text-[#082b55]">
-            Engineered for efficiency. Designed to scale.
-          </span>
-        </div>
-      </motion.div>
-    </div>
-
-    {/* Service cards */}
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6 xl:grid-cols-3">
-      {services.map((service, index) => {
-        const Icon = service.icon;
-        const isActive = activeCard === service.number;
-
-        return (
+          {/* Heading */}
           <motion.div
-            key={service.number}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{
-              duration: 0.55,
-              delay: (index % 3) * 0.1,
-              ease: "easeOut",
-            }}
-            onClick={() => toggleCard(service.number)}
-            className={`group relative flex min-h-[320px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white p-6 transition-all duration-500 ease-out sm:min-h-[340px] sm:p-8 ${
-              isActive
-                ? "border-[#168bd2]/60 shadow-[0_20px_55px_rgba(8,43,85,0.10)]"
-                : "border-[#e2e8f0] hover:-translate-y-2 hover:border-[#168bd2]/50 hover:shadow-[0_20px_55px_rgba(8,43,85,0.10)]"
-            }`}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
           >
-            {/* Card background */}
-            <div
-              className={`pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-orange-50 transition-opacity duration-500 ${
-                isActive
-                  ? "opacity-100 lg:opacity-0"
-                  : "opacity-0 group-hover:opacity-100"
-              }`}
-            />
-
-            {/* Card top */}
-            <div className="relative z-10 flex items-start justify-between">
-              <span className="text-sm font-bold tracking-widest text-[#168bd2]">
-                / {service.number}
-              </span>
-
-              <div
-                className={`flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-500 ${
-                  isActive
-                    ? "bg-[#082b55] text-white lg:bg-[#f0f7fc] lg:text-[#168bd2]"
-                    : "bg-[#f0f7fc] text-[#168bd2] group-hover:bg-[#082b55] group-hover:text-white"
-                }`}
-              >
-                <Icon size={23} strokeWidth={1.7} />
-              </div>
-            </div>
-
-            {/* Card content */}
-            <div className="relative z-10 mt-8 flex-1">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#ff512f] sm:text-[11px]">
-                {service.tag}
+            <div className="mb-5 inline-flex items-center gap-3">
+              <span className="h-[2px] w-8 bg-[#ff512f]" />
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#168bd2] sm:text-sm">
+                OUR EXPERTISE
               </p>
-
-              <h3
-                className={`text-xl font-bold leading-snug tracking-tight transition-colors duration-300 sm:text-2xl ${
-                  isActive
-                    ? "text-[#168bd2] lg:text-[#082b55]"
-                    : "text-[#082b55] group-hover:text-[#168bd2]"
-                }`}
-              >
-                {service.title}
-              </h3>
-
-              {/* Description */}
-              <div
-                className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
-                  isActive
-                    ? "grid-rows-[1fr] opacity-100 lg:grid-rows-[0fr] lg:opacity-0"
-                    : "grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100"
-                }`}
-              >
-                <div className="overflow-hidden">
-                  <p
-                    className={`pt-4 text-[14px] font-normal leading-7 tracking-[0.01em] text-[#526b83] transition-transform duration-500 ease-out sm:text-[15px] ${
-                      isActive
-                        ? "translate-y-0 lg:translate-y-3"
-                        : "translate-y-3 group-hover:translate-y-0"
-                    }`}
-                  >
-                    {service.description}
-                  </p>
-                </div>
-              </div>
             </div>
 
-            {/* Card footer */}
-            <div className="relative z-10 mt-7 flex items-center justify-between border-t border-[#e9eef4] pt-5">
-              <span className="text-[11px] font-semibold tracking-[0.16em] text-[#8aa0b5]">
-                TECHCOMBO
-              </span>
+            <h2 className="text-5xl font-extrabold leading-[0.98] tracking-[-0.055em] text-[#082b55] sm:text-6xl lg:text-[76px]">
+              What We
+              <br />
+              <span className="text-[#ff512f]">Provide.</span>
+            </h2>
+          </motion.div>
 
-              <div
-                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 ${
-                  isActive
-                    ? "rotate-45 border-[#ff512f] bg-[#ff512f] text-white lg:rotate-0 lg:border-[#dce5ef] lg:bg-transparent lg:text-[#082b55]"
-                    : "border-[#dce5ef] text-[#082b55] group-hover:border-[#ff512f] group-hover:bg-[#ff512f] group-hover:text-white"
-                }`}
-              >
-                <FiArrowUpRight size={18} />
-              </div>
+          {/* Description */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="lg:pb-2"
+          >
+            <p className="max-w-[540px] text-base leading-8 text-[#55708e] sm:text-lg">
+              From custom software engineering to intelligent
+              automation, we build reliable digital solutions
+              that simplify operations, connect systems, and
+              help businesses grow with confidence.
+            </p>
+
+            <div className="mt-6 flex items-center gap-3">
+              <span className="h-2 w-2 rounded-full bg-green-500" />
+              <span className="text-sm font-semibold tracking-wide text-[#082b55]">
+                Engineered for efficiency. Designed to scale.
+              </span>
             </div>
           </motion.div>
-        );
-      })}
-    </div>
-  </div>
-</section>
+        </div>
 
-);
+        {/* Service cards */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6 xl:grid-cols-3">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            const isActive = activeCard === service.number;
+
+            return (
+              <motion.div
+                key={service.number}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.55,
+                  delay: (index % 3) * 0.1,
+                  ease: "easeOut",
+                }}
+                onClick={() => toggleCard(service.number)}
+                className={`group relative flex min-h-[320px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white p-6 transition-all duration-500 ease-out sm:min-h-[340px] sm:p-8 ${
+                  isActive
+                    ? "border-[#168bd2]/60 shadow-[0_20px_55px_rgba(8,43,85,0.10)]"
+                    : "border-[#e2e8f0] hover:-translate-y-2 hover:border-[#168bd2]/50 hover:shadow-[0_20px_55px_rgba(8,43,85,0.10)]"
+                }`}
+              >
+                {/* Card background */}
+                <div
+                  className={`pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-orange-50 transition-opacity duration-500 ${
+                    isActive
+                      ? "opacity-100 lg:opacity-0"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
+                />
+
+                {/* Card top */}
+                <div className="relative z-10 flex items-start justify-between">
+                  <span className="text-sm font-bold tracking-widest text-[#168bd2]">
+                    / {service.number}
+                  </span>
+
+                  <motion.div
+                    animate={{
+                      rotate: isActive ? 8 : 0,
+                      scale: isActive ? 1.08 : 1,
+                    }}
+                    transition={{ duration: 0.35 }}
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-500 ${
+                      isActive
+                        ? "bg-[#082b55] text-white lg:bg-[#f0f7fc] lg:text-[#168bd2]"
+                        : "bg-[#f0f7fc] text-[#168bd2] group-hover:bg-[#082b55] group-hover:text-white"
+                    }`}
+                  >
+                    <Icon size={23} strokeWidth={1.7} />
+                  </motion.div>
+                </div>
+
+                {/* Card content */}
+                <div className="relative z-10 mt-8 flex-1">
+                  <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#ff512f] sm:text-[11px]">
+                    {service.tag}
+                  </p>
+
+                  <h3
+                    className={`text-xl font-bold leading-snug tracking-tight transition-colors duration-300 sm:text-2xl ${
+                      isActive
+                        ? "text-[#168bd2] lg:text-[#082b55]"
+                        : "text-[#082b55] group-hover:text-[#168bd2]"
+                    }`}
+                  >
+                    {service.title}
+                  </h3>
+
+                  {/* Description */}
+                  <div
+                    className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+                      isActive
+                        ? "grid-rows-[1fr] opacity-100 lg:grid-rows-[0fr] lg:opacity-0"
+                        : "grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className={`pt-4 text-[14px] font-normal leading-7 tracking-[0.01em] text-[#526b83] transition-transform duration-500 ease-out sm:text-[15px] ${
+                          isActive
+                            ? "translate-y-0 lg:translate-y-3"
+                            : "translate-y-3 group-hover:translate-y-0"
+                        }`}
+                      >
+                        {service.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card footer */}
+                <div className="relative z-10 mt-7 flex items-center justify-between border-t border-[#e9eef4] pt-5">
+                  <span className="text-[11px] font-semibold tracking-[0.16em] text-[#8aa0b5]">
+                    TECHCOMBO
+                  </span>
+
+                  <motion.div
+                    animate={{
+                      rotate: isActive ? 45 : 0,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 ${
+                      isActive
+                        ? "border-[#ff512f] bg-[#ff512f] text-white lg:border-[#dce5ef] lg:bg-transparent lg:text-[#082b55]"
+                        : "border-[#dce5ef] text-[#082b55] group-hover:border-[#ff512f] group-hover:bg-[#ff512f] group-hover:text-white"
+                    }`}
+                  >
+                    <FiArrowUpRight size={18} />
+                  </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Custom_What_We_Provide;
