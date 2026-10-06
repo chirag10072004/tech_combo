@@ -70,7 +70,7 @@ const AboutStory = () => {
   ];
 
   return (
-    <section className="bg-blue-50 py-20 sm:py-24 lg:py-32">
+    <section className="bg-blue-50 py-20 sm:py-24 lg:py-2">
       <div className="mx-auto max-w-[1500px] px-5 sm:px-6 lg:px-10">
 
         {/* Header */}

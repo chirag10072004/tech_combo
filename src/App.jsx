@@ -7,6 +7,7 @@ import Careers from './pages/Careers'
 import About from './pages/About'
 import Services from './pages/Services'
 import Industries from './pages/Industries'
+import Product from './pages/Product'
 // import ProjectEstimator from './pages/ProjectEstimator'
 
 import CustomSoftwareDevelopment from './Components/Services/custom_software'
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/industries" element={<Industries />} />
           <Route path="/industry" element={<Industries />} />
+          <Route path="/product" element={<Product/>} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/careers" element={<Careers />} />
 

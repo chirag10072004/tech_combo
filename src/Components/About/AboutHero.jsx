@@ -1,47 +1,51 @@
 
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { FaArrowRight } from 'react-icons/fa'
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FaArrowRight } from "react-icons/fa";
 
 const AboutHero = () => {
   return (
     <section
-      className="relative min-h-[85vh] pt-32 pb-20 flex items-center overflow-hidden"
+      className="relative flex min-h-0 items-center overflow-hidden mt-18 bg-cover bg-center bg-no-repeat py-12 sm:py-16 lg:min-h-[85vh] lg:py-20"
       style={{
         backgroundImage: "url('/assets/Home/hero.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        backgroundPosition: "center",
       }}
     >
-      {/* Subtle dark gradient on the left */}
+      {/* Background overlay */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.40) 32%, rgba(0,0,0,0.12) 58%, transparent 78%)',
+            "linear-gradient(90deg, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.48) 45%, rgba(0,0,0,0.18) 100%)",
         }}
       />
 
       {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-8">
+        <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-12 lg:gap-16">
 
-          {/* Left Column */}
-          <div className="lg:col-span-6 flex flex-col justify-center text-center lg:text-left space-y-6">
+          {/* Left Content */}
+          <div className="flex flex-col  justify-center space-y-5 text-center sm:space-y-6 lg:col-span-6 lg:text-left">
 
-            {/* Heading */}
+
+            {/* Main Heading */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-tight"
+              className="text-[34px] font-bold leading-[1.12] tracking-tight text-white sm:text-5xl sm:leading-tight lg:text-[54px] lg:leading-tight"
             >
-              Building Digital <br />
-              <span className='text-green-300'>Solutions That </span>
-               <br />
-              Power <span className="">Business</span>
+              Building Digital
+              <br />
+              <span className="text-green-300">
+                Solutions That
+              </span>
+              <br className="hidden sm:block" />
+              <span className="sm:ml-2 lg:ml-0">
+                Power Business
+              </span>
               <br />
               <span className="text-green-300">Growth</span>
             </motion.h1>
@@ -51,21 +55,23 @@ const AboutHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-200 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed"
+              className="mx-auto max-w-xl text-sm font-normal leading-6 text-gray-200 sm:text-base sm:leading-7 lg:mx-0 lg:text-lg"
             >
-         TechCombo delivers innovative digital solutions, including custom software, AI, cloud, and mobile applications, helping businesses grow and scale.
+              TechCombo delivers innovative digital solutions,
+              including custom software, AI, cloud, and mobile
+              applications, helping businesses grow and scale.
             </motion.p>
 
-            {/* Action Buttons */}
+            {/* Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4"
+              className="flex flex-col items-center justify-center gap-3 pt-2 sm:flex-row sm:gap-4 lg:justify-start"
             >
               <Link
                 to="/services"
-                className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-full text-base font-semibold text-white bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+                className="group flex w-full items-center justify-center gap-2 rounded-full bg-green-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-700 hover:shadow-xl sm:w-auto sm:px-8 sm:py-4 sm:text-base"
               >
                 <span>Our Services</span>
                 <FaArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -73,20 +79,19 @@ const AboutHero = () => {
 
               <Link
                 to="/contact"
-                className="flex items-center justify-center w-full sm:w-auto px-8 py-4 rounded-full text-base font-semibold text-green-300 border border-white/60 bg-white hover:bg-green-50 transition-all duration-300 hover:-translate-y-0.5"
+                className="flex w-full items-center justify-center rounded-full border border-white/60 bg-white px-7 py-3.5 text-sm font-semibold text-[#082b55] transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-50 sm:w-auto sm:px-8 sm:py-4 sm:text-base"
               >
                 Contact Us
               </Link>
             </motion.div>
           </div>
 
-          {/* Right Column */}
-          <div className="lg:col-span-6 min-h-[300px] lg:min-h-[450px]" />
-
+          {/* Right Spacer - Desktop only */}
+          <div className="hidden min-h-[450px] lg:col-span-6 lg:block" />
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default AboutHero
+export default AboutHero;

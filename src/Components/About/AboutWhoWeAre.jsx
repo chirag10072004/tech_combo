@@ -11,12 +11,12 @@ const AboutWhoWeAre = () => {
     'Cybersecurity',
     'Mobile App Development',
     'UI/UX Design',
-    'AI & Machine Learning',
+    'Web Security',
     'Maintenance & Support'
   ]
 
   return (
-    <section className="relative py-24 bg-white overflow-hidden">
+    <section className="relative py-15 bg-blue-50 overflow-hidden">
       {/* Background decoration elements */}
       <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
       
