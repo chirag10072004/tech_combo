@@ -23,7 +23,7 @@ const Contact = () => {
       <ContactHero />
 
       {/* Main Content Area */}
-      <section className="pb-24 pt-6 bg-[#F8FAFC]">
+      <section className="pb-14 pt-6 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           {/* Form & Details Cards Grid */}

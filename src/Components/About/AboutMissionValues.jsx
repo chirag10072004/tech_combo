@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -30,8 +29,8 @@ const AboutMissionValues = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-blue-50 py-14 sm:py-16 lg:py-20">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 md:px-10">
+    <section className="relative overflow-hidden bg-gray-200 py-4 sm:py-5 lg:py-12">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
 
         {/* HEADER */}
         <motion.div
@@ -39,9 +38,9 @@ const AboutMissionValues = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-9"
+          className="mb-6 sm:mb-8"
         >
-          <h2 className="max-w-3xl text-4xl font-bold leading-tight text-[#071329] md:text-5xl">
+          <h2 className="max-w-3xl text-3xl font-bold leading-tight text-[#071329] sm:text-4xl md:text-5xl">
             Technology with purpose,
             <br />
             <span className="text-gray-400">
@@ -49,7 +48,7 @@ const AboutMissionValues = () => {
             </span>
           </h2>
 
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:mt-3 sm:leading-7">
             We combine innovation, expertise and collaboration to
             create technology solutions that help businesses grow,
             evolve and succeed.
@@ -62,10 +61,10 @@ const AboutMissionValues = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid items-center gap-7 md:grid-cols-2 md:gap-10"
+          className="grid items-center gap-5 md:grid-cols-2 md:gap-10"
         >
           {/* IMAGE */}
-          <div className="relative h-[280px] overflow-hidden rounded-2xl bg-white md:h-[340px]">
+          <div className="relative h-[240px] overflow-hidden rounded-2xl bg-white sm:h-[280px] md:h-[340px]">
             <img
               src="/assets/About/value.png"
               alt="Our Journey"
@@ -75,21 +74,21 @@ const AboutMissionValues = () => {
 
           {/* VISION */}
           <div className="md:pl-4">
-            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
+            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
               <FiEye size={23} />
             </div>
 
-            <h3 className="mb-3 text-2xl font-bold text-[#071329] sm:text-3xl">
+            <h3 className="mb-2 text-2xl font-bold text-[#071329] sm:text-3xl">
               Our Vision
             </h3>
 
-            <p className="max-w-lg text-sm leading-7 text-slate-500">
+            <p className="max-w-lg text-sm leading-6 text-slate-500 sm:leading-7">
               Become a trusted global technology partner,
               recognized globally for engineering world-class
               software products and digital systems.
             </p>
 
-            <div className="mt-5 h-[2px] w-12 bg-purple-500" />
+            <div className="mt-4 h-[2px] w-12 bg-purple-500" />
           </div>
         </motion.div>
 
@@ -99,11 +98,11 @@ const AboutMissionValues = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-9 grid items-center gap-5 md:mt-10 md:grid-cols-3 md:gap-8"
+          className="mt-6 grid items-center gap-4 md:mt-10 md:grid-cols-3 md:gap-8"
         >
           {/* ICON */}
           <div className="flex justify-center md:justify-start">
-            <div className="relative flex h-24 w-24 items-center justify-center">
+            <div className="relative flex h-20 w-20 items-center justify-center sm:h-24 sm:w-24">
               <div className="absolute inset-0 rounded-full border border-dashed border-gray-300" />
 
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-50 text-orange-500">
@@ -114,11 +113,11 @@ const AboutMissionValues = () => {
 
           {/* MISSION */}
           <div className="md:col-span-2">
-            <h3 className="mb-3 text-2xl font-bold text-[#071329] sm:text-3xl">
+            <h3 className="mb-2 text-2xl font-bold text-[#071329] sm:text-3xl">
               Our Mission
             </h3>
 
-            <p className="max-w-2xl text-sm leading-7 text-slate-500">
+            <p className="max-w-2xl text-sm leading-6 text-slate-500 sm:leading-7">
               Empower businesses through innovative technology
               solutions that drive growth and efficiency, creating
               a measurable digital footprint.
@@ -132,20 +131,17 @@ const AboutMissionValues = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-8 border-t border-blue-100 pt-7"
+          className="mt-6 border-t border-blue-100 pt-5 sm:mt-8 sm:pt-7"
         >
-          <div className="mb-5 flex items-center gap-3">
-            <FiAward
-              size={27}
-              className="text-blue-500"
-            />
+          <div className="mb-4 flex items-center gap-3">
+            <FiAward size={25} className="text-blue-500" />
 
             <h3 className="text-2xl font-bold text-[#071329] sm:text-3xl">
               Our Values
             </h3>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-5 gap-y-2 sm:grid-cols-3 sm:gap-x-8">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-2">
             {values.map((value, index) => (
               <motion.div
                 key={value}
@@ -156,7 +152,7 @@ const AboutMissionValues = () => {
                   duration: 0.35,
                   delay: index * 0.06,
                 }}
-                className="group flex items-center gap-3 rounded-lg px-3 py-2 transition-all duration-200 hover:bg-white/70"
+                className="group flex items-center gap-2 rounded-lg px-2 py-1.5 transition-all duration-200 hover:bg-white/70"
               >
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400 transition-all duration-200 group-hover:scale-125 group-hover:bg-blue-600" />
 
@@ -167,6 +163,7 @@ const AboutMissionValues = () => {
             ))}
           </div>
         </motion.div>
+
       </div>
     </section>
   );

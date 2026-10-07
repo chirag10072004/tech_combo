@@ -70,20 +70,21 @@ const AboutStory = () => {
   ];
 
   return (
-    <section className="bg-blue-50 py-20 sm:py-24 lg:py-2">
-      <div className="mx-auto max-w-[1500px] px-5 sm:px-6 lg:px-10">
+    <section className="bg-gray-200 pb-5 sm:pt-5 sm:pb-10 lg:py-2">
+      <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10">
 
-        {/* Header */}
-        <div className="mb-10 flex flex-col gap-6 lg:mb-14 lg:flex-row lg:items-end lg:justify-between">
+        {/* HEADER */}
+        <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:gap-5 lg:mb-14 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-[2px] w-10 bg-orange-500" />
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-orange-500">
+            <div className="mb-3 flex items-center gap-3">
+              <span className="h-[2px] w-8 bg-orange-500 sm:w-10" />
+
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-orange-500 sm:text-xs">
                 Our Story
               </p>
             </div>
 
-            <h2 className="text-3xl font-bold leading-tight tracking-tight text-slate-950 sm:text-4xl md:text-5xl lg:text-6xl">
+            <h2 className="text-[28px] font-bold leading-[1.12] tracking-tight text-slate-950 sm:text-4xl md:text-5xl lg:text-6xl">
               A journey built on{" "}
               <span className="text-blue-400">
                 ideas, innovation
@@ -92,13 +93,13 @@ const AboutStory = () => {
             </h2>
           </div>
 
-          <p className="max-w-md text-sm leading-6 text-slate-500 sm:text-base">
+          <p className="max-w-md text-sm leading-5 text-slate-500 sm:text-base sm:leading-6">
             Every milestone represents a stage of our evolution — from our
             foundation to becoming a growing digital technology partner.
           </p>
         </div>
 
-        {/* Desktop Timeline */}
+        {/* DESKTOP TIMELINE */}
         <div className="hidden h-[560px] overflow-hidden rounded-3xl bg-slate-950 shadow-xl md:flex">
           {milestones.map((item, index) => {
             const isActive = active === index;
@@ -111,10 +112,10 @@ const AboutStory = () => {
                   isActive ? "flex-[4]" : "flex-1"
                 }`}
               >
-                {/* Background */}
+                {/* BACKGROUND */}
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-slate-900 to-orange-950" />
 
-                {/* Glow */}
+                {/* GLOW */}
                 <div
                   className={`absolute -right-32 -top-32 h-80 w-80 rounded-full bg-orange-500/10 blur-3xl transition-opacity duration-700 ${
                     isActive ? "opacity-100" : "opacity-0"
@@ -123,12 +124,14 @@ const AboutStory = () => {
 
                 <div className="relative z-10 flex w-full flex-col p-6 lg:p-9">
 
-                  {/* Top */}
+                  {/* TOP */}
                   <div className="flex items-start justify-between">
                     <div>
                       <p
                         className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${
-                          isActive ? "text-blue-400" : "text-slate-600"
+                          isActive
+                            ? "text-blue-400"
+                            : "text-slate-600"
                         }`}
                       >
                         {item.label}
@@ -156,7 +159,7 @@ const AboutStory = () => {
                     </div>
                   </div>
 
-                  {/* Content */}
+                  {/* CONTENT */}
                   <div
                     className={`mt-auto transition-all duration-700 ${
                       isActive
@@ -185,11 +188,11 @@ const AboutStory = () => {
                         <p className="text-[9px] uppercase tracking-[0.2em] text-slate-500">
                           Focus
                         </p>
+
                         <p className="mt-1 text-sm font-semibold text-white">
                           {item.stats}
                         </p>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -198,7 +201,7 @@ const AboutStory = () => {
           })}
         </div>
 
-        {/* Desktop Year Buttons */}
+        {/* DESKTOP YEAR BUTTONS */}
         <div className="mt-4 hidden gap-2 md:flex">
           {milestones.map((item, index) => (
             <button
@@ -215,8 +218,8 @@ const AboutStory = () => {
           ))}
         </div>
 
-        {/* Mobile Accordion */}
-        <div className="space-y-3 md:hidden">
+        {/* MOBILE ACCORDION */}
+        <div className="space-y-2 md:hidden">
           {milestones.map((item, index) => {
             const isActive = active === index;
 
@@ -229,13 +232,14 @@ const AboutStory = () => {
                     : "border-slate-200 bg-white"
                 }`}
               >
+                {/* HEADER */}
                 <button
                   onClick={() => setActive(index)}
-                  className="flex w-full items-center justify-between p-5 text-left"
+                  className="flex w-full items-center justify-between px-3 py-3.5 text-left sm:p-5"
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3">
                     <div
-                      className={`flex h-11 w-11 items-center justify-center rounded-xl text-sm font-bold ${
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold ${
                         isActive
                           ? "bg-orange-500 text-white"
                           : "bg-slate-100 text-slate-600"
@@ -247,7 +251,9 @@ const AboutStory = () => {
                     <div>
                       <p
                         className={`text-[9px] font-bold uppercase tracking-[0.2em] ${
-                          isActive ? "text-orange-400" : "text-slate-400"
+                          isActive
+                            ? "text-orange-400"
+                            : "text-slate-400"
                         }`}
                       >
                         {item.label}
@@ -255,7 +261,9 @@ const AboutStory = () => {
 
                       <h3
                         className={`mt-1 text-lg font-bold ${
-                          isActive ? "text-white" : "text-slate-900"
+                          isActive
+                            ? "text-white"
+                            : "text-slate-900"
                         }`}
                       >
                         {item.title}
@@ -264,7 +272,7 @@ const AboutStory = () => {
                   </div>
 
                   <div
-                    className={`flex h-8 w-8 items-center justify-center rounded-full border text-lg ${
+                    className={`flex h-8 w-8 items-center justify-center rounded-full border text-lg transition-transform duration-300 ${
                       isActive
                         ? "rotate-45 border-orange-400 bg-orange-500 text-white"
                         : "border-slate-200 text-slate-400"
@@ -274,10 +282,11 @@ const AboutStory = () => {
                   </div>
                 </button>
 
+                {/* CONTENT */}
                 {isActive && (
-                  <div className="border-t border-white/10 px-5 pb-6 pt-5">
-                    <div className="flex gap-4">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-white">
+                  <div className="border-t border-white/10 px-3 pb-4 pt-4 sm:px-5 sm:pb-6 sm:pt-5">
+                    <div className="flex gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-white">
                         {item.icon}
                       </div>
 
@@ -292,11 +301,12 @@ const AboutStory = () => {
                       </div>
                     </div>
 
-                    <div className="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3">
+                    <div className="mt-4 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5">
                       <div>
                         <p className="text-[9px] uppercase tracking-[0.2em] text-slate-500">
                           Focus
                         </p>
+
                         <p className="mt-1 text-sm font-semibold text-white">
                           {item.stats}
                         </p>
@@ -310,7 +320,6 @@ const AboutStory = () => {
             );
           })}
         </div>
-
       </div>
     </section>
   );

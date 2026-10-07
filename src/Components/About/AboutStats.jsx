@@ -41,7 +41,7 @@ const AboutStats = () => {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-gray-300 py-20 sm:py-24"
+      className="relative overflow-hidden bg-gray-300 py-12 sm:py-14"
     >
       {/* Soft background glow only */}
       <div className="pointer-events-none absolute -left-40 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-orange-500/[0.06] blur-[120px]" />

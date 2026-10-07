@@ -65,7 +65,7 @@ const Cyber_What_We_Provide = () => {
     };
 
     return (
-        <section className="relative w-full overflow-hidden bg-[#f8fafc] py-20 sm:py-24 lg:py-28">
+        <section className="relative w-full overflow-hidden bg-[#f8fafc] py-12 sm:py-14 lg:py-16">
 
             {/* Background decoration */}
             <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-100/40 blur-[120px]" />

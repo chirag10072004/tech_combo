@@ -47,7 +47,7 @@ const ProcessSection = () => {
   ];
 
   return (
-    <section className="bg-white py-20 lg:py-20">
+    <section className="bg-white py-12 lg:py-14">
       <div className="mx-auto max-w-[1600px] px-5 sm:px-8 lg:px-10">
 
         {/* ================= HEADER ================= */}

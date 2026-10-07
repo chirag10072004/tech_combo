@@ -7,7 +7,7 @@ import { FaArrowRight } from "react-icons/fa";
 const AboutHero = () => {
   return (
     <section
-      className="relative flex min-h-0 items-center overflow-hidden mt-18 bg-cover bg-center bg-no-repeat py-12 sm:py-16 lg:min-h-[85vh] lg:py-20"
+      className="relative flex min-h-0 items-center overflow-hidden mt-18 bg-cover bg-center bg-no-repeat py-8 sm:py-12 lg:min-h-[85vh] lg:py-14"
       style={{
         backgroundImage: "url('/assets/Home/hero.png')",
         backgroundPosition: "center",
@@ -40,7 +40,7 @@ const AboutHero = () => {
               Building Digital
               <br />
               <span className="text-green-300">
-                Solutions That
+                Solutions That {' '}
               </span>
               <br className="hidden sm:block" />
               <span className="sm:ml-2 lg:ml-0">

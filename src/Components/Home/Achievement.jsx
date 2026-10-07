@@ -50,7 +50,7 @@ const Achievement = () => {
   ]
 
   return (
-    <section ref={ref} className="relative py-20 bg-blue-100 text-gray-900 overflow-hidden">
+    <section ref={ref} className="relative py-12 bg-gray-200   text-gray-900 overflow-hidden">
       {/* Decorative background shape */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-gray-50 rounded-full blur-3xl pointer-events-none -mr-40 -mt-40" />
 

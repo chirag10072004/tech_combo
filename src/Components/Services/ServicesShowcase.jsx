@@ -101,7 +101,7 @@ const ServicesShowcase = () => {
   return (
     <section
       id="services-showcase"
-      className="relative w-full overflow-hidden scroll-mt-24 bg-cover bg-center bg-no-repeat py-24"
+      className="relative w-full overflow-hidden scroll-mt-24 bg-cover bg-center bg-no-repeat py-14"
       style={{
         backgroundImage: `url("${backgroundImage}")`,
       }}

@@ -16,7 +16,7 @@ const AboutWhoWeAre = () => {
   ]
 
   return (
-    <section className="relative py-15 bg-blue-50 overflow-hidden">
+    <section className="relative py-10 bg-gray-200 overflow-hidden">
       {/* Background decoration elements */}
       <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
       

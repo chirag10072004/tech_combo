@@ -4,7 +4,7 @@ import { FiPhoneCall, FiArrowRight } from 'react-icons/fi'
 
 const CTA = () => {
   return (
-    <section className="relative py-20 bg-[#071329] overflow-hidden">
+    <section className="relative py-12 bg-[#071329] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Banner container with dark blue gradient & visual glow highlights */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-900 to-[#1e3a8a] border border-blue-800/40 p-8 sm:p-12 lg:p-16 shadow-[0_20px_50px_rgba(7,19,41,0.4)]">

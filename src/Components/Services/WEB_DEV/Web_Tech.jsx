@@ -106,7 +106,7 @@ const Tech = () => {
   const [activeTab, setActiveTab] = useState("Frontend");
 
   return (
-    <section className="relative bg-[#f7f9fc] py-20 sm:py-24 lg:py-28 overflow-hidden">
+    <section className="relative bg-[#f7f9fc] py-12 sm:py-14 lg:py-16 overflow-hidden">
 
       {/* Background Shapes */}
       <div className="absolute top-[-180px] right-[-120px] w-[450px] h-[450px] rounded-full bg-[#2864d7]/[0.06] blur-3xl" />

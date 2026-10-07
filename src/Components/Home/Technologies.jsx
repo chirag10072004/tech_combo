@@ -130,7 +130,7 @@ const AboutTechStack = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#f6f5f2] py-20 sm:py-24 lg:py-15">
+    <section className="relative overflow-hidden bg-[#f6f5f2] py-12 sm:py-14 lg:py-14">
 
       {/* Subtle Decorative Shape */}
       <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full border border-black/[0.04]" />

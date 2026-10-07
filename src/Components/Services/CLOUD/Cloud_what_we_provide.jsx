@@ -67,7 +67,7 @@ const Cloud_what_we_provide = () => {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#f8fafc] py-20 sm:py-24 lg:py-28">
+    <section className="relative w-full overflow-hidden bg-[#f8fafc] py-12 sm:py-14 lg:py-16">
       {/* Background decoration */}
       <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-100/40 blur-[120px]" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-orange-100/30 blur-[120px]" />

@@ -6,7 +6,7 @@ const Cloud_hero = () => {
   return (
     <section className="min-h-screen bg-[#fdfaf5] overflow-hidden flex items-center">
 
-      <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-8 sm:py-14 lg:py-20">
+      <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-8 sm:py-10 lg:py-14">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
 

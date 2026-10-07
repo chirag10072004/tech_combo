@@ -27,7 +27,7 @@ const AboutIndustries = () => {
   const [active, setActive] = useState(null);
 
   return (
-    <section className="bg-gray-50 py-12 sm:py-16">
+    <section className="bg-gray-50 py-8 sm:py-10">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
 
         {/* Heading */}

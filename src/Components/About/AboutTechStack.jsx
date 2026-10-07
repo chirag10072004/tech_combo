@@ -60,7 +60,7 @@ const AboutTechStack = () => {
   }
 
   return (
-    <section className="relative py-20 bg-[#071329] overflow-hidden border-t border-b border-blue-950/35">
+    <section className="relative py-12 bg-[#071329] overflow-hidden border-t border-b border-blue-950/35">
       {/* Subtle Grid Accent and Glow Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f1f39_1px,transparent_1px),linear-gradient(to_bottom,#0f1f39_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-25" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-green-600/10 rounded-full blur-[100px] pointer-events-none" />

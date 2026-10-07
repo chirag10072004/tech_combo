@@ -86,7 +86,7 @@ const industries = [
 
 const Industry_Data = () => {
   return (
-    <section className="bg-white pt-2 sm:pt-4 lg:pt-6 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
+    <section className="bg-white pt-2 sm:pt-4 lg:pt-6 pb-10 sm:pb-12 lg:pb-14 overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
 

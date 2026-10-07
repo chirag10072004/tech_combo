@@ -18,7 +18,7 @@ const About = () => {
     return (
         <section
             id="about"
-            className="relative overflow-hidden scroll-mt-24 bg-cover bg-center bg-no-repeat py-24"
+            className="relative overflow-hidden scroll-mt-24 bg-cover bg-center bg-no-repeat py-14"
             style={{
                 backgroundImage: `url("${BackgroundImg}")`,
             }}

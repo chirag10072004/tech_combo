@@ -64,7 +64,7 @@ const App_what_we_provide = () => {
     };
 
     return (
-        <section className="relative overflow-hidden bg-[#fdfaf5] py-20 sm:py-24 lg:py-28">
+        <section className="relative overflow-hidden bg-[#fdfaf5] py-12 sm:py-14 lg:py-16">
             {/* Background decoration */}
             <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-blue-100/40 blur-[100px]" />
             <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-orange-100/40 blur-[110px]" />

@@ -71,7 +71,7 @@ const Process = () => {
   return (
     <section
       id="process"
-      className="relative overflow-hidden bg-[#f5f8fc] py-24 sm:py-28"
+      className="relative overflow-hidden bg-[#f5f8fc] py-14 sm:py-16"
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">

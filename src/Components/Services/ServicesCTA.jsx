@@ -5,7 +5,7 @@ import { FaPhoneAlt, FaArrowRight } from 'react-icons/fa'
 
 const ServicesCTA = () => {
   return (
-    <section className="relative py-15 bg-[#F8FAFC]">
+    <section className="relative py-10 bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Banner Container */}

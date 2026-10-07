@@ -44,7 +44,7 @@ const Services = () => {
   ]
 
   return (
-    <section className="bg-gray-300 px-6 py-16 overflow-hidden">
+    <section className="bg-gray-300 px-6 py-10 overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
 
         {/* Heading */}
