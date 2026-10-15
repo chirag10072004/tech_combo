@@ -15,7 +15,7 @@ const ContactForm = () => {
   const [status, setStatus] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '918010605376'
+  const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '8329917749'
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })

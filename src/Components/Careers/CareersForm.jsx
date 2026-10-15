@@ -19,7 +19,7 @@ const CareerForm = ({ job, onClose }) => {
   const [isSharingResume, setIsSharingResume] = useState(false);
   const [resumeShared, setResumeShared] = useState(false);
 
-  const WHATSAPP_NUMBER = '918010605376'
+  const WHATSAPP_NUMBER = '918329917749'
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
