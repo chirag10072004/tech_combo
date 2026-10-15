@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaTimes, FaCheckCircle } from "react-icons/fa";
+import { FaTimes, FaCheckCircle, FaWhatsapp } from "react-icons/fa";
 import { FiUpload, FiBriefcase, FiUser, FiMail, FiPhone, FiLink, FiMessageSquare, FiLoader } from "react-icons/fi";
 
 const CareerForm = ({ job, onClose }) => {
@@ -16,6 +16,10 @@ const CareerForm = ({ job, onClose }) => {
   const [resumeFile, setResumeFile] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSharingResume, setIsSharingResume] = useState(false);
+  const [resumeShared, setResumeShared] = useState(false);
+
+  const WHATSAPP_NUMBER = '918010605376'
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +35,7 @@ const CareerForm = ({ job, onClose }) => {
       const maxLimit = 2.5 * 1024 * 1024; // 2.5 MB
       if (file.size > maxLimit) {
         alert("File size is too large. Please upload a resume smaller than 2.5 MB.");
-        e.target.value = null; // Clear selected file
+        e.target.value = null;
         setResumeName("");
         setResumeFile(null);
         return;
@@ -41,75 +45,90 @@ const CareerForm = ({ job, onClose }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    let resumeBase64 = null;
-    if (resumeFile) {
-      try {
-        const getBase64 = (file) => {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-          });
-        };
-        resumeBase64 = await getBase64(resumeFile);
-      } catch (err) {
-        console.error("Error reading file:", err);
-        alert("Failed to read resume file. Please try again.");
-        setIsSubmitting(false);
-        return;
-      }
-    }
+    // Build professional WhatsApp message
+    const messageParts = [
+      `━━━━━━━━━━━━━━━━━━━━━`,
+      `*TECH COMBO — Job Application*`,
+      `━━━━━━━━━━━━━━━━━━━━━`,
+      ``,
+      `*Position Applied:* ${job}`,
+      ``,
+      `*Full Name:* ${formData.fullName}`,
+      `*Email:* ${formData.email}`,
+      `*Phone:* ${formData.phone}`,
+      `*Experience:* ${formData.experience}`,
+      formData.portfolio ? `*Portfolio/LinkedIn:* ${formData.portfolio}` : '',
+      resumeName ? `*Resume:* ${resumeName}` : '',
+      ``,
+      `───────────────────`,
+      `*Cover Message:*`,
+      ``,
+      formData.message,
+      ``,
+      `───────────────────`,
+      `_Sent via techcombo.in careers page_`,
+    ].filter(Boolean).join('\n')
+
+    const encodedMessage = encodeURIComponent(messageParts)
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`
+
+    window.open(whatsappUrl, '_blank')
+
+    setIsSuccess(true);
+    setIsSubmitting(false);
+  };
+
+  const handleShareResume = async () => {
+    if (!resumeFile) return;
+
+    setIsSharingResume(true);
 
     try {
-      const apiBase = import.meta.env.VITE_API_URL || '';
-      const response = await fetch(`${apiBase}/api/career`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          job,
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          experience: formData.experience,
-          portfolio: formData.portfolio || "N/A",
-          message: formData.message,
-          resume: resumeBase64,
-          resumeName: resumeName
-        }),
-      });
+      // Use Web Share API to share the file natively (works on mobile & desktop)
+      if (navigator.share && navigator.canShare) {
+        const shareData = {
+          files: [resumeFile],
+          title: `Resume - ${formData.fullName}`,
+          text: `Resume for ${job} position — ${formData.fullName}`,
+        };
 
-      const contentType = response.headers.get("content-type");
-      let result = {};
-      if (contentType && contentType.includes("application/json")) {
-        result = await response.json();
+        if (navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+          setResumeShared(true);
+        } else {
+          downloadAndPrompt();
+        }
       } else {
-        const text = await response.text();
-        result = { success: false, message: `Server Error (${response.status}): ${text.slice(0, 120)}` };
-      }
-
-      if (response.ok && result.success) {
-        setIsSuccess(true);
-      } else {
-        alert(result.message || "Submission failed. Please check your details and try again.");
+        downloadAndPrompt();
       }
     } catch (err) {
-      console.error("Error:", err);
-      alert("Network error. Please check your connection and try again.");
+      if (err.name !== 'AbortError') {
+        downloadAndPrompt();
+      }
     } finally {
-      setIsSubmitting(false);
+      setIsSharingResume(false);
     }
+  };
+
+  const downloadAndPrompt = () => {
+    const url = URL.createObjectURL(resumeFile);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = resumeName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setResumeShared(true);
   };
 
   return (
     <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex justify-center items-center z-50 px-5 transition-all duration-300">
-      <div className="bg-white rounded-3xl w-full max-w-2xl p-8 relative shadow-2xl text-slate-800 transform transition-all duration-300">
+      <div className="bg-white rounded-3xl w-full max-w-2xl p-8 relative shadow-2xl text-slate-800 transform transition-all duration-300 max-h-[90vh] overflow-y-auto">
 
         {/* Close Button */}
         <button
@@ -219,10 +238,10 @@ const CareerForm = ({ job, onClose }) => {
                       className="w-full border border-slate-200 rounded-xl py-3 pl-11 pr-4 outline-none focus:border-green-600 focus:ring-2 focus:ring-blue-100 text-slate-900 bg-white transition text-sm font-normal appearance-none cursor-pointer"
                     >
                       <option value="" disabled>Select your experience</option>
-                      <option value="entry">Entry Level (0-1 year)</option>
-                      <option value="mid">Mid Level (1-3 years)</option>
-                      <option value="senior">Senior Level (3-5 years)</option>
-                      <option value="lead">Lead / Manager (5+ years)</option>
+                      <option value="Entry Level (0-1 year)">Entry Level (0-1 year)</option>
+                      <option value="Mid Level (1-3 years)">Mid Level (1-3 years)</option>
+                      <option value="Senior Level (3-5 years)">Senior Level (3-5 years)</option>
+                      <option value="Lead / Manager (5+ years)">Lead / Manager (5+ years)</option>
                     </select>
                   </div>
                 </div>
@@ -305,31 +324,85 @@ const CareerForm = ({ job, onClose }) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-green-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3.5 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-green-600/25 mt-4"
+                className="w-full bg-[#25D366] hover:bg-[#1da851] disabled:bg-slate-400 text-white py-3.5 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-green-600/25 mt-4"
               >
                 {isSubmitting ? (
                   <>
                     <FiLoader className="animate-spin text-lg" />
-                    Submitting Application...
+                    Opening WhatsApp...
                   </>
                 ) : (
-                  "Submit Application"
+                  <>
+                    <FaWhatsapp className="text-lg" />
+                    Submit via WhatsApp
+                  </>
                 )}
               </button>
             </form>
           </>
         ) : (
-          /* Success Screen */
-          <div className="py-8 flex flex-col items-center justify-center text-center space-y-5 animate-fadeIn">
+          /* Success Screen with Resume Share Step */
+          <div className="py-6 flex flex-col items-center justify-center text-center space-y-5 animate-fadeIn">
             <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-500 text-5xl shadow-inner shadow-green-100">
               <FaCheckCircle className="animate-scaleUp" />
             </div>
             <div>
-              <h3 className="text-3xl font-extrabold text-slate-900">Application Submitted!</h3>
+              <h3 className="text-2xl font-extrabold text-slate-900">Application Details Sent!</h3>
               <p className="text-slate-500 mt-2 max-w-md mx-auto text-sm">
-                Thank you for applying. We have received your resume and details for the <strong className="text-slate-800">{job}</strong> position, and we will get back to you shortly.
+                Your application details for <strong className="text-slate-800">{job}</strong> have been sent via WhatsApp.
               </p>
             </div>
+
+            {/* Step 2: Share Resume */}
+            {resumeFile && !resumeShared && (
+              <div className="w-full max-w-sm bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-3">
+                <p className="text-sm font-semibold text-amber-800">
+                  📎 Step 2: Share your resume
+                </p>
+                <p className="text-xs text-amber-700">
+                  Please share your resume <strong>({resumeName})</strong> in the same WhatsApp chat to complete your application.
+                </p>
+                <button
+                  onClick={handleShareResume}
+                  disabled={isSharingResume}
+                  className="w-full bg-[#25D366] hover:bg-[#1da851] text-white py-3 rounded-xl font-bold transition duration-200 flex items-center justify-center gap-2 cursor-pointer text-sm disabled:opacity-70"
+                >
+                  {isSharingResume ? (
+                    <>
+                      <FiLoader className="animate-spin" />
+                      Sharing...
+                    </>
+                  ) : (
+                    <>
+                      <FaWhatsapp className="text-lg" />
+                      Share Resume on WhatsApp
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {/* Resume shared confirmation */}
+            {resumeShared && (
+              <div className="w-full max-w-sm bg-green-50 border border-green-200 rounded-2xl p-4">
+                <p className="text-sm font-semibold text-green-700 flex items-center justify-center gap-2">
+                  <FaCheckCircle /> Resume shared successfully!
+                </p>
+                <p className="text-xs text-green-600 mt-1">
+                  Please send it in the WhatsApp chat if not already done.
+                </p>
+              </div>
+            )}
+
+            {/* No resume uploaded */}
+            {!resumeFile && (
+              <div className="w-full max-w-sm bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                <p className="text-xs text-slate-500">
+                  You can also share your resume directly in the WhatsApp chat.
+                </p>
+              </div>
+            )}
+
             <button
               onClick={onClose}
               className="px-8 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl transition duration-200 cursor-pointer"

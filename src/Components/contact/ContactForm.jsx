@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { FaUser, FaEnvelope, FaPhoneAlt, FaBuilding, FaTag, FaComment, FaPaperPlane, FaLock } from 'react-icons/fa'
+import { FaUser, FaEnvelope, FaPhoneAlt, FaBuilding, FaTag, FaComment, FaWhatsapp, FaLock } from 'react-icons/fa'
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -16,69 +15,55 @@ const ContactForm = () => {
   const [status, setStatus] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '918010605376'
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    
-    // Simple verification
+
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
       setStatus({ type: 'error', message: 'Please fill in all required fields.' })
       return
     }
 
     setIsSubmitting(true)
-    setStatus({ type: 'info', message: 'Sending your message, please wait...' })
 
-    // Timer for Render server cold start warning
-    const slowNoticeTimer = setTimeout(() => {
-      setStatus({ type: 'info', message: 'Connecting to server... (If the backend is waking up, this may take up to 30 seconds)' })
-    }, 4000);
+    const whatsappMessage = `*NEW CONTACT INQUIRY - TECHCOMBO*
+---------------------------------------
+*Name:* ${formData.firstName} ${formData.lastName}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone || 'Not provided'}
+*Company:* ${formData.company || 'Not provided'}
+*Subject:* ${formData.subject}
+---------------------------------------
+*Message:*
+${formData.message}
+---------------------------------------
+_Sent via TechCombo Website_`
 
-    try {
-      const apiBase = import.meta.env.VITE_API_URL || ''
-      const response = await fetch(`${apiBase}/api/contact`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
+    const encodedMessage = encodeURIComponent(whatsappMessage)
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`
 
-      clearTimeout(slowNoticeTimer);
+    window.open(whatsappUrl, '_blank')
 
-      const contentType = response.headers.get("content-type");
-      let result = {};
-      if (contentType && contentType.includes("application/json")) {
-        result = await response.json();
-      } else {
-        const text = await response.text();
-        result = { success: false, message: `Server Error (${response.status}): ${text.slice(0, 120)}` };
-      }
+    setStatus({
+      type: 'success',
+      message: "Opening WhatsApp to send your inquiry! If it didn't open, please check your browser popup settings."
+    })
+    setIsSubmitting(false)
 
-      if (response.ok && result.success) {
-        setStatus({ type: 'success', message: 'Your message has been sent successfully! We\'ll get back to you soon.' })
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          company: '',
-          subject: '',
-          message: ''
-        })
-      } else {
-        setStatus({ type: 'error', message: result.message || 'Something went wrong. Please try again.' })
-      }
-    } catch (err) {
-      clearTimeout(slowNoticeTimer);
-      console.error('Contact form error:', err)
-      setStatus({ type: 'error', message: 'Network error. Please check your connection and try again.' })
-    } finally {
-      setIsSubmitting(false)
-    }
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      company: '',
+      subject: '',
+      message: ''
+    })
   }
 
   return (
@@ -95,13 +80,15 @@ const ContactForm = () => {
       </div>
 
       {status.message && (
-        <div className={`p-4 mb-6 rounded-xl text-sm font-medium ${
-          status.type === 'success' 
-            ? 'bg-green-50 text-green-700' 
-            : status.type === 'info'
-            ? 'bg-blue-50 text-blue-700 border border-blue-100'
-            : 'bg-red-50 text-red-700'
-        }`}>
+        <div
+          className={`p-4 mb-6 rounded-xl text-sm font-medium ${
+            status.type === 'success'
+              ? 'bg-green-50 text-green-700 border border-green-200'
+              : status.type === 'info'
+              ? 'bg-blue-50 text-blue-700 border border-blue-100'
+              : 'bg-red-50 text-red-700 border border-red-200'
+          }`}
+        >
           {status.message}
         </div>
       )}
@@ -239,10 +226,10 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-4 rounded-xl text-sm font-semibold text-white bg-primary-blue hover:bg-blue-700 hover:shadow-[0_8px_30px_rgba(37,99,235,0.4)] transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            className="px-8 py-4 rounded-xl text-sm font-semibold text-white bg-primary-blue hover:bg-blue-700 hover:shadow-[0_8px_30px_rgba(37,99,235,0.4)] transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 cursor-pointer"
           >
-            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-            <FaPaperPlane className={`h-3.5 w-3.5 ${isSubmitting ? 'animate-pulse' : ''}`} />
+            <FaWhatsapp className={`h-4 w-4 ${isSubmitting ? 'animate-pulse' : ''}`} />
+            <span>{isSubmitting ? 'Opening WhatsApp...' : 'Send Message via WhatsApp'}</span>
           </button>
 
           <div className="flex items-center space-x-2 text-xs text-slate-400 font-light pt-2">

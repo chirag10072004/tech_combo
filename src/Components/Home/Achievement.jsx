@@ -67,15 +67,6 @@ const Achievement = () => {
             <p className="text-gray-600 max-w-md mx-auto lg:mx-0 font-light text-base leading-relaxed">
               Numbers that reflect our commitment to excellence, client success, and delivering top-tier software and hardware integrations worldwide.
             </p>
-            <div className="pt-2">
-              <Link
-                to="#about"
-                className="inline-flex items-center space-x-2 text-black font-semibold hover:text-green-400 transition-colors duration-300 group"
-              >
-                <span>Know More About Us</span>
-                <FiArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </div>
           </div>
 
           {/* Right Side: Grid of 4 Floating Cards */}
