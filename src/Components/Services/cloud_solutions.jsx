@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import SEO from '../SEO'
 import Navbar from '../Home/Navbar'
 import Footer from '../Home/Footer'
 import Cloud_Hero from './CLOUD/Cloud_hero'
@@ -14,6 +15,12 @@ const CloudSolutions = () => {
 
   return (
     <div className="relative min-h-screen bg-[#F8FAFC] text-slate-800 overflow-x-hidden font-sans">
+      <SEO
+        title="Cloud Solutions & DevOps Services | AWS & Azure | TechCombo"
+        description="Scalable cloud architecture, migration, DevOps automation, and serverless engineering on AWS, Google Cloud, and Microsoft Azure."
+        keywords="Cloud solutions, AWS migration, Azure cloud services, DevOps automation, cloud architecture"
+        canonical="/cloud-solutions"
+      />
       {/* Navigation */}
       <Navbar />
 

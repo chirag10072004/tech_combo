@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import SEO from '../SEO'
 import Navbar from '../Home/Navbar'
 import Footer from '../Home/Footer'
 import Cyber_Hero from './CYBER/Cyber_hero'
@@ -14,6 +15,12 @@ const CybersecurityServices = () => {
 
   return (
     <div className="relative min-h-screen bg-[#F8FAFC] text-slate-800 overflow-x-hidden font-sans">
+      <SEO
+        title="Cybersecurity Services & Threat Protection | TechCombo"
+        description="Comprehensive cybersecurity services including vulnerability assessments, penetration testing, compliance, and 24/7 security monitoring."
+        keywords="Cybersecurity services, penetration testing, vulnerability assessment, cloud security, network security"
+        canonical="/cybersecurity"
+      />
       {/* Navigation */}
       <Navbar />
 

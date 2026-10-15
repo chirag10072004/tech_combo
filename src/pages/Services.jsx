@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import SEO from '../Components/SEO'
 import Navbar from '../Components/Home/Navbar'
 import ServicesHero from '../Components/Services/ServicesHero'
 import HomeServices from '../Components/Home/Services'
@@ -15,6 +16,12 @@ const Services = () => {
 
   return (
     <div className="relative min-h-screen bg-[#F8FAFC] text-slate-800 overflow-x-hidden font-sans">
+      <SEO
+        title="Our Services | TechCombo - Custom Software, Cloud & Web Solutions"
+        description="Explore TechCombo's comprehensive technology services: custom software development, mobile apps, web solutions, cloud engineering, and cybersecurity."
+        keywords="IT services, software engineering, web design, mobile apps, cloud computing, cybersecurity"
+        canonical="/services"
+      />
       {/* Navigation */}
       <Navbar />
 

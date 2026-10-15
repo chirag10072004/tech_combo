@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import SEO from '../Components/SEO'
 import Navbar from '../Components/Home/Navbar'
 import ContactHero from '../Components/contact/ContactHero'
 import ContactForm from '../Components/contact/ContactForm'
@@ -16,6 +17,12 @@ const Contact = () => {
 
   return (
     <div className="relative min-h-screen bg-[#F8FAFC] text-slate-800 overflow-x-hidden font-sans">
+      <SEO
+        title="Contact Us | TechCombo - Get in Touch for IT Consulting"
+        description="Ready to elevate your tech stack? Contact TechCombo today to discuss your web, mobile, custom software, or cloud project."
+        keywords="Contact TechCombo, hire software developers, IT consultation, tech quote"
+        canonical="/contact"
+      />
       {/* Existing Navbar */}
       <Navbar />
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import SEO from '../SEO'
 import Navbar from '../Home/Navbar'
 import Footer from '../Home/Footer'
 import Web_Hero from './WEB_DEV/web_hero'
@@ -14,6 +15,12 @@ const WebDevelopment = () => {
 
   return (
     <div className="relative min-h-screen bg-[#F8FAFC] text-slate-800 overflow-x-hidden font-sans">
+      <SEO
+        title="Web Development Services | TechCombo"
+        description="High-performance, modern, and SEO-optimized web development services by TechCombo. Full-stack custom web applications and portals."
+        keywords="Web development services, frontend development, backend development, React web development, fullstack agency"
+        canonical="/web-development"
+      />
       {/* Navigation */}
       <Navbar />
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import SEO from '../SEO'
 import Navbar from '../Home/Navbar'
 import Footer from '../Home/Footer'
 import App_Hero from './APP_DEV/App_hero'
@@ -14,6 +15,12 @@ const AppDevelopment = () => {
 
   return (
     <div className="relative min-h-screen bg-[#F8FAFC] text-slate-800 overflow-x-hidden font-sans">
+      <SEO
+        title="Mobile App Development Services | iOS & Android | TechCombo"
+        description="Native and cross-platform mobile app development services for iOS and Android by TechCombo. Delivering scalable, high-performance apps."
+        keywords="Mobile app development, iOS app development, Android app development, React Native, Flutter"
+        canonical="/app-development"
+      />
       {/* Navigation */}
       <Navbar />
 

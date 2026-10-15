@@ -1,0 +1,13 @@
+# Robots.txt for TechCombo (https://techcombo.in)
+User-agent: *
+Allow: /
+
+# Disallow crawling of internal or build resources
+Disallow: /dist/
+Disallow: /node_modules/
+
+# XML Sitemap
+Sitemap: https://techcombo.in/sitemap.xml
+
+# Canonical Host
+Host: https://techcombo.in
